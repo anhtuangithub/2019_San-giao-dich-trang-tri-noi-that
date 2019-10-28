@@ -1,0 +1,650 @@
+    <!DOCTYPE>
+    <html>
+    <head>
+    <title></title>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="css/front-end.css">
+    <link rel="stylesheet" type="text/css" href="css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+
+    <link href="css/resCarousel.css" rel="stylesheet" type="text/css">
+    <script src="js/resCarousel.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/jquery.rateyo.min.css">
+    <script src="js/jquery.rateyo.min.js"></script>
+  
+
+</head>
+<body>
+    <div class="header-main">
+        <div class = "header-top"></div>
+        <section class="header-search">
+            <div class="container-header">
+                <div class="row align-items-center">
+                    <div class="col-lg-3">
+                    <div class="brand-wrap">
+                        <img class="logo" src="file:///D:/LuanVan/bootstrap-ecommerce-uikit/ui-ecommerce/images/logo-dark.png">
+                        <h2 class="logo-text">LOGO</h2>
+                    </div> <!-- brand-wrap.// -->
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <form action="#" class="search-wrap">
+                            <div class="input-group">
+                                <input type="text" class="form-control" style="border: 2px solid #fed700;" placeholder="Search">
+                                <div class="input-group-append">
+                                  <button class="btn btn-search" type="submit">
+                                    <i class="fa fa-search"></i>
+                                  </button>
+                                </div>
+                            </div>
+                        </form> <!-- search-wrap .end// -->
+                    </div> <!-- col.// -->
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="widgets-wrap d-flex justify-content-end">
+                            <div class="widget-header">
+                                <a href="#" class="icontext">
+                                    <div class="icon-wrap icon-xs bg2 round text-secondary"><i class="fa fa-shopping-cart"></i></div>
+                                    <div class="text-wrap">
+                                        <small>Basket</small>
+                                        <span>3 items</span>
+                                    </div>
+                                </a>
+                            </div> <!-- widget .// -->
+                            <div class="widget-header dropdown">
+                                <a href="#" class="ml-3 icontext" data-toggle="dropdown" data-offset="20,10">
+                                    <div class="icon-wrap icon-xs bg2 round text-secondary"><i class="fa fa-user"></i></div>
+                                    <div class="text-wrap">
+                                        <small>Hello.</small>
+                                        <span>Login <i class="fa fa-caret-down"></i></span>
+                                    </div>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <form class="px-4 py-3">
+                                        <div class="form-group">
+                                          <label>Email address</label>
+                                          <input type="email" class="form-control" placeholder="email@example.com">
+                                        </div>
+                                        <div class="form-group">
+                                          <label>Password</label>
+                                          <input type="password" class="form-control" placeholder="Password">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Sign in</button>
+                                        </form>
+                                        <hr class="dropdown-divider">
+                                        <a class="dropdown-item" href="#">Have account? Sign up</a>
+                                        <a class="dropdown-item" href="#">Forgot password?</a>
+                                </div> <!--  dropdown-menu .// -->
+                            </div> <!-- widget  dropdown.// -->
+                        </div>  <!-- widgets-wrap.// -->    
+                    </div> <!-- col.// -->
+                </div> <!-- row.// -->
+            </div> <!-- container.// -->
+        </section> <!-- header-main .// -->
+
+        <nav class="navbar-pro">
+            <div class="departments-menu-v2">
+                <div class="dropdown" onclick="myFunction()" >
+                    <a  class="departments-menu-v2-title">
+                        <span>
+                            <i class="departments-menu-v2-icon fa fa-list-ul"> All Categories</i>
+                        </span>
+                    </a>
+                    <div class="navigation-border" style="padding:0;z-index: 2" > 
+                        <ul class="navigation-wrapper" id="myDropdown" >
+                            <li class="menuItem">
+                                <a class="linkItem">Trang trí nhà cửa</a>
+                                <div class="submenu">
+                                    <ul>
+                                        <li class="submenu-NavSub">Oppo</li>
+                                        <li class="submenu-NavSub">Asus</li>
+                                        <li class="submenu-NavSub">Nokia</li> 
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="menuItem">Trang trí bàn</li>
+                            <li class="menuItem">Quà tặng và hàng thủ công</li>
+                            <li class="menuItem">Hoa, cây cảnh</li>
+                            <li class="menuItem">Đồ dùng thú cưng</li>
+                            <li class="menuItem">Vật phẩm phong thủy</li>
+                            <li class="menuItem">Nến và đèn trang trí</li>
+                            <li class="menuItem">Trang trí cửa sổ và lỗi đi</li>
+                            <li class="menuItem">Trang trí tiệc và sự kiện</li>
+                            <li class="menuItem">Dụng cụ handmade</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="secondary-nav-menu">
+               <ul class="menu-secondary-nav">
+                   <li class="menu-item-2"><a href="">Bạn muốn giao hàng tới</a></li>
+                   <li class="menu-item-2"><a href="">Tất cả sản phẩm chính hiệu</a></li>
+                   <li class="menu-item-2"><a href="">Sản phẩm bạn đã xem</a></li>
+               </ul>
+            </div>
+             <!-- <div class="three-nav-menu">
+                <a href="">
+                    Sản phẩm bạn đã xem
+                </a>
+            </div>
+            <div class="four-nav-menu">
+                <a href="">alo </a>
+            </div> -->
+        </nav>
+    </div>
+   
+    <div class="container-product" style="padding-top: 5px">
+        <div class="row product-summary">
+        	<div class="col-md-5">
+                <div class="mySlides">
+                    <img src="https://vn-live-01.slatic.net/original/a982cd5bd4accb4731c7aba8b41952c1.jpg" class="img-responsive" style="width:100% ;height: 100%;">
+                </div>
+                <div class="mySlides">
+                    <img src="https://vn-live-01.slatic.net/original/69e77c7de4aeabc72bb5443039fb100a.jpg" class="img-responsive" style="width:100% ;height: 100%;">
+                </div>
+
+
+                <a class="prev" onclick="plusSlides(-1)">❮</a>
+                <a class="next" onclick="plusSlides(1)">❯</a>
+                <div class="row-image">
+                    <div class="column-image">
+                        <img class="demo cursor" src="https://vn-live-01.slatic.net/original/69e77c7de4aeabc72bb5443039fb100a.jpg" class="img-responsive" style="width:100%;height: 60px" onclick="currentSlide(1)" alt="">
+                    </div>
+                    <div class="column-image">
+                        <img class="demo cursor" src="https://vn-live-01.slatic.net/original/69e77c7de4aeabc72bb5443039fb100a.jpg" class="img-responsive" style="width:100%;height: 60px" onclick="currentSlide(2)" alt="">
+                    </div>
+                </div>  
+            </div>
+        	<div class="col-md-7">
+                <div class="product-cart">
+                    <table class="table table-borderless">
+                    <tr>
+                        <td><span class="detail-tilte-item">Tên sản phẩm</span></td>
+                    </tr>
+                    <tr>
+                        <table class="table table-borderless table-custom-responsive">
+                            <tr>
+                                <td><span class="detail-content-item">Thuộc người đăng :</span> 
+                                    <a href="#" style="color: blue; font-size: 16px"></a></td>   
+                            </tr>
+                            <tr>
+                                <td><span class="detail-content-item">Số lượng còn lại :</span> </td> 
+                            </tr>
+                            <tr>
+                              
+                                <td>
+                                    <span class="detail-content-item" >Giá : <i style="text-decoration: line-through;">100000</i></span>
+                                    <span class="detail-content-item" style="color:red;">
+                                        10000
+                                    </span>
+                                </td>
+                            </tr> 
+                            <tr>
+                                <td><span class="detail-content-item">Đánh giá : </span>
+                                <div id="rateYo"></div></td>    
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="#">
+                                        <button class="btn btn-theme-yellow">Mua ngay</button>
+                                    </a>
+                                     <a href="#">
+                                        <button class="btn btn-theme-orange">Thêm vào giỏ hàng</button>
+                                    </a>
+                                </td>
+
+                            </tr>
+                        </table>                            
+                    </tr>
+                </table>
+                </div>   
+            </div>
+
+            
+        </div>
+<!--Thông tin chi tiết-->
+      
+        <div class="col-md-12" style="background-color: #fff; margin: 20px 0;">
+              <div class="product-header">
+                <h3 class="tilte-deal-black">
+                    Mô tả sản phẩm
+                </h3>
+            </div>
+            <hr>
+            {!!$detailItem->moTa !!}
+        </div>
+
+<!--Nhận xét-->
+        
+        <div class="col-md-12" style="margin:20px 0px;background-color: #fff">
+            <div class="product-header">
+                <h3 class="tilte-deal-black">
+                    Khách hàng nhận xét
+                </h3>
+            </div>
+            <hr>
+            <!-- Hiển thị nhận xét -->
+            <div class="review-list">
+                <div class="review-item">
+                    <div class="review-col-left">
+                        <p class="review-name">Ngô Quốc Minh</p>
+                        <p class="review-time">22/10/2019</p>
+                    </div>
+                    <div class="review-col-right">
+                        <div class="review-info">
+                            <div class="rating">
+                                <span id="rateYo_feedback" style="padding: 0;"></span>
+                                <p class="review">Hài lòng</p>
+                                <p class="buy-already"><i class="fa fa-check-circle-o" style=""></i> Đã mua sản phẩm này tại Tiki</p>
+                            </div>
+                            <div class="review-content">
+                                <p>Sản phẩm chính hãng CASIO chất lượng tốt, nhiều tính năng Kiểu dáng mạnh mẻ, nam tính, dễ phối đồ Rất hài lòng với cách đóng gói và giao hàng của tiki</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="review-item">
+                    <div class="review-col-left">
+                        <p class="review-name">Ngô Quốc Minh</p>
+                        <p class="review-time">22/10/2019</p>
+                    </div>
+                    <div class="review-col-right">
+                        <div class="review-info">
+                            <div class="rating">
+                                <span id="rateYo_feedback" style="padding: 0;"></span>
+                                <p class="review">Hài lòng</p>
+                                <p class="buy-already"><i class="fa fa-check-circle-o" style=""></i> Đã mua sản phẩm này tại Tiki</p>
+                            </div>
+                            <div class="review-content">
+                                <p>Sản phẩm chính hãng CASIO chất lượng tốt, nhiều tính năng Kiểu dáng mạnh mẻ, nam tính, dễ phối đồ Rất hài lòng với cách đóng gói và giao hàng của tiki</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--Hỏi đáp về sản phẩm-->
+        <div class="col-md-12" style="margin:20px 0px;background-color: #fff">
+            <div class="product-header">
+                <h3 class="tilte-deal-black">
+                    Hỏi đáp về sản phẩm
+                </h3>
+                <h4 class="title-view-all">Xem tất cả</h4>
+            </div>
+            <hr>
+            <!-- Hiển thị nhận xét -->
+            <ul class="qna-list">
+                <li class="qna-item">
+                    <div class="qna-item-group">
+                        <span class="qna-icon qna-icon-q">Q</span>
+                        <div class="qna-content">mấy má ơi,1 bộ 4 món xmen có 69k mà la làng.cầm 69k đi mua thử dùm coi đc k.hàng tặng người ta k bán rẻ lại k lẽ cho mấy má.tháng 7 ít sân si lại đi.đọc giá với lời giới thiệu sản phẩm cho kỹ hả nói.đã ngu còn tỏ ra nguy hiểm...tui chưa mua mà mới coi là bức xúc dùm rồi</div>
+                        <div class="qna-meta">Huynh T. - 1 tuần trước</div>
+                    </div>
+                    <div class="qna-item-group">
+                        <span class="qna-icon qna-icon-a">A</span>
+                        <div class="qna-content">sao Bức xúc vậy, Tại Họ chưa hiểu thôi khách ơi, bán hàng j cung như làm Dâu Thiên Hạ mà</div>
+                        <div class="qna-meta">Gia Ngân Shop - đã trả lời trong vòng 60 phút</div>
+                    </div>
+                </li>
+                <li class="qna-item">
+                    <div class="qna-item-group">
+                        <span class="qna-icon qna-icon-q">Q</span>
+                        <div class="qna-content">mấy má ơi,1 bộ 4 món xmen có 69k mà la làng.cầm 69k đi mua thử dùm coi đc k.hàng tặng người ta k bán rẻ lại k lẽ cho mấy má.tháng 7 ít sân si lại đi.đọc giá với lời giới thiệu sản phẩm cho kỹ hả nói.đã ngu còn tỏ ra nguy hiểm...tui chưa mua mà mới coi là bức xúc dùm rồi</div>
+                        <div class="qna-meta">Huynh T. - 1 tuần trước</div>
+                    </div>
+                    <div class="qna-item-group">
+                        <span class="qna-icon qna-icon-a">A</span>
+                        <div class="qna-content">sao Bức xúc vậy, Tại Họ chưa hiểu thôi khách ơi, bán hàng j cung như làm Dâu Thiên Hạ mà</div>
+                        <div class="qna-meta">Gia Ngân Shop - đã trả lời trong vòng 60 phút</div>
+                    </div>
+                </li>
+            </ul>
+            <div class="qna-form">
+                <p class="form-qna">
+                    <input type="text" class="form-control" placeholder="Hãy đặt câu hỏi của bạn...">
+                    <button class="btn btn-add-question">Gửi câu hỏi</button>
+                </p>
+            </div>
+
+        </div>
+
+<!--Sản phẩm liên quan-->
+        
+         <div class="resCarousel" style="margin:20px 0;background-color: #fff" data-items="2-3-4-5" data-slide="5" data-speed="900" data-interval="4000" data-load="3" data-animator="lazy">
+            <div class="product-header">
+                <h3 class="tilte-deal-black">
+                    Sản phẩm liên quan
+                </h3>
+            </div>
+            <div class="resCarousel-inner" id="eventLoad">
+                <div class="item">
+                    <div class="tile">
+                        <div class="item-image">
+                            <img src="demoImg.jpg" alt="">
+                        </div>
+                       <div class="item-name-carousel">
+                            <div class="product-title-carousel">Tên sản phẩm rất là dàsản phẩm rất là dài </div>
+                            <span class="product-price-carousel">90.000</span>
+                            <span class="product-sales-off-carousel">45.000</span>
+                            <span class="ribbon-carousel">N/A</span>
+                        </div>
+                    </div>
+                </div>
+                 <div class="item">
+                    <div class="tile">
+                        <div class="item-image">
+                            <img src="demoImg.jpg" alt="">
+                        </div>
+                       <div class="item-name-carousel">
+                            <div class="product-title-carousel">Tên sản phẩm rất là dàsản phẩm rất là dài </div>
+                            <span class="product-price-carousel">90.000</span>
+                            <span class="product-sales-off-carousel">45.000</span>
+                            <span class="ribbon-carousel">N/A</span>
+                        </div>
+                    </div>
+                </div>
+                 <div class="item">
+                    <div class="tile">
+                        <div class="item-image">
+                            <img src="demoImg.jpg" alt="">
+                        </div>
+                       <div class="item-name-carousel">
+                            <div class="product-title-carousel">Tên sản phẩm rất là dàsản phẩm rất là dài </div>
+                            <span class="product-price-carousel">90.000</span>
+                            <span class="product-sales-off-carousel">45.000</span>
+                            <span class="ribbon-carousel">N/A</span>
+                        </div>
+                    </div>
+                </div>
+                 <div class="item">
+                    <div class="tile">
+                        <div class="item-image">
+                            <img src="demoImg.jpg" alt="">
+                        </div>
+                       <div class="item-name-carousel">
+                            <div class="product-title-carousel">Tên sản phẩm rất là dàsản phẩm rất là dài </div>
+                            <span class="product-price-carousel">90.000</span>
+                            <span class="product-sales-off-carousel">45.000</span>
+                            <span class="ribbon-carousel">N/A</span>
+                        </div>
+                    </div>
+                </div>
+                 <div class="item">
+                    <div class="tile">
+                        <div class="item-image">
+                            <img src="demoImg.jpg" alt="">
+                        </div>
+                       <div class="item-name-carousel">
+                            <div class="product-title-carousel">Tên sản phẩm rất là dàsản phẩm rất là dài </div>
+                            <span class="product-price-carousel">90.000</span>
+                            <span class="product-sales-off-carousel">45.000</span>
+                            <span class="ribbon-carousel">N/A</span>
+                        </div>
+                    </div>
+                </div>
+                 <div class="item">
+                    <div class="tile">
+                        <div class="item-image">
+                            <img src="demoImg.jpg" alt="">
+                        </div>
+                       <div class="item-name-carousel">
+                            <div class="product-title-carousel">Tên sản phẩm rất là dàsản phẩm rất là dài </div>
+                            <span class="product-price-carousel">90.000</span>
+                            <span class="product-sales-off-carousel">45.000</span>
+                            <span class="ribbon-carousel">N/A</span>
+                        </div>
+                    </div>
+                </div>
+                 <div class="item">
+                    <div class="tile">
+                        <div class="item-image">
+                            <img src="demoImg.jpg" alt="">
+                        </div>
+                       <div class="item-name-carousel">
+                            <div class="product-title-carousel">Tên sản phẩm rất là dàsản phẩm rất là dài </div>
+                            <span class="product-price-carousel">90.000</span>
+                            <span class="product-sales-off-carousel">45.000</span>
+                            <span class="ribbon-carousel">N/A</span>
+                        </div>
+                    </div>
+                </div>
+                 <div class="item">
+                    <div class="tile">
+                        <div class="item-image">
+                            <img src="demoImg.jpg" alt="">
+                        </div>
+                       <div class="item-name-carousel">
+                            <div class="product-title-carousel">Tên sản phẩm rất là dàsản phẩm rất là dài </div>
+                            <span class="product-price-carousel">90.000</span>
+                            <span class="product-sales-off-carousel">45.000</span>
+                            <span class="ribbon-carousel">N/A</span>
+                        </div>
+                    </div>
+                </div>
+                 <div class="item">
+                    <div class="tile">
+                        <div class="item-image">
+                            <img src="demoImg.jpg" alt="">
+                        </div>
+                       <div class="item-name-carousel">
+                            <div class="product-title-carousel">Tên sản phẩm rất là dàsản phẩm rất là dài </div>
+                            <span class="product-price-carousel">90.000</span>
+                            <span class="product-sales-off-carousel">45.000</span>
+                            <span class="ribbon-carousel">N/A</span>
+                        </div>
+                    </div>
+                </div>
+                 <div class="item">
+                    <div class="tile">
+                        <div class="item-image">
+                            <img src="demoImg.jpg" alt="">
+                        </div>
+                       <div class="item-name-carousel">
+                            <div class="product-title-carousel">Tên sản phẩm rất là dàsản phẩm rất là dài </div>
+                            <span class="product-price-carousel">90.000</span>
+                            <span class="product-sales-off-carousel">45.000</span>
+                            <span class="ribbon-carousel">N/A</span>
+                        </div>
+                    </div>
+                </div>
+                 <div class="item">
+                    <div class="tile">
+                        <div class="item-image">
+                            <img src="demoImg.jpg" alt="">
+                        </div>
+                       <div class="item-name-carousel">
+                            <div class="product-title-carousel">Tên sản phẩm rất là dàsản phẩm rất là dài </div>
+                            <span class="product-price-carousel">90.000</span>
+                            <span class="product-sales-off-carousel">45.000</span>
+                            <span class="ribbon-carousel">N/A</span>
+                        </div>
+                    </div>
+                </div>
+                 <div class="item">
+                    <div class="tile">
+                        <div class="item-image">
+                            <img src="demoImg.jpg" alt="">
+                        </div>
+                       <div class="item-name-carousel">
+                            <div class="product-title-carousel">Tên sản phẩm rất là dàsản phẩm rất là dài </div>
+                            <span class="product-price-carousel">90.000</span>
+                            <span class="product-sales-off-carousel">45.000</span>
+                            <span class="ribbon-carousel">N/A</span>
+                        </div>
+                    </div>
+                </div>
+                 <div class="item">
+                    <div class="tile">
+                        <div class="item-image">
+                            <img src="demoImg.jpg" alt="">
+                        </div>
+                       <div class="item-name-carousel">
+                            <div class="product-title-carousel">Tên sản phẩm rất là dàsản phẩm rất là dài </div>
+                            <span class="product-price-carousel">90.000</span>
+                            <span class="product-sales-off-carousel">45.000</span>
+                            <span class="ribbon-carousel">N/A</span>
+                        </div>
+                    </div>
+                </div>
+                 <div class="item">
+                    <div class="tile">
+                        <div class="item-image">
+                            <img src="demoImg.jpg" alt="">
+                        </div>
+                       <div class="item-name-carousel">
+                            <div class="product-title-carousel">Tên sản phẩm rất là dàsản phẩm rất là dài </div>
+                            <span class="product-price-carousel">90.000</span>
+                            <span class="product-sales-off-carousel">45.000</span>
+                            <span class="ribbon-carousel">N/A</span>
+                        </div>
+                    </div>
+                </div>
+                 <div class="item">
+                    <div class="tile">
+                        <div class="item-image">
+                            <img src="demoImg.jpg" alt="">
+                        </div>
+                       <div class="item-name-carousel">
+                            <div class="product-title-carousel">Tên sản phẩm rất là dàsản phẩm rất là dài </div>
+                            <span class="product-price-carousel">90.000</span>
+                            <span class="product-sales-off-carousel">45.000</span>
+                            <span class="ribbon-carousel">N/A</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                
+
+
+            </div>
+            <button class='btn btn-default leftRs'><</button>
+            <button class='btn btn-default rightRs'>></button>
+        </div>     
+    </div> <!-- End Container-product -->
+    <div class="footer">
+        
+    </div>
+</body>
+</html>
+
+<script>
+    function myFunction() {
+      document.getElementById("myDropdown").classList.add("show");
+    }
+</script>
+<script>
+    var slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("demo");
+        var captionText = document.getElementById("caption");
+        if (n > slides.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex-1].style.display = "block";
+        dots[slideIndex-1].className += " active";
+    }
+        //ResCarouselCustom();
+        var pageRefresh = true;
+
+        function ResCarouselCustom() {
+            var items = $("#dItems").val(),
+                slide = $("#dSlide").val(),
+                speed = $("#dSpeed").val(),
+                interval = $("#dInterval").val()
+
+            var itemsD = "data-items=\"" + items + "\"",
+                slideD = "data-slide=\"" + slide + "\"",
+                speedD = "data-speed=\"" + speed + "\"",
+                intervalD = "data-interval=\"" + interval + "\"";
+
+
+            var atts = "";
+            atts += items != "" ? itemsD + " " : "";
+            atts += slide != "" ? slideD + " " : "";
+            atts += speed != "" ? speedD + " " : "";
+            atts += interval != "" ? intervalD + " " : ""
+
+            //console.log(atts);
+
+            var dat = "";
+            dat += '<h4 >' + atts + '</h4>'
+            dat += '<div class=\"resCarousel\" ' + atts + '>'
+            dat += '<div class="resCarousel-inner">'
+            for (var i = 1; i <= 14; i++) {
+                dat += '<div class=\"item\"><div><h1>' + i + '</h1></div></div>'
+            }
+            dat += '</div>'
+            dat += '<button class=\'btn btn-default leftRs\'><i class=\"fa fa-fw fa-angle-left\"></i></button>'
+            dat += '<button class=\'btn btn-default rightRs\'><i class=\"fa fa-fw fa-angle-right\"></i></button>    </div>'
+            console.log(dat);
+            $("#customRes").html(null).append(dat);
+
+            if (!pageRefresh) {
+                ResCarouselSize();
+            } else {
+                pageRefresh = false;
+            }
+            //ResCarouselSlide();
+        }
+
+        $("#eventLoad").on('ResCarouselLoad', function() {
+            //console.log("triggered");
+            var dat = "";
+            var lenghtI = $(this).find(".item").length;
+            if (lenghtI <= 15) {
+                for (var i = lenghtI; i < lenghtI; i++) {
+                    dat += '<div class="item"><div class="tile"><div><h1>' + (i + 1) + '</h1></div><h3>Title</h3><p>content</p></div></div>'
+                }
+                $(this).append(dat);
+            }
+        });
+
+        $(function () {
+ 
+            $("#rateYo").rateYo({
+                starWidth: "30px",
+                rating:4,
+                fullStar: true,
+                readOnly: true
+            });
+         
+        });
+
+        $(function () {
+
+            $("#rateYo_feedback").rateYo({
+                starWidth: "15px",
+                rating:5,
+                fullStar: true,
+                readOnly: true
+            });
+         
+        });
+
+
+    </script>

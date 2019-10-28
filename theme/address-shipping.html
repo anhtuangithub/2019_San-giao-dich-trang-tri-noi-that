@@ -1,0 +1,230 @@
+    <!DOCTYPE>
+    <html>
+    <head>
+    <title></title>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="css/front-end.css">
+    <link rel="stylesheet" type="text/css" href="css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+</head>
+<body>
+    <div class="header-main">
+        <div class = "header-top"></div>
+        <section class="header-search">
+            <div class="container-header">
+                <div class="row align-items-center">
+                    <div class="col-lg-3">
+                    <div class="brand-wrap">
+                        <img class="logo" src="file:///D:/LuanVan/bootstrap-ecommerce-uikit/ui-ecommerce/images/logo-dark.png">
+                        <h2 class="logo-text">LOGO</h2>
+                    </div> <!-- brand-wrap.// -->
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <form action="#" class="search-wrap">
+                            <div class="input-group">
+                                <input type="text" class="form-control" style="border: 2px solid #fed700;" placeholder="Search">
+                                <div class="input-group-append">
+                                  <button class="btn btn-search" type="submit">
+                                    <i class="fa fa-search"></i>
+                                  </button>
+                                </div>
+                            </div>
+                        </form> <!-- search-wrap .end// -->
+                    </div> <!-- col.// -->
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="widgets-wrap d-flex justify-content-end">
+                            <div class="widget-header">
+                                <a href="#" class="icontext">
+                                    <div class="icon-wrap icon-xs bg2 round text-secondary"><i class="fa fa-shopping-cart"></i></div>
+                                    <div class="text-wrap">
+                                        <small>Basket</small>
+                                        <span>3 items</span>
+                                    </div>
+                                </a>
+                            </div> <!-- widget .// -->
+                            <div class="widget-header dropdown">
+                                <a href="#" class="ml-3 icontext" data-toggle="dropdown" data-offset="20,10">
+                                    <div class="icon-wrap icon-xs bg2 round text-secondary"><i class="fa fa-user"></i></div>
+                                    <div class="text-wrap">
+                                        <small>Hello.</small>
+                                        <span>Login <i class="fa fa-caret-down"></i></span>
+                                    </div>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <form class="px-4 py-3">
+                                        <div class="form-group">
+                                          <label>Email address</label>
+                                          <input type="email" class="form-control" placeholder="email@example.com">
+                                        </div>
+                                        <div class="form-group">
+                                          <label>Password</label>
+                                          <input type="password" class="form-control" placeholder="Password">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Sign in</button>
+                                        </form>
+                                        <hr class="dropdown-divider">
+                                        <a class="dropdown-item" href="#">Have account? Sign up</a>
+                                        <a class="dropdown-item" href="#">Forgot password?</a>
+                                </div> <!--  dropdown-menu .// -->
+                            </div> <!-- widget  dropdown.// -->
+                        </div>  <!-- widgets-wrap.// -->    
+                    </div> <!-- col.// -->
+                </div> <!-- row.// -->
+            </div> <!-- container.// -->
+        </section> <!-- header-main .// -->
+
+        <nav class="navbar-pro">
+            <div class="departments-menu-v2">
+                <div class="dropdown" onclick="myFunction()" >
+                    <a  class="departments-menu-v2-title">
+                        <span>
+                            <i class="departments-menu-v2-icon fa fa-list-ul"> All Categories</i>
+                        </span>
+                    </a>
+                    <div class="navigation-border" style="padding:0;z-index: 2" > 
+                        <ul class="navigation-wrapper" id="myDropdown" >
+                            <li class="menuItem">
+                                <a class="linkItem">Trang trí nhà cửa</a>
+                                <div class="submenu">
+                                    <ul>
+                                        <li class="submenu-NavSub">Oppo</li>
+                                        <li class="submenu-NavSub">Asus</li>
+                                        <li class="submenu-NavSub">Nokia</li> 
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="menuItem">Trang trí bàn</li>
+                            <li class="menuItem">Quà tặng và hàng thủ công</li>
+                            <li class="menuItem">Hoa, cây cảnh</li>
+                            <li class="menuItem">Đồ dùng thú cưng</li>
+                            <li class="menuItem">Vật phẩm phong thủy</li>
+                            <li class="menuItem">Nến và đèn trang trí</li>
+                            <li class="menuItem">Trang trí cửa sổ và lỗi đi</li>
+                            <li class="menuItem">Trang trí tiệc và sự kiện</li>
+                            <li class="menuItem">Dụng cụ handmade</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="secondary-nav-menu">
+               <ul class="menu-secondary-nav">
+                   <li class="menu-item-2"><a href="">Bạn muốn giao hàng tới</a></li>
+                   <li class="menu-item-2"><a href="">Tất cả sản phẩm chính hiệu</a></li>
+                   <li class="menu-item-2"><a href="">Sản phẩm bạn đã xem</a></li>
+               </ul>
+            </div>
+        </nav>
+    </div>
+   
+    <div class="container-product" style="padding-top: 5px">
+         <div class="product-header">
+            <h3 class="tilte-deal-black">
+                Thông tin giao hàng
+            </h3>
+        </div>
+        <div class="col-md-6">
+            <div class="info-shipping">
+                <p><strong>Lê Anh Tuấn</strong></p>
+                <div class="shipping-content">
+                    <p>Địa chỉ: khu vực 3, phường Thuận An, thị xã Long Mỹ, Tỉnh Hậu Giang</p>
+                    <p>Điện thoại: 0941 426 824</p>
+                </div>
+                <div class="btn-address-shipping">
+                    <button class="btn btn-warning">Chọn địa chỉ này</button>
+                    <button class="btn btn-secondary">Sửa</button>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="border: 1px solid #ddd;">
+            <div class="col-md-6 offset-md-3" style="padding-top: 20px;">
+                <form action="">
+                    <div class="form-group">
+                        <label for="usr">Họ tên:</label>
+                        <input type="text" class="form-control" id="usr">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Điện thoại di động:</label>
+                        <input type="text" class="form-control" id="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="province">Tỉnh:</label>
+                        <select class="form-control" id="province">
+                            <option>Hậu Giang</option>
+                            <option>Cần Thơ</option>
+                            <option>Sóc Trăng</option>
+                            <option>Vĩnh Long</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="district">Tỉnh:</label>
+                        <select class="form-control" id="district">
+                            <option>Huyện Vị Thủy</option>
+                            <option>Huyện Phụng Hiệp</option>
+                            <option>Huyện Châu Thành A</option>
+                            <option>Thị xã Long Mỹ</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="ward">Tỉnh:</label>
+                        <select class="form-control" id="ward">
+                            <option>Phường Trà Lồng</option>
+                            <option>Phường Vĩnh Tường</option>
+                            <option>Phường Bình Thạnh</option>
+                            <option>Phường Thuận An</option>
+                        </select>
+                    </div>
+                     <div class="form-group">
+                        <label for="pwd">Địa chỉ:</label>
+                        <input type="address" class="form-control" >
+                    </div>
+                    <button class="btn btn-checkout">Cập nhật</button>
+                </form>
+            </div>
+        </div>
+    </div> <!-- End Container-product -->
+    <div class="footer">
+        
+    </div>
+</body>
+</html>
+<script>
+    function myFunction() {
+      document.getElementById("myDropdown").classList.add("show");
+    }
+</script>
+<script>
+    var slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("demo");
+        var captionText = document.getElementById("caption");
+        if (n > slides.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex-1].style.display = "block";
+        dots[slideIndex-1].className += " active";
+        captionText.innerHTML = dots[slideIndex-1].alt;
+    }
+</script>

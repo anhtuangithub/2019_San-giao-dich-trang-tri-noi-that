@@ -1,0 +1,182 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+
+	layout:decorate="~{homepage/parts/layout}" >
+<head>
+<title>Đăng nhập</title>
+</head>
+<body>
+	<div class="container-product" layout:fragment="content" ng-controller="LoginController">
+        <div class="row" style="padding: 20px 0;">
+	        <div class="col-md-6" style="max-height: 500px;min-height: 200px;padding: 0">
+	        	<img th:src="@{/images/noi-that-go-phong-khach-dep.jpg}"  style="width: 100%" alt="">
+	        </div>
+	        <div class="col-md-6" style="background-color: #fff">
+	        	<ul class="nav nav-tabs">
+				    <li class="nav-item">
+				    	<a class="nav-link active" data-toggle="tab" href="#home">Đăng nhập</a>
+				    </li>
+				    <li class="nav-item" >
+				    	<a class="nav-link" data-toggle="tab" href="#menu1">Đăng kí</a>
+				    </li>
+				</ul>
+					<div class="tab-content">
+						<div id="home" class="tab-pane  active">
+					      	<div class="col-md-12">
+					      		<p th:if="${param.error}" class="alert alert-danger">Vui lòng kiểm tra thông tin</p>
+								<form style="padding: 50px 20px;" method="POST" th:action="@{/noithat246.vn/dang-nhap}">
+									<div class="form-group-custom">
+									  	<label for="usr">Email</label>
+									  	<input type="text" class="color-input-custom" id="usr" name="email" placeholder="abc@gmail.com">
+									</div>
+									<div class="form-group-custom">
+									 	 <label for="pwd">Mật khẩu</label>
+									  	<input type="password" class="color-input-custom" id="pwd" name="password" placeholder="Vui lòng nhập mật khẩu">
+									</div>
+
+									<div class="flex-sb-m w-full p-b-30">
+										<div class="contact100-form-checkbox">
+											<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+											<label class="label-checkbox100" for="ckb1">
+												Remember me
+											</label>
+										</div>
+
+										<div>
+											<a href="" class="txt1"  ng-click="modalResetPass()">
+												Quên mật khẩu ?
+											</a>
+										</div>
+									</div>
+									<div class="form-group-custom">
+										<label for="birthday"></label>
+										<button class="btn color-input-custom" style="background-color: rgb(253, 216, 53);" type="submit">
+										<p style="text-align: center; color: #000">Đăng nhập</p>
+										</button>
+									</div>
+									
+								</form>
+							</div>
+					      
+					    </div>
+					    <div id="menu1" class="tab-pane fade">
+					      	<div class="col-md-12">
+								<form name="frmkm"  action="#"  method="POST" style="padding:50px 20px;">
+									<div class="form-group-custom">
+									 	<label for="name">Tên <span class="help-block">*</span></label>
+									  	<input type="text" class="color-input-custom"  ng-model="info.customers.name" id="name" name="name" placeholder="Nhập họ tên" required="true">
+									  	
+									  	<div  ng-show="frmkm.$submitted || frmkm.name.$touched">
+									      	<span id="helpBlock2" class="help-block"  ng-show="frmkm.name.$error.required">Vui lòng nhập tên</span>
+									      	
+									    </div>
+									</div>
+									<div class="form-group-custom">
+									 	<label for="sdt">SĐT <span class="help-block">*</span></label>
+									  	<input type="text" class="color-input-custom" pattern="(03[2-9]|05[6|8|9]|07[0|6-9]|08[1-9]|09[^5])+([0-9]{7})\b" id="sdt" ng-model="info.customers.phone" name="phone" placeholder=
+									  	"Nhập số điện thoại" required="true">
+									  	
+									  	<div  ng-show="frmkm.$submitted || frmkm.phone.$touched">
+									      	<span id="helpBlock2" class="help-block" ng-show="frmkm.phone.$error.required">Vui lòng nhập số điện thoại</span>
+									    </div>
+									</div>
+									<div class="form-group-custom">
+									  	<label >Email <span class="help-block">*</span></label>
+									  	<input type="email" class="color-input-custom" ng-model="info.email" name="email" placeholder="Nhập email" required="true" ng-Blur="ktTen()">
+									  	
+									  	<div  ng-show="frmkm.$submitted || frmkm.email.$touched">
+									  		<span id="helpBlock2" class="help-block" ng-show="nameError">Tài khoản đã sử dụng</span>
+											<span  ng-show="nameRight" style="color:green">Có thể sử dụng tài khoản</span>
+									      	<span class="help-block" ng-show="frmkm.email.$error.required">Vui lòng nhập Email</span>
+									      	<span class="help-block" ng-show="frmkm.email.$error.email">Vui lòng nhập đúng định dạng</span>
+									    </div>
+									</div>
+									
+									<div class="form-group-custom">
+									 	<label>Mật khẩu <span class="help-block">*</span></label>
+									  	<input type="password" class="color-input-custom" ng-model="info.password" name="password" placeholder="Nhập mật khẩu" required="true">
+									  	
+
+									  	<div  ng-show="frmkm.$submitted || frmkm.password.$touched">
+									      	<span id="helpBlock2" class="help-block" ng-show="frmkm.password.$error.required">Vui lòng nhập mật khẩu</span>
+									    </div>
+									</div>
+
+									<div class="form-group-custom">
+									 	<label>Nhập lại mật khẩu <span class="help-block">*</span></label>
+									  	<input type="password" class="color-input-custom" ng-model="info.repassword" name="repassword" ng-Blur="compare()" placeholder="Nhập mật khẩu" required="true">
+									  	
+
+									  	<div  ng-show="frmkm.$submitted || frmkm.repassword.$touched">
+									  		<span id="helpBlock2" class="help-block" ng-show="inputError">Mật khẩu không trùng nhau</span>
+									      	<span id="helpBlock2" class="help-block" ng-show="frmkm.repassword.$error.required">Vui lòng nhập mật khẩu</span>
+									    </div>
+									</div>
+
+									<div class="form-group-custom">
+									 	<label for="sex">Giới tính</label>
+									  	<div class="form-check-inline">
+										  	<label class="form-check-label">
+										    	<input type="radio" class="form-check-input" ng-model="info.customers.sex" value="Nam" name="sex">Nam
+										  	</label>
+										</div>
+										<div class="form-check-inline">
+										  	<label class="form-check-label">
+										    	<input type="radio" class="form-check-input" ng-model="info.customers.sex" value="Nữ" name="sex">Nữ
+										  	</label>
+										</div>
+									</div>
+									<div class="form-group-custom">
+										<label for="birthday">Ngày sinh</label>
+										<input type="date" class="color-input-custom" ng-model="info.customers.birthday" id="birthday" name="birthday">
+									</div>
+									<div class="form-group-custom">
+										<label for="birthday"></label>
+										<button class="btn color-input-custom" ng-click="createCustomer()" style="background-color: rgb(253, 216, 53);" type="button" ng-disabled="frmkm.$invalid && checkEmail">
+											<p style="text-align: center;color: #000">Tạo tài khoản</p>
+										</button>
+									</div>	
+								</form>
+							</div>
+					      
+					    </div>
+					</div>
+	        	</div>
+			</div>
+
+			<div class="modal" id="modalPass">
+	            <div class="modal-dialog ">
+	                <div class="modal-content" style="background-color: rgb(248, 248, 248);">
+	          
+	                    <div class="modal-header">
+	                        <h4 class="modal-title">Quên mật khẩu?</h4>
+	                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	                    </div>
+	                    <div class="modal-body">
+	                       	<p>Vui lòng cung cấp email hoặc số điện thoại đăng nhập để lấy lại mật khẩu.</p>
+	                       	<br>
+	                        <div class="col-md-10 offset-md-1">
+	                        	<div class="form-group">
+		                            <input type="email" class="form-control" ng-model="resetPass.email" name="email" placeholder="abc@gmail.com">
+		                        </div>
+		                        <div class="form-group">
+		                            <button class="btn form-control" style="background-color: rgb(253, 216, 53);" type="button" ng-click="resetPass()">
+		                            <p>Gửi</p>
+		                            </button>
+		                        </div>
+	                        </div>
+
+	                    </div>
+	                    
+	            
+	                </div>
+	            </div>
+	        </div>
+    </div><!-- End Container-product -->
+</body>
+<section layout:fragment="script">
+    <script th:src="@{/js/angularjs/controller/LoginController.js}"></script>
+</section>
+
+</html>
+
+

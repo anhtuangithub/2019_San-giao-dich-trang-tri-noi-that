@@ -1,0 +1,68 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{homepage/parts/layout}">
+<head>
+<title>Quản lý tài khoản</title>
+</head>
+<body>
+	<div class="container-product" layout:fragment="content" ng-controller="AccountReview">
+         
+        <div layout:replace="~{homepage/parts/side-bar :: side-bar}"></div>
+
+        <div class="product-listing-grid">
+             <div class="product-header">
+                <h3 class="title-deal">
+                    Nhận xét của bạn
+                </h3>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="empty-content" ng-if="listReview.content.length <= 0">
+                        <img th:src="@{/images/tiki-not-found-pgae.png}" alt="">
+                        <p>Viết nhận xét với sản phẩm bạn đã sử dụng để cung cấp thông tin hữu ích cho mọi người</p>
+                         <a href="/noithat246.vn" class="btn btn-search"> Tiếp tục mua sắm</a>
+                    </div>
+                    <div class="check-out-shop"  ng-repeat="review in listReview.content" ng-if="listReview.content.length > 0">
+                        <div class="check-out-children" >
+                            <div class="cart-item">
+                                <div class="cart-item-inner">
+                                    <div class="cart-item-left" style="border-right: 1px solid #eff0f5">
+                                        <div class="cart-img-wrap">
+                                            <img ng-src="/img/uploads/{{review.products.avatar}}" alt="san-pham">
+                                        </div>
+                                        <div class="cart-item-name">
+                                            <a ng-href="/noithat246.vn/chi-tiet-san-pham/{{review.products.id}}">{{review.products.name}}</a>
+                                            <hr>
+                                            <p class="order-quantiy">Nhận xét</p>
+                                            <p class="cart-item-name">{{review.content}}</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="cart-item-middle">
+                                        <p>Đăng bởi <span style="padding-top: 10px;color:#1a9cb7;">{{review.products.stores.name}}</span></p>
+                                        <p class="order-quantiy">Đánh giá</p>
+                                         <rate-yo rating="review.rating"></rate-yo>
+                                    </div>
+                                </div>
+                            </div>                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+    	</div>
+       	 <div class="pull-right">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-end" id="pageable-custom">
+                </ul>
+            </nav>
+        </div>
+    </div> <!-- End Container-product -->
+</body>
+<section layout:fragment="script">
+    <script th:src="@{/js/searchAdvanted.js}"></script>
+    <script th:src="@{/js/angularjs/controller/AccountReview.js}"></script>
+
+</section>
+
+</html>
+
+

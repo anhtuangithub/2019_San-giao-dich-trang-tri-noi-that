@@ -1,0 +1,108 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{homepage/parts/layout}">
+<head>
+<title>Quản lý tài khoản</title>
+</head>
+<body>
+	<div class="container-product" layout:fragment="content" ng-controller="AccountAllOrderController">
+         
+        <div layout:replace="~{homepage/parts/side-bar :: side-bar}"></div>
+
+        <div class="product-listing-grid">
+           <div class="col-md-12" style="height: 400px; padding-top: 20px" ng-show="orderGroups.length <= 0">
+	            <div class="empty-content">
+                    <img th:src="@{/images/tiki-not-found-pgae.png}" alt="">
+                    <p>Bạn chưa mua sản phẩm nào</p>
+                    <a href="/noithat246.vn" class="btn btn-search"> Tiếp tục mua sắm</a>
+                </div>
+	        </div>
+	        <div class="row" ng-show="orderGroups.content.length > 0">
+					
+				<div class="product-header">
+	                <h3 class="title-deal">
+	                    Đơn hàng của bạn
+	                </h3>
+	            </div>
+
+	            <div class="recent-orders" style="background-color: #f1f1f1;">
+	            	<div class="check-out-shop" ng-repeat="orderGroup in orderGroups.content">
+	                    <div class="check-out-name-shop">
+	                        <span>#{{orderGroup.id}}</span>
+	                        <a  ng-href="/noithat246.vn/tai-khoan/order-detail-{{orderGroup.id}} ">
+	                        	<p class="pull-right" style="padding-top: 10px;color:#1a9cb7;">Quản lý</p>
+	                        </a>
+	                        
+	                    </div>
+	                    <div class="check-out-children">
+	                        <div class="cart-item" ng-repeat="order in orderGroup.orders">
+	                            <div class="cart-item-inner" ng-repeat="detail in order.orderDetail">
+	                                <div class="cart-item-left">
+	                                    <div class="cart-img-wrap">
+	                                        <img  ng-src="/img/uploads/{{detail.product.avatar}}" alt="avatar" style="width: 60px;height: 60px;padding:2px;" >
+	                                    </div>
+	                                    <div class="cart-item-name">
+	                                        <a ng-href="/noithat246.vn/chi-tiet-san-pham/{{detail.product.id}}">{{detail.product.name}}</a>
+
+	                                    </div>
+	                                </div>
+	                                <div class="cart-item-middle">
+	                                	<p>Qty: {{detail.quantity}}</p>
+	                                  	<p>Trạng thái: {{order.orderStatus.name }}</p>
+	                                </div>
+	                                <div class="cart-item-right">
+	                                    
+	                                    <p>{{orderGroup.created_at | date: "dd-MM-yyyy 'at' h:mma":'UTC'}}</p>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	    	</div>
+	    	<div class="pull-right">
+		        <nav aria-label="Page navigation example">
+		            <ul class="pagination justify-content-end" id="pageable-custom">
+		            </ul>
+		        </nav>
+		    </div>
+    	</div>
+		
+       	
+    </div> <!-- End Container-product -->
+</body>
+<section layout:fragment="script">
+	<script th:src="@{/js/searchAdvanted.js}"></script>
+    <script>
+        apt.controller('AccountAllOrderController',function($scope,$http,URL_Home){
+	
+			let checkParams = new URLSearchParams(window.location.search);
+	
+			var numberpage =0;
+			if(checkParams.has("page")){
+				numberpage = checkParams.get("page");
+			}
+
+			$http.get(URL_Home + 'orders/account-all-order?page='+numberpage)
+			.then(function(response){
+				$scope.orderGroups = response.data;
+			}).then(function(){
+				var totalPages = $scope.orderGroups.totalPages;
+				var currentPage = $scope.orderGroups.number;
+
+				if(totalPages > 1){
+					page(currentPage+1,totalPages);
+				}
+				
+				jQuery(document).ready(function(){
+					filterAndvanted();			
+				});
+			});
+
+			
+		});
+    </script>
+</section>
+
+</html>
+
+

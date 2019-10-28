@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/parts/layout}">
+<head>
+<title>Khuyến Mãi</title>
+
+</head>
+<body>
+	<section layout:fragment="content">
+
+		<div style="padding: 20px;">
+			<h2>Quản lý Khuyến Mãi</h2>
+		</div>
+
+
+		<div class="content" ng-controller="PromotionController">
+			<div class="animated fadeIn">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<strong class="card-title">Data Table</strong>
+							</div>
+							<div class="card-body">
+								<table id="bootstrap-data-table-export"
+									class="table table-bordered table-hover text-center"
+									dt-options="dtOptions" dt-columns="dtColumns" datatable="ng">
+									<thead class="thead-light">
+										<tr>
+											<th>Khuyến mãi</th>
+											<th>Giảm %</th>
+											<th>Ngày áp dụng</th>
+											<th>Ngày kết thúc</th>
+											<th><button class="btn btn-addProduct"
+													ng-click="modal('add')">Thêm khuyến mãi mới</button></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="promotion in listpromotion">
+											<td>{{promotion.name}}</td>
+											<td>{{promotion.sale_off}}%</td>
+											<td>{{promotion.start_time | date: "dd-MM-yyyy 'at' h:mma"}}</td>
+											<td>{{promotion.end_time | date: "dd-MM-yyyy 'at' h:mma"}}</td>
+											<td>
+												<button class="btn-none-background" ng-click="modal('edit',promotion.id)">
+													<span class="table-click-icon fa fa-pencil"></span>
+												</button>
+												<button class="btn-none-background" ng-click="confirmDelete(promotion.id,promotion.name)">
+													<span class="table-click-icon fa fa-trash-o "></span>
+												</button>
+
+											</td>
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+			<!-- .animated -->
+
+
+			<!-- Modal -->
+			<div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">{{ frmTitle }}</h4>
+							<button type="button" class="close" data-dismiss="modal">×</button>
+						</div>
+						<div class="modal-body">
+							<form name="frmkm" class="form-horizontal">
+								<div class="form-group">
+									<label class="control-label">Chương Trình Khuyến Mãi</label> <input
+										type="text" class="form-control" id="txtname" name="txtname"
+										placeholder="Tên khuyến mãi" ng-model="promotion.name"
+										ng-required="true" /> <span id="helpBlock2" class="help-block"
+										ng-show="frmkm.txtname.$error.required">Vui lòng nhập
+										tên chương trình khuyến mãi</span>
+								</div>
+								<div class="form-group">
+									<label>Nội dung</label>
+									<TEXTAREA type="text" class="form-control" id="txtdescription"
+										name="txtdescription" placeholder="Nhập mô tat khuyến mãi"
+										ng-model="promotion.description" ng-required="true"></TEXTAREA>
+									<span id="helpBlock2" class="help-block"
+										ng-show="frmkm.txtdescription.$error.required">Vui lòng
+										nhập nội dung</span>
+								</div>
+								<div class="form-group">
+									<label>Thời gian bắt đầu</label> <input type="datetime-local" 
+										class="form-control" id="txtstarttime" name="txtstarttime"
+										ng-model="promotion.start_time" />
+								</div>
+								<div class="form-group">
+									<label>Thời gian kết thúc</label> <input type="datetime-local"
+										class="form-control" id="txtendtime" name="txtendtime"
+										ng-model="promotion.end_time"  />
+								</div>
+								<div class="form-group">
+									<label>Giá trị</label> <input type="int"
+										class="form-control" id="txtsaleoff" name="txtsaleoff"
+										placeholder="100%" ng-model="promotion.sale_off" ng-required="true" />
+									<span id="helpBlock2" class="help-block"
+										ng-show="frmkm.txtsaleoff.$error.required">Vui lòng nhập
+										giá trị KM</span>
+								</div>
+								<div class="form-group">
+									<label>Danh sách sản phẩm được khuyến mãi: <span class="help-block">*</span>:
+									</label> 
+									<!-- <select ng-model="promotion.products" id="product" name="product" class="selectpicker form-control" multiple  data-live-search="true" data-actions-box="true">
+									  <option ng-repeat="product in listproduct"  value="{{product.id}}"  data-tokens="{{product.name}}">{{product.name}}</option>
+									  
+									</select> -->
+									<select multiple class="form-control selectpicker" data-live-search="true" data-actions-box="true" ng-model="promotion.products" ng-options="product.id as product.name for product in products" required=""></select>
+								</div>
+								<div class="form-group">
+									<label>Trạng thái</label> 
+									<input type="radio" ng-model="promotion.status" 
+										name="txtstatus" ng-value="0"> Kích hoạt 
+									<input type="radio" ng-model="promotion.status"
+										name="txtstatus" ng-value="1"> Tạm khóa
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" ng-disabled="frmkm.$invalid"
+								ng-click="save()">Lưu</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+		</div>
+
+		</div>
+		<!-- .content -->
+
+	</section>
+</body>
+
+<section layout:fragment="script">
+    <script th:src="@{/js/angularjs/controller/PromotionController.js}"></script>
+</section>
+</html>
+
+
+
+

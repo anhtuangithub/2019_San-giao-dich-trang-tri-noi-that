@@ -1,0 +1,86 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{homepage/parts/layout}">
+<head>
+<title>Content</title>
+</head>
+<body>
+	<div layout:fragment="content">
+        <div class="col-md-12">
+	        <p class="title-submit-account">Tham gia bán hàng cùng chúng tôi</p>
+	        
+	    </div>
+	   
+	    <div class="container-product" style="padding-top: 5px;">
+	        <div class="row row-submit-account">
+	            <div class="col-md-3 col-sm-6 col-12">
+	                <div class="face face1">
+	                    <div class="content">
+	                        <img th:src="@{/images/number-one-in-a-circle.png}" alt="">
+	                        <h3>Tháng</h3>
+	                    </div>
+	                </div>
+	                <div class="face face2">
+	                    <div class="content">
+	                        <p><span th:text="${membertypes[0].name}" ></span></p>
+	                        <p><span th:text="${#numbers.formatInteger(membertypes[0].price,3,'POINT')}" ></span>đ</p>
+	                        <a th:href="@{/noithat246.vn/dktv/thong-tin/(the-thanh-vien=${membertypes[0].name},id=${membertypes[0].id})}">Đăng kí</a>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="col-md-3 col-sm-6 col-12">
+	                <div class="face face1">
+	                    <div class="content">
+	                        <img th:src="@{/images/number-three-in-a-circle.png}" alt="">
+	                        <h3>Tháng</h3>
+	                    </div>
+	                </div>
+	                <div class="face face2">
+	                    <div class="content">
+	                        <p><span th:text="${membertypes[1].name}" ></span></p>
+	                        <p><span th:text="${#numbers.formatInteger(membertypes[1].price,3,'POINT')}" ></span>đ</p>
+	                        <a th:href="@{/noithat246.vn/dktv/thong-tin/(the-thanh-vien=${membertypes[1].name},id=${membertypes[1].id})}">Đăng kí</a>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="col-md-3 col-sm-6 col-12">
+	                <div class="face face1">
+	                    <div class="content">
+	                        <img th:src="@{/images/number-six-in-a-circle.png}" alt="">
+	                        <h3>Tháng</h3>
+	                    </div>
+	                </div>
+	                <div class="face face2">
+	                    <div class="content">
+	                        <p><span th:text="${membertypes[2].name}" ></span></p>
+	                        <p><span th:text="${#numbers.formatInteger(membertypes[2].price,3,'POINT')}" ></span>đ</p>
+	                        <a th:href="@{/noithat246.vn/dktv/thong-tin/(the-thanh-vien=${membertypes[2].name},id=${membertypes[2].id})}">Đăng kí</a>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="col-md-3 col-sm-6 col-12">
+	                <div class="face face1">
+	                    <div class="content">
+	                        <img th:src="@{/images/one-year.png}" alt="">
+	                        <h3>Năm</h3>
+	                    </div>
+	                </div>
+	                <div class="face face2">
+	                    <div class="content">
+	                        <p><span th:text="${membertypes[3].name}" ></span></p>
+	                        <p><span th:text="${#numbers.formatInteger(membertypes[3].price,3,'POINT')}" ></span>đ</p>
+	                        <a th:href="@{/noithat246.vn/dktv/thong-tin/(the-thanh-vien=${membertypes[3].name},id=${membertypes[3].id})}">Đăng kí</a>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        
+	    </div>
+        
+    </div> <!-- End Container-product -->
+</body>
+<section layout:fragment="script">
+</section>
+
+</html>
+
+

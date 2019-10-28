@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/parts/layout}">
+<head>
+<title>Loại sản phẩm</title>
+</head>
+<body>
+	<section layout:fragment="content">
+
+		<div style="padding: 20px;">
+			<h4>Quản lý màu của sản phẩm</h4>
+		</div>
+		<div  ng-controller="ColorController">
+		<div class="row">
+			<div class="col-md-6 offset-md-3" style="padding-bottom:20px" >
+		
+				<form name="frmcolors" class="form-horizontal">
+					<div class="form-group">
+						<label>Tên màu:</label>
+						<input type="input" class="form-control" id="txtcolors" name="txtcolors" ng-model="colors.name" required="true"/>
+						<span id="helpBlock2" class="help-block" ng-show="frmcolors.txtcolors.$error.required">Nhập tên nhà sản xuất</span>
+					</div>
+					<div class="pull-right">
+						<button type="submit" class="btn btn-primary" ng-disabled="frmcolors.$invalid" ng-click="save()" >Lưu</button>
+						<button type="submit" class="btn btn-warning" ng-click="cancel()">Hủy</button>
+					</div>
+				</form>
+			</div>
+		</div>	
+		
+			
+		<div class="animated fadeIn">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<strong class="card-title">Danh sách màu</strong>
+							</div>
+							<div class="card-body">
+								<table id="bootstrap-data-table-export"
+									class="table table-active table-bordered table-hover text-center">
+									<thead>
+										<tr>
+											<th>Mã</th>	
+											<th>Màu sản phẩm</th>
+											<th>Trạng thái</th>
+											<th>Sự kiện</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="color in listcolors">
+											<td>{{color.id}}</td>
+											<td>{{color.name}}</td>
+											<td ng-if="color.status == 0"><span class="fa fa-unlock"></span></td>
+											<td ng-if="color.status == 1"><span class="fa fa-lock" style="color:#bd2130"></span></td>
+											<td>
+												
+												<button class="btn-none-background" ng-click="edit(color.id)">
+													<span class="fa fa-pencil table-click-icon"></span>
+												</button>
+												<button class="btn-none-background" ng-click="changeStatus(color.id,color.name,color.status)">
+													<span class="fa fa-exchange table-click-icon"></span>
+												</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- .animated -->
+			</div>
+	</section>
+</body>
+
+<section layout:fragment="script">
+    <script th:src="@{/js/angularjs/controller/ColorController.js}"></script>
+</section>
+</html>
+
+
+
+

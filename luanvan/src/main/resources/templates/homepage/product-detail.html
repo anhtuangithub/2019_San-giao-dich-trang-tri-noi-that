@@ -1,0 +1,349 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{homepage/parts/layout}">
+<head>
+<title>Chi tiết sản phẩm</title>
+</head>
+<body>
+	<div class="container-product" layout:fragment="content" ng-controller="DetailController">
+        
+        <div class="row" style="background-color: #fff;margin: 0">
+            <div class="col-lg-5 col-md-6 col-sm-6 col-12">
+                <div class="mySlides" style="display:block" >
+                    <img style="width:100% ;height: 100%;" id="myimage"
+                        ng-src="/img/uploads/{{product.avatar}}" 
+                    >
+                </div>
+                <div class="mySlides" ng-repeat="img in listImages" style="display: none">
+                    <img style="width:100% ;height: 100%;" 
+                         ng-src="/img/uploads/{{img.path}}" 
+                    >
+                </div>
+
+
+                <a class="prev" onclick="plusSlides(-1)">❮</a>
+                <a class="next" onclick="plusSlides(1)">❯</a>
+                <div class="row-image">
+                    <div class="column-image">
+                        <img ng-src="/img/uploads/{{product.avatar}}" id="1" class="demo cursor active" style="width:100%;height: 60px;" onclick="currentSlide(this.id)" alt="">
+                    </div>
+                    <div class="column-image" ng-repeat="img in listImages" >
+                        <img  ng-src="/img/uploads/{{img.path}}" id="{{$index+2}}" class="demo cursor" style="width:100%;height: 60px;" onclick="currentSlide(this.id)" alt="">
+                    </div>
+                </div>  
+            </div>
+            <div class="col-lg-7 col-md-6 col-sm-6 col-12">
+               <!--  <div id="myresult" class="img-zoom-result"></div> -->
+                <div class="product-cart">
+                    <table class="table table-borderless">
+                    <tr>
+                        <td><span class="detail-tilte-item">{{product.name}}</span></td>
+                    </tr>
+                    <tr>
+                        <table class="table table-borderless table-custom-responsive">
+                            <tr>
+                                <td>
+                                    <span class="detail-content-item">Thuộc người đăng : 
+                                        <a ng-href="/noithat246.vn/store/{{product.stores.name}}?store={{product.stores.id}}" style="color: #fea100; font-size: 16px">{{product.stores.name}}</a>
+                                    </span> 
+                                </td>
+                                <td class="detail-content-item">
+                                    <span>Nhà sản xuất: </span>
+                                    <span>{{product.producers.name}}</span>
+                                </td>   
+                            </tr>
+                            <tr>
+                                <td class="detail-content-item">
+                                    <span>Vật liệu: </span>
+                                    <span>{{product.materials.name}}</span>
+                                </td>
+                                 <td class="detail-content-item">
+                                    <span>Xuất xứ: </span>
+                                    <span>{{product.origins.name}}</span>
+                                </td>
+                            
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span ng-if="product.inventory_number <= 0">Sản phẩm đã hết hàng</span>
+                                    <span class="detail-content-item" ng-if="product.inventory_number >0">Số lượng còn lại : {{product.inventory_number}}</span>
+                                </td> 
+                            </tr>
+                            <tr>
+                              
+                                <td>
+                                    <span class="detail-content-item" >Giá : 
+                                        <i style="text-decoration: line-through;" ng-if="product.price != product.price_new">{{product.price| currency: "":0}}đ</i>
+                                    </span>
+                                    <span class="detail-content-item" style="color:red;">
+                                        {{product.price_new| currency: "":0}}đ
+                                    </span>
+                                </td>
+                            </tr> 
+                           
+                            <tr>
+
+                                <td ng-if="product.avgstart ==0 ">
+                                    <span class="detail-content-item">Đánh giá : chưa có đánh giá</span>
+                                </td>
+                                <td ng-if="product.avgstart !=0 ">
+                                    <span class="detail-content-item">Đánh giá : </span>
+                                    <span id="rateYoProduct"></span>
+                                </td>    
+                            </tr>
+                            <tr ng-if="product.inventory_number > 0">
+                                <td>
+                                    
+                                    <form name="frmkm" class="form-horizontal">
+                                        <input type="number" class="form-control" style="width: 100px;margin-bottom:5px; " name="quantity" id="quantity" max="10" ng-model="quantityOrderDetail" min="1">    
+                                    </form>
+                                    <button class="btn btn-theme-yellow" style="display: inline-block;" ng-click="muahang()">Thêm vào giỏ hàng</button>
+                                    <button class="btn btn-theme-orange" style="display: inline-block;" ng-click="muangay()">Mua ngay</button>
+                                </td>
+                            </tr>
+                        </table>                            
+                    </tr>
+                </table>
+                </div>   
+            </div>
+
+            
+        </div>
+<!--Thông tin chi tiết-->
+      
+        <div class="col-md-12" style="background-color: #fff; margin: 20px 0;">
+            <div class="product-header">
+                <h3 class="tilte-deal-black">
+                    Mô tả sản phẩm
+                </h3>
+            </div>
+            <div ng-bind-html="product.description" class="overflow-detail-product"></div>
+            <div class="product-footer">
+                <a href="javascript:void(0)" class="show-more"> Xem thêm</a>
+                <a href="javascript:void(0)" class="product-footer close-show-more" style="display: none"> Thu gọn nội dung</a>
+            </div>
+           
+        </div>
+
+<!--Nhận xét-->
+        
+        <div class="col-md-12" style="margin:20px 0px;background-color: #fff">
+            <div class="product-header">
+                <h3 class="tilte-deal-black">
+                    Khách hàng nhận xét
+                </h3>
+            </div>
+            <!-- Hiển thị nhận xét -->
+            <div class="review-list">
+                <div class="review-item" ng-if="reviews.length > 0" ng-repeat="review in reviews">
+                    <div class="review-col-left">
+                        <p class="review-name">{{review.user.store.name}}</p>
+                        <p class="review-name">{{review.user.customer.name}}</p>
+                        <p class="review-time">{{review.created_at| date: "dd-MM-yyyy 'at' h:mma ":'UTC' }}</p>
+                    </div>
+                    <div class="review-col-right">
+                        <div class="review-info">
+                            <div class="rating">
+                                <rate-yo rating="review.rating"></rate-yo>
+                                <p class="buy-already"><i class="fa fa-check-circle-o" style=""></i> Đã mua sản phẩm này tại Noithat246</p>
+                            </div>
+                            <div class="review-content">
+                                <p>{{review.content}}</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div ng-if="reviews.length <= 0"  style="text-align: center;">
+                <img  ng-src="/images/smile.svg" alt="" style="width: 50px;height: 50px">
+                <p>Hiện chưa có nhận xét nào cho sản phẩm.</p>
+                <p>Cho người khác biết ý kiến của bạn và trở thành người đầu tiên nhận xét sản phẩm này.</p>
+            </div>
+        </div>
+<!--Hỏi đáp về sản phẩm-->
+        <div class="col-md-12" style="margin:20px 0px;background-color: #fff">
+            <div class="product-header">
+                <h3 class="tilte-deal-black">
+                    Hỏi đáp về sản phẩm
+                </h3>
+                <h4 class="title-view-all">Xem tất cả</h4>
+            </div>
+            <!-- Hiển thị nhận xét -->
+            <ul class="qna-list" >
+                <li class="qna-item" ng-if="questions.length > 0" ng-repeat="question in questions">
+                    <div class="qna-item-group">
+                        <span class="qna-icon qna-icon-q">Q</span>
+                        <div class="qna-content">{{question.content}}</div>
+                        <div class="qna-meta" ng-if="question.user.customer != null">{{question.user.customer.name}} - {{question.created_at| date: "dd-MM-yyyy 'at' h:mma ":'UTC' }}</div>
+                        <div class="qna-meta" ng-if="question.user.store != null">{{question.user.store.name}} - {{question.created_at| date: "dd-MM-yyyy 'at' h:mma ":'UTC' }}</div>
+                    </div>
+                    <div class="qna-item-group" >
+                        <span class="qna-icon qna-icon-a">A</span>
+                        <div class="qna-content">{{question.answers[0].content}}</div>
+                        <div class="qna-meta">{{question.answers[0].stores.name}} - {{question.answers[0].created_at| date: "dd-MM-yyyy 'at' h:mma ":'UTC' }}</div>
+                    </div>
+                </li>
+            </ul>
+            <div ng-if="questions.length <= 0" style="text-align: center;">
+                <img  ng-src="/images/discuss-issue.svg" alt="" style="width: 50px;height: 50px">
+                <p>Chưa có câu hỏi cho sản phẩm này.</p>
+                <p><a ng-href="/noithat246.vn/dang-nhap" style="color:#fea100">Đăng nhập</a> hoặc <a ng-href="/noithat246.vn/dang-nhap" style="color: #fea100">Đăng ký</a> để đặt câu hỏi cho nhà bán hàng ngay và câu trả lời sẽ được hiển thị tại đây.</p>
+            </div>
+            <div class="qna-form" sec:authorize="isAuthenticated()">
+                <p class="form-qna">
+                    <input type="text" ng-model="question" class="form-control" placeholder="Hãy đặt câu hỏi của bạn...">
+                    <button class="btn btn-add-question" ng-click="cauHoi()">Gửi câu hỏi</button>
+                </p>
+            </div>
+
+        </div>
+
+<!--Sản phẩm liên quan-->
+        
+         <div class="resCarousel" style="margin:20px 0;background-color: #fff" data-items="2-3-4-5" data-slide="1"  data-interval="4000" data-load="3" data-animator="lazy">
+            <div class="product-header">
+                <h3 class="tilte-deal-black">
+                    Sản phẩm liên quan
+                </h3>
+            </div>
+            <div class="resCarousel-inner" id="eventLoad">
+
+                <div class="item" ng-repeat="proRelated in productRelated">
+                    <a ng-href="/noithat246.vn/chi-tiet-san-pham/{{proRelated.id}}"  title="{{proRelated.name}}">
+                        <div class="tile">
+                            <div class="item-image">
+                                <img ng-src="/img/uploads/{{proRelated.avatar}}" alt="">
+                            </div>
+                           <div class="item-name-carousel" ng-if="proRelated.price_new != proRelated.price">
+                                <div class="product-title-carousel">{{proRelated.name}} </div>
+                                <span class="product-price-carousel">{{proRelated.price_new | currency: "":0}}đ</span>
+                                <span class="product-sales-off-carousel">{{proRelated.price | currency: "":0}}đ</span>
+                                <span class="ribbon-carousel">{{((proRelated.price - proRelated.price_new)/proRelated.price)*100}}%</span>
+                            </div>
+                            <div class="item-name-carousel" ng-if="proRelated.price_new == proRelated.price">
+                                <div class="product-title-carousel">{{proRelated.name}} </div>
+                                <span class="product-price-carousel">{{proRelated.price | currency: "":0}}đ</span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                </div>
+                
+            </div>
+            <button class='btn btn-default leftRs'><</button>
+            <button class='btn btn-default rightRs'>></button>
+        </div>
+    </div> <!-- End Container-product -->
+</body>
+<section layout:fragment="script">
+    <script th:src="@{/js/resCarousel.js}"></script>
+    <script th:src="@{/js/angularjs/controller/DetailController.js}"></script>
+    <script>
+
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex = Number(slideIndex) + n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("demo");
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex-1].style.display = " block";
+            dots[slideIndex-1].className += " active";
+        }
+
+
+
+        ResCarouselCustom();
+        var pageRefresh = true;
+
+        function ResCarouselCustom() {
+            var items = $("#dItems").val(),
+                slide = $("#dSlide").val(),
+                speed = $("#dSpeed").val(),
+                interval = $("#dInterval").val()
+
+            var itemsD = "data-items=\"" + items + "\"",
+                slideD = "data-slide=\"" + slide + "\"",
+                speedD = "data-speed=\"" + speed + "\"",
+                intervalD = "data-interval=\"" + interval + "\"";
+
+
+            var atts = "";
+            atts += items != "" ? itemsD + " " : "";
+            atts += slide != "" ? slideD + " " : "";
+            atts += speed != "" ? speedD + " " : "";
+            atts += interval != "" ? intervalD + " " : ""
+
+            //console.log(atts);
+
+            var dat = "";
+            dat += '<h4 >' + atts + '</h4>'
+            dat += '<div class=\"resCarousel\" ' + atts + '>'
+            dat += '<div class="resCarousel-inner">'
+            for (var i = 1; i <= 14; i++) {
+                dat += '<div class=\"item\"><div><h1>' + i + '</h1></div></div>'
+            }
+            dat += '</div>'
+            dat += '<button class=\'btn btn-default leftRs\'><i class=\"fa fa-fw fa-angle-left\"></i></button>'
+            dat += '<button class=\'btn btn-default rightRs\'><i class=\"fa fa-fw fa-angle-right\"></i></button>    </div>'
+            $("#customRes").html(null).append(dat);
+
+            if (!pageRefresh) {
+                ResCarouselSize();
+            } else {
+                pageRefresh = false;
+            }
+            //ResCarouselSlide();
+        }
+
+        $("#eventLoad").on('ResCarouselLoad', function() {
+            //console.log("triggered");
+            var dat = "";
+            var lenghtI = $(this).find(".item").length;
+            if (lenghtI <= 15) {
+                for (var i = lenghtI; i < lenghtI; i++) {
+                    dat += '<div class="item"><div class="tile"><div><h1>' + (i + 1) + '</h1></div><h3>Title</h3><p>content</p></div></div>'
+                }
+                $(this).append(dat);
+            }
+        });
+
+        $('.overflow-detail-product').css({height:'200px', overflow:'hidden'});
+
+        $('.show-more').on('click', function() {
+            
+            $('.overflow-detail-product').animate({height:'100%'});
+
+            $(this).css("display","none");
+            $('.close-show-more').css("display","block");
+        });
+
+        $('.close-show-more').click(function(){
+            $('.overflow-detail-product').animate({height:'200px'});
+
+            $(this).css("display","none");
+            $('.show-more').css("display","block");
+        })
+    </script>
+</section>
+
+</html>
+
+

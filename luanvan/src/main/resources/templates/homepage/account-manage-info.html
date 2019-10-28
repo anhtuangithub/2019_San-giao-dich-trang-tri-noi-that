@@ -1,0 +1,82 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{homepage/parts/layout}">
+<head>
+<title>Quản lý tài khoản</title>
+</head>
+<body>
+	<div class="container-product" layout:fragment="content" ng-controller="AccountManageInfoController">
+         
+        <div layout:replace="~{homepage/parts/side-bar :: side-bar}"></div>
+
+        <div class="product-listing-grid">
+            
+	        <div class="row" >
+					
+				<div class="product-header">
+	                <h3 class="title-deal">
+	                    Thông tin tài khoản
+	                </h3>
+	            </div>
+
+	            <div class="recent-orders" >
+	                <div class=" col-8" id="formAdress" >
+                        <div class="card-body">
+                            <form name="frmkm">
+                        	<div class="form-group row padding-10">
+                                <label class="col-sm-4 col-form-label" >Họ tên</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" ng-model="saveCustomer.name" ng-required="true">   
+                                </div>
+                            </div>
+                            <div class="form-group row padding-10">
+                                <label class="col-sm-4 col-form-label" >Số điện thoại</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" ng-model="saveCustomer.phone" ng-required="true" readonly>   
+                                </div>
+                            </div>
+                            <div class="form-group row padding-10">
+                                <label class="col-sm-4 col-form-label" >Giới tính</label>
+                                <div class="col-sm-8">
+                                   <div class="form-check-inline">
+									  	<label class="form-check-label">
+									    	<input type="radio" class="form-check-input" ng-model="saveCustomer.sex" name="optradio" value="Nam">Nam
+									  	</label>
+									</div>
+									<div class="form-check-inline disabled">
+									  	<label class="form-check-label">
+									    	<input type="radio" class="form-check-input" ng-model="saveCustomer.sex" name="optradio" value="Nữ">Nữ
+									  	</label>
+									</div> 
+                                </div>
+                            </div>
+                            <div class="form-group row padding-10">
+                                <label class="col-sm-4 col-form-label" >Ngày sinh</label>
+                                <div class="col-sm-8">
+                                    <input type="date" class="form-control" ng-required="true" ng-model="saveCustomer.birthday" >  
+                                </div>
+                            </div>
+                        </form>
+                            <div class="row padding-10">
+                            	<div class="col-sm-6 offset-sm-3">
+                            		<button class="btn color-input-custom" ng-click="createCustomer()" style="background-color: rgb(253, 216, 53);" type="button" ng-disabled="frmkm.$invalid && checkEmail">
+		                        		<p style="text-align: center;color: #000">Cập nhật</p>
+		                        	</button>
+                            	</div>
+                            </div>
+                        </div>
+                        	
+                        
+                   </div>
+	            </div>
+	    	</div>
+    	</div>
+       	
+    </div> <!-- End Container-product -->
+</body>
+<section layout:fragment="script">
+  <script th:src="@{/js/angularjs/controller/AccountManageInfoController.js}"></script>
+</section>
+
+</html>
+
+

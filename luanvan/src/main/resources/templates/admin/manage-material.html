@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/parts/layout}">
+<head>
+<title>Loại sản phẩm</title>
+</head>
+<body>
+	<section layout:fragment="content">
+
+		<div style="padding: 20px;">
+			<h4>Quản lý nguyên liệu</h4>
+		</div>
+		<div  ng-controller="MaterialController">
+		<div class="row">
+			<div class="col-md-6 offset-md-3" style="padding-bottom:20px" >
+		
+				<form name="frmmaterials" class="form-horizontal">
+					<div class="form-group">
+						<label>Nguyên liệu:</label>
+						<input type="input" class="form-control" id="txtmaterials" name="txtmaterials" ng-model="materials.name" required="true"/>
+						<span id="helpBlock2" class="help-block" ng-show="frmmaterials.txtmaterials.$error.required">Nhập tên nguyên liệu</span>
+					</div>
+					<div class="pull-right">
+						<button type="submit" class="btn btn-primary" ng-disabled="frmmaterials.$invalid" ng-click="save()" >Lưu</button>
+						<button type="submit" class="btn btn-warning" ng-click="cancel()">Hủy</button>
+					</div>
+				</form>
+			</div>
+		</div>	
+		
+			
+		<div class="animated fadeIn">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<strong class="card-title">Danh sách nguyên liệu</strong>
+							</div>
+							<div class="card-body">
+								<table id="bootstrap-data-table-export"
+									class="table table-bordered table-hover text-center">
+									<thead class="thead-light">
+										<tr>
+											<th>Mã</th>	
+											<th>Nguyên liệu</th>
+											<th>Trạng thái</th>
+											<th>Sự kiện</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="material in listmaterials">
+											<td>{{material.id}}</td>
+											<td>{{material.name}}</td>
+											<td ng-if="material.status == 0"><span class="fa fa-unlock"></span></td>
+											<td ng-if="material.status == 1"><span class="fa fa-lock" style="color:#bd2130"></span></td>
+											<td>
+												
+												<button class="btn-none-background" ng-click="edit(material.id)">
+													<span class="fa fa-pencil table-click-icon"></span>
+												</button>
+												<button class="btn-none-background" ng-click="changeStatus(material.id,material.name,material.status)">
+													<span class="fa fa-exchange table-click-icon"></span>
+												</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- .animated -->
+			</div>
+	</section>
+</body>
+
+<section layout:fragment="script">
+    <script th:src="@{/js/angularjs/controller/MaterialController.js}"></script>
+</section>
+</html>
+
+
+
+

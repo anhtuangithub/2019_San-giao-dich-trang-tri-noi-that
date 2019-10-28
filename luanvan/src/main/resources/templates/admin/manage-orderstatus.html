@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/parts/layout}">
+<head>
+<title>Loại sản phẩm</title>
+</head>
+<body>
+	<section layout:fragment="content">
+
+		<div style="padding: 20px;">
+			<h4>Quản lý trạng thái đơn hàng</h4>
+		</div>
+		<div  ng-controller="OrderStatusController">
+		<div class="row">
+			<div class="col-md-6 offset-md-3" style="padding-bottom:20px" >
+		
+				<form name="frmstatus" class="form-horizontal">
+					<div class="form-group">
+						<label>Trạng thái:</label>
+						<input type="input" class="form-control" id="txtstatus" name="txtstatus" ng-model="status.name" required="true"/>
+						<span id="helpBlock2" class="help-block" ng-show="frmstatus.txtstatus.$error.required">Nhập trạng thái muốn thêm vào</span>
+					</div>
+					<div class="pull-right">
+						<button type="submit" class="btn btn-primary" ng-disabled="frmstatus.$invalid" ng-click="save()" >Lưu</button>
+						<button type="submit" class="btn btn-warning" ng-click="cancel()">Hủy</button>
+					</div>
+				</form>
+			</div>
+		</div>	
+		
+			
+		<div class="animated fadeIn">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<strong class="card-title">Danh sách trạng thái</strong>
+							</div>
+							<div class="card-body">
+								<table id="bootstrap-data-table-export"
+									class="table table-bordered table-hover text-center">
+									<thead class="thead-light">
+										<tr>
+											<th>Mã</th>	
+											<th>Trạng thai đơn hàng</th>
+											<th>Trạng thái</th>
+											<th>Sự kiện</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="orderstatus in liststatus">
+											<td>{{orderstatus.id}}</td>
+											<td>{{orderstatus.name}}</td>
+											<td ng-if="orderstatus.status == 0"><span class="fa fa-unlock"></span></td>
+											<td ng-if="orderstatus.status == 1"><span class="fa fa-lock" style="color:#bd2130"></span></td>
+											<td>
+												
+												<button class="btn-none-background" ng-click="edit(orderstatus.id)">
+													<span class="fa fa-pencil table-click-icon"></span>
+												</button>
+												<button class="btn-none-background" ng-click="changeStatus(orderstatus.id,orderstatus.name,orderstatus.status)">
+													<span class="fa fa-exchange table-click-icon"></span>
+												</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- .animated -->
+			</div>
+	</section>
+</body>
+
+<section layout:fragment="script">
+    <script th:src="@{/js/angularjs/controller/OrderStatusController.js}"></script>
+</section>
+
+</html>
+
+
+
+

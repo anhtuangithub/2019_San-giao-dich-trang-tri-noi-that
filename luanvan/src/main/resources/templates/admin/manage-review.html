@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/parts/layout}">
+<head>
+<title>Review</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+	<section layout:fragment="content">
+
+		<div style="padding: 20px;">
+			<h2>Quản lý Đánh giá</h2>
+		</div>
+
+
+		<div class="content" ng-controller="ReviewController">
+			<div class="animated fadeIn">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<strong class="card-title">Data Table</strong>
+							</div>
+							<div class="card-body">
+								<table id="bootstrap-data-table-export" dt-options="dtOptions" dt-columns="dtColumns" datatable="ng" class="table table-bordered table-hover text-center">
+									<thead class="thead-light">
+										<tr>
+											<th>STT</th>
+											<th>Nội dung</th>
+											<th>Đánh giá</th>
+											<th>Ngày đánh giá</th>
+											<th>Sản phẩm</th>
+											<th>Trạng thái</th>
+											<th></th>
+										</tr>
+										
+									</thead>
+
+									<tbody>
+										<tr ng-repeat= "review in listreview">
+											<td>{{$index+1}}</td>
+											<td>{{review.content}}</td>
+											<td><rate-yo rating="review.rating"></rate-yo></td>
+											<td>{{review.updated_at}}</td>
+											<td>{{review.products["name"]}}</td>
+											<td ng-if="review.status == 0"><span class="fa fa-unlock"></span></td>
+											<td ng-if="review.status == 1"><span class="fa fa-lock" style="color:#bd2130"></span></td>
+											<td>
+												<button class="btn-none-background" ng-click="modal(review.id)" >
+													<span class="fa fa-pencil table-click-icon"></span>
+												</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+			<!-- .animated -->
+
+
+			<!-- Modal -->
+			<div class="modal fade" tabindex="-1" role="dialog" id="modalReview">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">{{ frmTitle }}</h4>
+							<button type="button" class="close" data-dismiss="modal">×</button>
+						</div>
+						<div class="modal-body">
+							<form name="frm" class="form-horizontal">
+								<div class="form-group">
+									<label>Review</label>
+									<TEXTAREA type="text" class="form-control" id="txtcontent"
+										name="txtcontent" placeholder="Nhập review của bạn"
+										ng-model="reviews.content" ng-required="true" readonly></TEXTAREA>
+								</div>
+								<div class="form-group">
+									<label>Đánh giá {{reviews.rating}}</label>
+									<div id="rateYoReview"></div>
+								</div>
+								<div class="form-group">
+									<label>Trạng thái</label> 
+									<input type="radio"
+										ng-model="reviews.status"
+										name="txtstatus" ng-value="0"> Kích hoạt 
+									<input
+										type="radio" ng-model="reviews.status"
+										name="txtstatus" ng-value="1"> Tạm khóa
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary"
+								ng-disabled="frm.$invalid"
+								ng-click="save()">Lưu</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+		</div>
+		</div>
+		<!-- .content -->
+
+	</section>
+</body>
+</html>
+
+<script th:src="@{/js/angularjs/controller/ReviewController.js}"></script>

@@ -1,0 +1,48 @@
+    <!DOCTYPE>
+    <html  xmlns:th="http://www.thymeleaf.org">
+    <head>
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">NoiThat246 </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" th:href="@{/images/apple-icon.png}">
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/front-end.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/util.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+   <!--  <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.min.css}"> -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/jquery.rateyo.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/resCarousel.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" th:href="@{/css/toastr.min.css}">
+</head>
+<body ng-app="my-apt" ng-controller="HeaderController">
+    
+    <div layout:replace="~{homepage/parts/header :: header}"></div>
+    <div class="bg-black"></div>
+    <div class="bg-loadding"></div>
+    <div layout:fragment="content"></div>
+    
+    <div layout:replace="~{homepage/parts/footer :: footer}"></div>
+</body>
+
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/custom-front-end.js}"></script>
+<script th:src="@{/js/jquery.rateyo.min.js}"></script>
+
+
+<script th:src="@{/js/angularjs/lib/angular.min.js}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.7.8/angular-sanitize.min.js"></script>
+<script th:src="@{/js/angularjs/app.js}"></script>
+<script th:src="@{/js/angularjs/controller/HeaderController.js}"></script>
+<script th:src="@{/js/toastr.min.js}"></script>
+<script th:src="@{/js/sweetalert2@8.js}"></script>
+<section layout:fragment="script"></section>
+</html>
+

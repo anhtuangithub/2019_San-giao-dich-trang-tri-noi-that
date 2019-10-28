@@ -1,0 +1,260 @@
+<div class="header-main" layout:fragment="header">
+
+<span sec:authorize="!isAuthenticated()" ng-hide="true">{{logged = false}}</span>
+<span sec:authorize="isAuthenticated()" ng-hide="true">{{logged = true}}</span>
+
+    <div class = "header-top">
+       
+        <div class="top-links-item">
+            <a th:href="@{/noithat246.vn/dktv}">Bán hàng cùng chúng tôi</a>    
+        </div>
+        <div class="top-links-item">
+            <a ng-href="/noithat246.vn/deal-hot?tab=now">Khuyến mãi hot</a>    
+        </div>
+        <div class="top-links-item" sec:authorize="hasRole('ROLE_STORE')">
+            <a ng-href="/store/manage/dashboard">Đến trang bán hàng</a>    
+        </div>
+        
+    </div>
+    <section class="header-search">
+        <div class="container-header">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <a href="/noithat246.vn">
+                        <div class="brand-wrap">
+                            <img class="logo" th:src="@{/images/logo-main.png}">
+                            <h2 class="logo-text">NOI THAT 246</h2>
+                        </div>
+                    </a> <!-- brand-wrap.// -->
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <form action="#" th:action="@{/noithat246.vn/search}" th:object="${search}" method="get" class="search-wrap">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="tukhoa" style="border: 2px solid #fed700;" placeholder="Search">
+                            <div class="input-group-append">
+                              <button class="btn btn-search" type="submit" >
+                                <i class="fa fa-search"></i>
+                              </button>
+                            </div>
+
+                        </div>
+                    </form> <!-- search-wrap .end// -->
+                </div> <!-- col.// -->
+                <div class="col-lg-3 col-md-6 col-sm-12 offser-md-3">
+                    <div class="row" >
+                        <div class="col-md-4 col-6">
+                            <div class="icon-wrap round">
+                                <a ng-href="/noithat246.vn/gio-hang" class="icontext" style="font-style: 20px !important;">  
+                                    <i class="fa fa-shopping-cart text-secondary" ></i>
+                                </a>
+                                <span class="cart-quantity" id="countItem"></span>
+                            </div>
+                            <!-- <span sec:authentication="principal.name"></span> -->
+                        </div> <!-- widget .// -->
+                        <div class="col-md-8 col-6">
+                                <button type="button"  class="icon-wrap dropdown-toggle" data-toggle="dropdown">
+                                    <a href="" class="icontext" style="font-style: 20px !important;">
+                                     <i class="fa fa-user text-secondary"></i>
+                                    </a>
+                                    <span sec:authorize="!isAuthenticated()">
+                                        Đăng nhập
+                                    </span>
+                                    <span sec:authorize="isAuthenticated()" d>
+                                        <span sec:authentication="name" id="username"></span>
+                                    </span>
+                                     
+                                </button>
+                                <div class="dropdown-menu">
+                                    <span sec:authorize="!isAuthenticated()" >
+                                        <a class="dropdown-item"  ng-href="/noithat246.vn/dang-nhap">Đăng nhập</a>
+                                        <a class="dropdown-item"  ng-href="/noithat246.vn/dang-nhap">Tạo tài khoản</a>
+                                    </span>
+                                    
+                                    <a class="dropdown-item" ng-href="/noithat246.vn/tai-khoan/quan-li-tai-khoan" sec:authorize="isAuthenticated()"> Quản lý tài khoản</a>
+                                    <a class="dropdown-item" href="#" sec:authorize="isAuthenticated()">Đổi mật khẩu</a>
+                                    <a class="dropdown-item" href="#" sec:authorize="isAuthenticated()" >
+                                        <form action="#" th:action="@{/logout}" method="POST">
+                                            <button type="submit">Đăng xuất</button>
+                                        </form>
+                                    </a>
+                                </div>
+
+                        </div>
+                    </div>    
+                </div> 
+            </div> <!-- row.// -->
+        </div> <!-- container.// -->
+    </section> <!-- header-main .// -->
+
+    <nav class="navbar-pro">
+        <div class="departments-menu-v2">
+            <div class="dropdown" >
+                <a  class="departments-menu-v2-title dropdown-toggle" data-toggle="dropdown">
+                    <i class="departments-menu-v2-icon fa fa-list-ul"> All Categories</i>
+                    
+                </a>
+                <div class="navigation-border dropdown-menu" style="padding:0;z-index: 10002" > 
+                    <ul class="navigation-wrapper" id="dropdownCategory" >
+                        <li class="menuItem"  ng-repeat="category in listcategories" >
+                            <a  class="linkItem"  th:href="@{/noithat246.vn/danh-muc?danhmuc={{category.plug}}&id={{category.id}}}">
+                                 {{category.name}}
+                            </a>
+                            <div class="submenu">
+                                <ul>
+                                    <li class="submenu-NavSub" ng-repeat="subcategory in category.categories" ng-click="edit(subcategory.id,subcategory.parentId)">
+                                        <a  th:href="@{/noithat246.vn/{{subcategory.plug}}?id={{subcategory.id}}}">
+                                            {{subcategory.name}}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>                       
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="secondary-nav-menu">
+           <ul class="menu-secondary-nav">
+               <li class="menu-item-2" data-toggle="modal" data-target="#modalAddress"><a href="javascript:void(0)" >Bạn muốn giao hàng tới</a></li>
+               <li class="menu-item-2"><a ng-href="/noithat246.vn/best-seller?best=seller">Bán chạy</a></li>
+               <li class="menu-item-2 item-reviewed">
+                    <a href="javascript:void(0)">Sản phẩm bạn đã xem</a>
+                    <div class="list">
+                        <div class="container-product" style="background-color: transparent">
+                            <div class="content">
+                                <a  ng-href="/noithat246.vn/chi-tiet-san-pham/{{pro.id}}" class="img-reviewed" ng-repeat="pro in spDaXem">
+                                    <img  ng-src="/img/uploads/{{pro.avatar}}" alt="sp-da-xem">
+                                </a>
+                            </div>
+                        </div>
+                        
+                    </div>
+               </li>
+           </ul>
+        </div>
+    </nav>
+<!--  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modalLogIn">Open Modal</button> -->
+  <!--   <div class="modal" id="modalLogIn">
+            <div class="modal-dialog">
+                <div class="modal-content">
+          
+                    <div class="modal-header">
+                        <h4 class="modal-title">Đăng nhập</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+            
+             
+                    <div class="modal-body">
+                        <p th:if="${param.error}" class="alert alert-danger">Vui lòng kiểm tra thông tin</p>
+                        <form style="padding: 50px 20px;" method="POST" th:action="@{/noithat246.vn/dang-nhap}">
+                            <div class="form-group-custom">
+                                <label for="usr">Email</label>
+                                <input type="text" class="color-input-custom" id="usr" name="email" placeholder="abc@gmail.com">
+                            </div>
+                            <div class="form-group-custom">
+                                 <label for="pwd">Mật khẩu</label>
+                                <input type="password" class="color-input-custom" id="pwd" name="password" placeholder="Vui lòng nhập mật khẩu">
+                            </div>
+
+                            <div class="flex-sb-m w-full p-b-30">
+                                <div class="contact100-form-checkbox">
+                                    <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+                                    <label class="label-checkbox100" for="ckb1">
+                                        Remember me
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <a href="#" class="txt1">
+                                        Quên mật khẩu
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="form-group-custom">
+                                <label for="birthday"></label>
+                                <button class="btn color-input-custom" style="background-color: rgb(253, 216, 53);" type="submit">
+                                Đăng nhập
+                                </button>
+                            </div>
+                            
+                        </form>
+                    </div>
+                    
+            
+                </div>
+            </div>
+        </div>
+ -->
+        <div class="modal" id="modalAddress">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                  <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h5 class="modal-title" style="text-align: center;">Địa chỉ giao hàng</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                  <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" value="0">
+                            <label class="custom-control-label" for="customRadio1">{{localShipping.address}}</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" value="1">
+                            <label class="custom-control-label" for="customRadio2">Chọn khu vực giao hàng khác</label>
+                        </div>
+                       <div class="card hidden" id="formAdress" >
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label" >Tỉnh/Thành phố</label>
+                                   <div class="col-sm-8">
+                                        <select class="form-control"  ng-model="saveShipping.tinh" ng-change="filterQuan()">
+                                            <option ng-repeat ="tinh in dsTinh" ng-value="tinh" >
+                                                {{ tinh.name }}     
+                                            </option>
+                                        </select>    
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label" >Quận/Huyện</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" id="idQuan" ng-model="saveShipping.quan" ng-disabled="disableSelectTinh" ng-change="filterXa()">
+                                            <option ng-repeat ="quan in dsQuan" ng-value="quan" >
+                                                {{ quan.name }}     
+                                            </option>
+                                        </select>    
+                                    </div>
+                                    
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label" >Phường/Xã</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control"  ng-model="saveShipping.xa" ng-disabled="disableSelectQuan">
+                                            <option ng-repeat ="xa in dsXa" ng-value="xa" >
+                                                {{ xa.name }}     
+                                            </option>
+                                        </select>    
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label" >Địa chỉ</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="saveShipping.address" ng-required="true">   
+                                    </div>
+                                </div>
+                            </div>
+                       </div>
+                    </div>
+
+                  <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-search" data-dismiss="modal" ng-click="updateShipping()">Giao đến địa chỉ này</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+</div>

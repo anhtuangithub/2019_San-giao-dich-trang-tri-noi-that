@@ -1,0 +1,186 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{homepage/parts/layout}">
+<head>
+<title>Sản phẩm bán chạy</title>
+</head>
+<body>
+	<div class="container-product" layout:fragment="content" >
+         <div class="row">
+			<div class="side-bar-filter">
+				<div class="container-filter">
+					<div class="filter-border">
+						<div class="filter-header">
+							<h4 class="filter-header-title">Danh mục</h4>
+						</div>
+						<div class="filter-container">
+							<ul class="over-flow">
+								<li th:each="category : ${danhmuc}" class="origin-title" th:attr="onclick=|FilterAdvanced('category','${category.id}')|">
+									<span th:utext="${category.name}"></span>
+								</li>
+							</ul>
+							<p class="show-more">Xem thêm <i class="fa fa-angle-down"></i></p>
+							<p class="close-show-more" style="display: none">Ẩn bớt <i class="fa fa-angle-up"></i></p>
+						</div>
+					</div>
+				</div>
+				<div class="container-filter">
+					<div class="filter-border">
+						<div class="filter-header">
+							<h4 class="filter-header-title">Xuất xứ</h4>
+						</div>
+						<div class="filter-container">
+							<ul class="over-flow">
+								<li th:each="origin : ${origins}" class="origin-title" th:attr="onclick=|FilterAdvanced('origin','${origin.id}')|">
+									<span th:utext="${origin.name}"></span>
+								</li>
+							</ul>
+							<p class="show-more">Xem thêm <i class="fa fa-angle-down"></i></p>
+							<p class="close-show-more" style="display: none">Ẩn bớt <i class="fa fa-angle-up"></i></p>
+						</div>
+					</div>
+				</div>
+				<div class="container-filter">
+					<div class="filter-border">
+						<div class="filter-header">
+							<h4 class="filter-header-title">Vật liệu</h4>
+						</div>
+						<div class="filter-container">
+							<ul class="over-flow">
+								<li th:each="material : ${materials}" class="origin-title" th:attr="onclick=|FilterAdvanced('material','${material.id}')|">
+									<span th:utext="${material.name}"></span>
+								</li>
+							</ul>
+							<p class="show-more">Xem thêm <i class="fa fa-angle-down"></i></p>
+							<p class="close-show-more" style="display: none">Ẩn bớt <i class="fa fa-angle-up"></i></p>
+						</div>
+					</div>
+				</div>
+				
+				<div class="container-filter">
+					<div class="filter-border">
+						<div class="filter-header">
+							<h4 class="filter-header-title">Đánh giá</h4>
+						</div>
+						<div class="filter-container">
+							<ul>
+								<li class="origin-title" th:attr="onclick=|FilterAdvanced('star','4')|" ><rate-yo rating ="4"><rate-yo></li>
+								<li class="origin-title" th:attr="onclick=|FilterAdvanced('star','3')|"><rate-yo rating ="3"><rate-yo></li>
+								<li class="origin-title" th:attr="onclick=|FilterAdvanced('star','2')|"><rate-yo rating ="2"><rate-yo></li>
+								<li class="origin-title" th:attr="onclick=|FilterAdvanced('star','1')|"><rate-yo rating ="1"><rate-yo></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="container-filter">
+					<div class="filter-border">
+						<div class="filter-header">
+							<h4 class="filter-header-title">Nhà cung cấp</h4>
+						</div>
+						<div class="filter-container">
+							<ul class="over-flow">
+								<li th:each="producer : ${producers}" class="origin-title" th:attr="onclick=|FilterAdvanced('producer','${producer.id}')|" >
+									<a href="" th:utext="${producer.name}"></a>
+								</li>
+							</ul>
+							<p class="show-more">Xem thêm <i class="fa fa-angle-down"></i></p>
+							<p class="close-show-more" style="display: none">Ẩn bớt <i class="fa fa-angle-up"></i></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Product-listing-grid -->
+			<div class="product-listing-grid" style="background-color: #fff">
+				<!-- Grid List Product -->
+		            <div class="product-header-background-white">
+		                <h3 class="title-black">
+		                    Cửa hàng có: <span  th:text="${products.totalElements}"></span> sản phẩm
+		                </h3>
+		                <div id="filtered">
+		                	<span>Lọc theo</span>
+		                </div>
+		                <div class="sort-box pull-left">
+		                	<span>Ưu tiên xem:</span>
+		                	<ul class="sort-list">
+		                		<li th:attr="onclick=|FilterAdvanced('filter','hang-moi')|"  ><a id="filter-new" href="">HÀNG MỚI</a></li>
+		                		<li th:attr="onclick=|FilterAdvanced('filter','ban-chay')|"><a id="filter-bestsealler" href="">BÁN CHẠY</a></li>
+		                		<li th:attr="onclick=|FilterAdvanced('filter','giam-gia')|" ><a id="filter-promotion" href="">GIẢM GIÁ</a></li>
+		                		<li th:attr="onclick=|FilterAdvanced('filter','gia-thap')|" ><a id="filter-priceMin" href="">GIÁ THẤP</a></li>
+		                		<li th:attr="onclick=|FilterAdvanced('filter','gia-cao')|" ><a id="filter-priceMax" href="">GIÁ CAO</a></li>
+		                		<li th:attr="onclick=|FilterAdvanced('filter','loc')|"><a href="">LỌC</a></li>
+		                	</ul>
+		                </div>
+		            </div>
+		            <div class="row-product-grid" style="background-color: #fff">
+		            	<a th:href="@{/noithat246.vn/chi-tiet-san-pham/}+${product.id}" class="product-wrapper-grid" th:each="product : ${products.content}" th:attr="title=${product.name}">
+		                    <div class="block-wrapper-grid" >
+		                        <div class="product-thumbnail-grid">
+		                             <img th:src="@{/img/uploads/}+${product.avatar}" alt="avatar">
+		                        </div>
+		                        <div class="movie-meta-grid">
+		                            <div class="product-title-grid" th:text="*{product.name}"></div>
+		                            <p style="display: inline-table;">
+		                            	<span th:if="${product.price_new} != ${product.price}">
+		                            		<span class="product-price-grid"> <span th:utext="${#numbers.formatCurrency(product.price_new)}"></span></span>	
+		                            		<span class="product-sales-off-grid"> <span th:utext="${#numbers.formatCurrency(product.price)}"></span></span>
+		                            	</span>
+		                            	<span th:if="${product.price_new} == ${product.price}">
+		                            		<span class="product-price-grid"  th:utext="${#numbers.formatCurrency(product.price_new)}"></span>
+		                            	</span>
+		                            		<span  th:if="${product.price_new} != ${product.price}">
+		                            		<span th:utext="${#numbers.formatDecimal(((product.price - product.price_new)*100)/product.price, 0, 'COMMA', 0, 'POINT')}"></span>%
+		                            	</span>
+		                            	
+		                            </p>
+		                        </div>
+		                        <div class="product-rating-position">
+		                        	<div class="product-rating" th:if="${product.avgstart} > 0"><rate-yo-product th:attr="rating=${product.avgstart}" ></rate-yo-product></div>
+	                        		<div class="product-position"><span th:utext="*{product.stores.province.name}"></span></div>
+		                        </div>
+		                    </div> 
+		                </a>
+		            </div> <!--  End Grid List Product -->
+			</div><!--End  product-listing-grid -->
+        </div><!-- End Row -->
+        <div class="pull-right">
+	    	<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-end" id="pageable-custom">
+				</ul>
+			</nav>
+        </div>
+    </div> <!-- End Container-product -->
+</body>
+<section layout:fragment="script">
+	<script th:src="@{/js/searchAdvanted.js}"></script>
+	<script th:inline="javascript">
+		let searchParamsCheck = new URLSearchParams(window.location.search);
+		var map = {};
+		if(searchParamsCheck.has("category")){
+			map.categorys = [[${danhmuc}]] ;	
+		}
+		if(searchParamsCheck.has("producer")){
+			map.producers = [[${producers}]];	
+		}
+		if(searchParamsCheck.has("material")){
+			map.materials = [[${materials}]] ;	
+		}
+		if(searchParamsCheck.has("origin")){
+			map.origins =  [[${origins}]];	
+		}
+
+		var totalPages = [[${products.totalPages}]];
+		var currentPage = [[${products.number}]];
+		if(totalPages > 1){
+			page(currentPage+1,totalPages);
+		}
+
+
+		jQuery(document).ready(function(){
+			filterAndvanted(map);			
+		});
+		
+
+	</script>	
+    
+</section>
+
+</html>

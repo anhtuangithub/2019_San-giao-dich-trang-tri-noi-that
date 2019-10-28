@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/parts/layout}">
+<head>
+<title>Quản lý hóa đơn</title>
+
+</head>
+<body>
+	<section layout:fragment="content">
+
+		<div style="padding: 20px;">
+			<h2>Quản lý hóa đơn</h2>
+		</div>
+
+
+		<div class="content" ng-controller="OrderController">
+			<div class="animated fadeIn">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<strong class="card-title">Danh sách hóa đơn</strong>
+							</div>
+							<div class="card-body">
+								<table id="bootstrap-data-table-export" dt-options="dtOptions" dt-columns="dtColumns" datatable="ng" class="table table-bordered table-hover text-center">
+									<thead class="thead-light">
+										<tr>
+											<th>STT</th>
+											<th>Số HD</th>
+											<th>Thông tin khách hàng</th>
+											<th>Tổng giá trị</th>
+											<th>Ngày lập</th>
+											<th>Trạng thái</th>
+											<th>
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="order in listOrder | orderBy: 'orderStatus.id'">
+											<td>{{$index+ 1}}</td>
+											<td>{{order.id}}</td>
+											<td style="text-align: left">
+												<p  ng-if="order.user.customer != null"><b>Khách hàng:</b> {{order.user.customer.name}}</p>
+												<p  ng-if="order.user.store != null"><b>Khách hàng:</b> {{order.user.store.name}}</p>
+												<p><b>Địa chỉ giao:</b> {{order.address}}</p>
+												<p><b>SĐT: </b>{{order.phone}}</p>
+											</td>
+											<td>{{order.total | currency: "":0}}đ</td>
+											<td>{{order.created_at| date: "dd-MM-yyyy 'giờ' h:mma ":'UTC' }}</td>
+											<td>{{order.orderStatus.name}}</td>
+											<td>
+												<button class="btn-none-background" ng-click="modal(order.id)">
+													<span class="table-click-icon fa fa-pencil"></span>
+												</button>
+
+											</td>
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+			<!-- .animated -->
+
+
+			<!-- Modal -->
+			<div class="modal fade" tabindex="-1" role="dialog" id="modalOrder">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">{{ frmTitle }}</h4>
+							<button type="button" class="close" data-dismiss="modal">×</button>
+						</div>
+						<div class="modal-body">
+							<div class="row" style="margin: 0">
+								<div class="col-md-6 card" style="padding: 0">
+									<div class="card-header">
+										<strong>Số hóa đơn: {{order.id}}</strong>
+									</div>
+									<div class="card-body">
+										<p class="form-control-label">Trạng thái: <span >{{order.orderStatus.name}}</span></p>
+										<p class="form-control-label">Tổng tiền: <span>{{order.total | currency: "":0}}đ</span></p>
+										<p class="form-control-label">Ngày lập: <span>{{order.created_at}}</span></p>
+										<p class="form-control-label">Hình thức thanh toán: <span>{{order.paymentType.name}}</span></p>
+									</div>
+									
+								</div>
+								<div class="col-md-6 card" style="padding: 0">
+									<div class="card-header">
+										<strong>Thông tin người đặt</strong>
+									</div>
+									<div class="card-body" >
+										<p ng-if="order.user.customer != null" class="form-control-label">Tên: <span>{{order.user.customer.name}}</span></p>
+										<p ng-if="order.user.store != null" class="form-control-label">Tên: <span>{{order.user.store.name}}</span></p>
+										<p class="form-control-label">Địa chỉ: <span>{{order.address}}</span></p>
+										<p class="form-control-label">SĐT: <span>{{order.phone}}</span></p>
+									</div>
+								</div>
+								<div class="col-md-12" style="padding: 0">
+									<div class="card" ng-repeat="orderDetail in orderDetails">
+										<div class="card-header">
+											<strong>Sản phẩm:</strong> <span>{{orderDetail.product.name}}</span>
+										</div>
+										<div class="card-body">
+											<div class="row">
+												<div class="col-md-3">
+													<img ng-src="/img/uploads/{{orderDetail.product.avatar}}" alt="">	
+												</div>
+												<div class="col-md-9">
+													<p class="form-control-label">Số lượng đặt: {{orderDetail.quantity}}</p>
+													<p class="form-control-label">Tạm tính: {{((orderDetail.unitPrice.price*(100-orderDetail.promotion.sale_off))/100)*orderDetail.quantity| currency: "":0}}đ</p>
+													<p class="form-control-label">Giá áp dụng: {{orderDetail.unitPrice.price | currency: "":0}}đ</p>
+													<p class="form-control-label">Khuyến mãi: {{orderDetail.promotion.sale_off}} %</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button ng-if="order.orderStatus.id == 1" class="btn-background-admin" ng-click="xacNhanDH(order.id)">Xác nhận đơn hàng</button>
+							<button ng-if="order.orderStatus.id == 2" class="btn-background-admin" ng-click="shipping(order.id)">Đang vận chuyển</button>
+							<button ng-if="order.orderStatus.id == 3 || order.orderStatus.id == 4" class="btn-background-admin" ng-click="daGiao(order.id)">Đã giao</button>
+							<button ng-if="order.orderStatus.id != 7" class="btn-background-admin" ng-click="huyDH(order.id)">Hủy đặt hàng</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+		</div>
+
+		</div>
+		<!-- .content -->
+
+	</section>
+</body>
+
+<section layout:fragment="script">
+    <script th:src="@{/js/angularjs/controller/OrderController.js}"></script>
+</section>
+
+</html>
+
+

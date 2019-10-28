@@ -1,0 +1,78 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{homepage/parts/layout}">
+<head>
+<title>Quản lý tài khoản</title>
+</head>
+<body>
+	<div class="container-product" layout:fragment="content" ng-controller="HistoryMemberController">
+         
+        <div layout:replace="~{homepage/parts/side-bar :: side-bar}"></div>
+
+        <div class="product-listing-grid">
+            
+	        <div class="row" >
+					
+				<div class="product-header">
+	                <h3 class="title-deal">
+	                    Thông tin cửa hàng
+	                </h3>
+	            </div>
+
+	            <div class="recent-orders" >
+	                <div class=" col-8" id="formAdress" >
+                        
+                        <div class="card-body">
+                       
+                            <div class="form-group row padding-10">
+                                <label class="col-sm-2 col-form-label" >Gói đăng kí</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control"  ng-model="giaHan">
+										<option ng-repeat="memberType in memberTypes" ng-value="memberType.id">{{memberType.name}} ('{{memberType.price| currency: "":0}}đ') </option>
+                                    </select>    
+                                </div>
+                            </div>
+                           
+                            
+                            <div class="row padding-10">
+                                <div class="col-sm-6 offset-sm-3">
+                                    <button class="btn color-input-custom" ng-click="update()" ng-if="giaHan" style="background-color: rgb(253, 216, 53);" type="button" ng-disabled="frmkm.$invalid">
+                                        <p style="text-align: center;color: #000">Gia hạn thành viên</p>
+                                    </button>
+                                </div>
+                            </div>
+                        
+                        </div>	
+                        
+                  	</div>
+					<table class="table table-hover table-custom-responsive" >
+	                    <thead>
+	                        <tr>
+	                        	<th>STT</th>
+	                            <th>Gói đăng kí</th>
+	                            <th>Ngày bắt đầu</th>
+	                            <th>Ngày kết thúc</th>
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+	                        <tr ng-repeat="member in members">
+	                        	<td>{{$index+1}}</td>
+	                            <td>{{member.membertypes.name}}</td>
+	                            <td>{{member.start_time | date: "dd-MM-yyyy 'giờ' h:mma":'UTC'}}</td>
+	                            <td>{{member.end_time | date: "dd-MM-yyyy 'giờ' h:mma":'UTC'}}</td>
+	                        </tr>
+	                     
+	                    </tbody>
+	                </table>
+	            </div>
+	    	</div>
+    	</div>
+       	
+    </div> <!-- End Container-product -->
+</body>
+<section layout:fragment="script">
+  <script th:src="@{/js/angularjs/controller/HistoryMemberController.js}"></script>
+</section>
+
+</html>
+
+

@@ -1,0 +1,213 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{homepage/parts/layout}">
+<head>
+<title>Giỏ hàng của bạn</title>
+</head>
+<body>
+	<div class="container-product" layout:fragment="content" ng-controller="CartController">
+        <div class="col-md-12" ng-show="quantityOfCart === 0">
+            <div class="alert alert-danger"  role="alert" >
+                Giỏ hàng không có sản phẩm. Vui lòng thực hiện lại.
+            </div>
+            <h5>Giỏ hàng <span>(0 sản phẩm)</span></h5>
+            <div class="empty-cart">
+                <span class="mascot-image"></span>
+                <p>Không có sản phẩm nào trong giỏ hàng của bạn.</p>
+                <a href="/noithat246.vn" class="btn btn-search"> Tiếp tục mua sắm</a>
+            </div>
+        </div>
+        
+          
+
+        <div class="row" ng-show="quantityOfCart != 0">
+            <div class="col-md-12" style="padding-top: 20px" ng-show="canBuy == 'disable'">
+                <div class="alert alert-danger"  role="alert" >
+                    Vui lòng xóa sản phẩm hết hàng
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="check-out-shop" ng-repeat="store in cart">
+                    <div class="check-out-name-shop">
+                        <span>{{store[0].stores.name}}</span>
+                    </div>
+                    <div class="check-out-children">
+                        <div class="cart-item" ng-repeat="item in store">
+                            <div class="cart-item-inner" >
+                                <div class="cart-item-left">
+                                    <div class="cart-img-wrap">
+                                        <img ng-src="/img/uploads/{{item.avatar}}" alt="">
+                                    </div>
+                                    <div class="cart-item-name">
+                                        <a ng-href="/noithat246.vn/chi-tiet-san-pham/{{item.id}}">{{item.name}}</a>
+                                        <p ng-if="item.inventory_number >0">Hàng còn: {{item.inventory_number}}</p>
+                                        <p ng-if="item.inventory_number <= 0"> Sản phẩm hết hàng</p>
+                                    </div>
+                                </div>
+                                <div class="cart-item-middle">
+                                    <p class="current-price">{{item.price_new * item.buyQuantity| currency: "":0}}đ</p>
+                                    <p class="origin-price">{{item.price| currency: "":0}}đ</p>
+                                    <p class="promotion-ratio">{{item.maxPromotion.sale_off}}%</p>
+                                </div>
+                                <div class="cart-item-right">
+                                    <div class="input-group-btn">
+                                        <span ng-if="item.inventory_number > 0" class="input-group-addon" ng-show="showOrder" ng-click="minusItem(item.id)"><i class="fa fa-minus"></i></span>
+                                        <input type="text" min="1" max="10" readonly  ng-value="{{item.buyQuantity}}"  class="form-control cart-input-quantity">
+                                        <span ng-if="item.inventory_number > 0" class="input-group-addon" ng-show="showOrder" ng-click="addItem(item.id,item.inventory_number)"><i class="fa fa-plus"></i></span>
+                                        
+                                        <span class="input-group-addon" ng-click="deleteItem(item.id)"><i class="fa fa-times"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="right-cart" ng-show="hideOrder">
+                    <div class="summary-section">
+                        <div class="summary-section-header">
+                            <span>Thông tin giao hàng</span>
+                            <button class="btn pull-right" style="margin-bottom: 5px;" ng-click="suaThongTin()">Sửa</button>
+                        </div>
+                        <hr>
+                        <div class="summary-section-content">
+                            <div  id="defaultAddress" style="padding: 10px 0;">
+                                <div class="form-group">
+                                    <label for="usr">Địa chỉ giao hàng:</label>
+                                    <textarea class="form-control" rows="2" id="comment" name="text" readonly>{{shipping.address}}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">SĐT nhận hàng:</label>
+                                    <input type="text" class="form-control" id="phoneStorge" ng-model="shipping.phone" readonly>
+                                </div>
+                            </div>
+
+                            <div class="card-body hidden" id="updateStorge">
+                                <form name="frmkm" class="form-horizontal">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label" >Tỉnh/Thành phố</label>
+                                   <div class="col-sm-8">
+                                        <select class="form-control"  ng-model="saveShipping.tinh" ng-change="filterQuan()">
+                                            <option ng-repeat ="tinh in dsTinh" ng-value="tinh" >
+                                                {{ tinh.name }}     
+                                            </option>
+                                        </select>    
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label" >Quận/Huyện</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" id="idQuan" ng-model="saveShipping.quan" ng-disabled="disableSelectTinh" ng-change="filterXa()">
+                                            <option ng-repeat ="quan in dsQuan" ng-value="quan" >
+                                                {{ quan.name }}     
+                                            </option>
+                                        </select>    
+                                    </div>
+                                    
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label" >Phường/Xã</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control"  ng-model="saveShipping.xa" ng-disabled="disableSelectQuan">
+                                            <option ng-repeat ="xa in dsXa" ng-value="xa" >
+                                                {{ xa.name }}     
+                                            </option>
+                                        </select>    
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label" >Địa chỉ</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control"  ng-model="saveShipping.address" ng-required="true">   
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label" >SĐT</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" pattern="(03[2-9]|05[6|8|9]|07[0|6-9]|08[1-9]|09[^5])+([0-9]{7})\b" ng-model="saveShipping.phone" ng-required="true">    
+                                    </div>
+                                </div>
+                            </form>
+                                 <button type="button" class="btn btn-warning"  ng-click="submitAddress()" ng-disabled="frmkm.$invalid">Submit</button>
+                                <button type="button" class="btn btn-danger"  ng-click="huySuaShipping()">Hủy</button>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="right-cart">
+                    <div class="summary-section">
+                        <div class="summary-section-header">
+                            Thông tin đơn hàng
+                        </div>
+                        <div class="summary-section-content">
+                            <div class="box-style">
+                                <p><span>Tạm tính: </span><strong class="pull-right">{{total| currency: "":0}}đ</strong></p>    
+                            </div>
+                            <div class="box-style">
+                                <p><span>Thành tiền: </span><strong class="total-red" >{{total| currency: "":0}}đ</strong></p>
+                                <input type="hidden" value="{{total}}" id="total">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" ng-show="showOrder">
+                    <div class="col-md-12">
+                        <button class="btn btn-checkout" ng-disabled="canBuy" ng-click="dathang()">Tiến hành đặt hàng</button>
+                    </div>
+                </div>
+                <div class="right-cart" ng-show="hideOrder" ng-if="shipping != null">
+                    <div class="summary-section">
+                        <div class="summary-section-header">
+                            Hình thức thanh toán
+                        </div>
+                        <div class="summary-section-content">
+                           <div class="form-check-inline">
+                                <label class="form-check-label summary-select-delivery">
+                                    <input type="radio" class="form-check-input" name="hinhthuc" value="1">Thanh toán khi giao hàng
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label summary-select-delivery">
+                                    <input type="radio" class="form-check-input" name="hinhthuc" value="0">Thanh toán bằng paypal
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-show="hideOrder">
+                    <div class="col-md-12">
+                        <button class="btn btn-checkout  hidden" ng-disabled="canBuy" ng-click="thanhtoan()" id="btn_thanhtoan">Thanh toán</button>
+                        <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+                        <div  id="paypal-button" class="hidden"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div> <!-- End Container-product -->
+</body>
+<section layout:fragment="script">
+    <script th:src="@{/js/angularjs/controller/CartController.js}"></script>
+   
+    <script>
+	    $(document).ready(function () {
+	        $('input:radio[name=hinhthuc]').change(function () {
+	            if ($("input[name='hinhthuc']:checked").val() == '0') {
+	                $('#paypal-button').removeClass('hidden');
+	                $('#btn_thanhtoan').addClass('hidden'); 
+	            }
+	            if ($("input[name='hinhthuc']:checked").val() == '1') {
+	                $('#btn_thanhtoan').removeClass('hidden'); 
+	                $('#paypal-button').addClass('hidden');  
+	            }
+	        });
+	    });
+	</script>
+</section>
+
+</html>
+
+

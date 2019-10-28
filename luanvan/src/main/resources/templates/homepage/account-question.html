@@ -1,0 +1,67 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{homepage/parts/layout}">
+<head>
+<title>Quản lý tài khoản</title>
+</head>
+<body>
+	<div class="container-product" layout:fragment="content" ng-controller="AccountQuestionController">
+         
+        <div layout:replace="~{homepage/parts/side-bar :: side-bar}"></div>
+
+        <div class="product-listing-grid">
+             <div class="product-header">
+                <h3 class="title-deal">
+                    Câu hỏi của bạn
+                </h3>
+            </div>
+            <div class="row" style="background-color: #fff;border-radius: 0">
+                <div class="col-md-12">
+                    <div class="empty-content" ng-if="listQuestion.content.length <= 0">
+                        <img th:src="@{/images/tiki-not-found-pgae.png}" alt="">
+                        <p>Viết câu hỏi của bạn để chúng tôi có thể giúp bạn</p>
+                         <a href="/noithat246.vn" class="btn btn-search"> Tiếp tục mua sắm</a>
+                    </div>
+
+                    <ul class="qna-list" ng-if="listQuestion.content.length > 0" >
+                        <li class="qna-item" ng-if="listQuestion.content.length > 0" ng-repeat="question in listQuestion.content">
+                            <div style="margin: 10px 0; border-bottom: 1px solid rgba(0,0,0,.1)">
+                                <div class="qna-item-group">
+                                    <span class="qna-icon qna-icon-q">Q</span>
+                                    <div class="qna-content">{{question.content}}</div>
+                                    <div class="qna-meta">{{question.created_at| date: "dd-MM-yyyy 'giờ' h:mma ":'UTC' }}</div>
+                                </div>
+                                <div class="qna-item-group" ng-if="question.answers.length > 0">
+                                    <span class="qna-icon qna-icon-a">A</span>
+                                    <div class="qna-content">{{question.answers[0].content}}</div>
+                                    <div class="qna-meta">
+                                        <span>
+                                            {{question.answers[0].stores.name}} - {{question.answers[0].created_at| date: "dd-MM-yyyy 'giờ' h:mma ":'UTC' }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="qna-item-group" ng-if="question.answers.length <= 0">
+                                    <p>Chưa có câu trả lời</p>
+                                </div>
+                            </div>
+                            
+                        </li>
+                        <p ng-if="questions.length <= 0">Chưa có câu hỏi nào</p>
+                    </ul>
+                </div>
+            </div>
+    	</div>
+       	<div class="pull-right">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-end" id="pageable-custom">
+                </ul>
+            </nav>
+        </div>
+    </div> <!-- End Container-product -->
+</body>
+<section layout:fragment="script">
+    <script th:src="@{/js/searchAdvanted.js}"></script>
+    <script th:src="@{/js/angularjs/controller/AccountQuestionController.js}"></script>
+
+</section>
+
+</html>

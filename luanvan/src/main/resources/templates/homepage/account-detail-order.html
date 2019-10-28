@@ -1,0 +1,136 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{homepage/parts/layout}">
+<head>
+<title>Quản lý tài khoản</title>
+</head>
+<body>
+	<div class="container-product" layout:fragment="content" ng-controller="OrderDetailAccountController">
+         
+        <div layout:replace="~{homepage/parts/side-bar :: side-bar}"></div>
+
+        <div class="product-listing-grid">
+
+	        <div class="product-header">
+                <h3 class="title-deal">
+                    Chi tiết đơn hàng
+                </h3>
+            </div>
+            <div class="order-detail-header">
+                <div class="pull-left">
+                    <p class="cart-item-name">Đơn hàng:  #{{orderGroup.id}}</p>
+                    <p class="order-quantiy">Ngày đặt hàng {{orderGroup.created_at| date: "dd-MM-yyyy 'at' h:mma":'UTC'}}</p>
+                </div>
+                <div class="pull-right">
+                    <p class="cart-item-name"> Tổng cộng: {{orderGroup.total| currency: "":0}}đ</p>
+                </div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="check-out-shop"  ng-repeat="order in orderGroup.orders">
+	                    <div class="check-out-name-shop">
+	                        <span class="order-id">Kiện hàng {{$index + 1}}</span>
+	                        <a ng-href="/noithat246.vn/store/{{order.stores.name}}?store={{order.stores.id}}">
+	                        	<p class="pull-right" style="padding-top: 10px;color:#1a9cb7;">Đăng bởi {{order.stores.name}}</p>	
+	                        </a>
+	                        
+	                    </div>
+	                    <div class="check-out-children">
+	                        <div class="cart-item" ng-repeat="item in order.orderDetail" >
+	                            <div class="cart-item-inner">
+	                                <div class="cart-item-left">
+	                                    <div class="cart-img-wrap">
+	                                        <img ng-src="/img/uploads/{{item.product.avatar}}" alt="avatar" >
+	                                    </div>
+	                                    <div class="cart-item-name">
+	                                        <a ng-href="/noithat246.vn/chi-tiet-san-pham/{{item.product.id}}">{{item.product.name}}</a>
+	                                    </div>
+	                                </div>
+	                                <div class="cart-item-middle">
+	                                	<p class="order-quantiy">Giá: {{item.totalPrice| currency: "":0}}đ</p>
+	                                    <p class="order-quantiy">Qty: {{item.quantity}}</p>
+	                                </div>
+	                                <div class="cart-item-right">
+	                                    <a href="javascript:void(0)" ng-if="order.orderStatus.id == 5" class="order-quantiy" style="color:#1a9cb7;" ng-click="modal(item.product.id,order.id)">Viết đánh giá</a>
+
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+                </div>
+            </div>
+            <div class="row">
+	    		<div class="col-md-6">
+	    			<div class="info-summary" >
+	    				 <h4 class="info-summary-title">Thông tin giao hàng </h4>
+	                    <div class="info-summary-detail">
+	                        <p>Địa chỉ giao hàng: {{orderGroup.address}}</p>
+	                        <p>SĐT: {{orderGroup.phone}}</p>
+	                    </div>
+	    			</div>
+	    		</div>
+	    		<div class="col-md-6">
+	    			<div class="info-summary">
+	    				 <h4 class="info-summary-title">Tổng cộng </h4>
+	                    <div class="info-summary-detail">
+	                        <p>Tổng cộng: {{orderGroup.total| currency: "":0}}đ</p>
+	                        <p>Hình thức thanh toán: {{orderGroup.paymentType.name}}</p>
+	                    </div>
+	    			</div>
+	    		</div>
+	    		
+	    	</div>
+			<button class="btn btn-warning col-md-4 offset-md-4 padding-10" ng-if="checkDestroy == false" ng-click="huyDathang(orderGroup.id)" style="margin-bottom: 10px "> Hủy</button>		    	
+    	</div>
+
+    	
+       	
+
+
+	     <!-- The Modal -->
+	    <div class="modal" id="modalViews">
+	        <div class="modal-dialog">
+	            <div class="modal-content">
+	      
+	                <!-- Modal Header -->
+	                <div class="modal-header">
+	                    <h4 class="modal-title">Nhận xét của bạn</h4>
+	                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+	                </div>
+	        
+	                <!-- Modal body -->
+	                <div class="modal-body">
+	                    <div class="form-group">
+	                        <label for="pwd">Nhận xét:</label>
+	                        <textarea name="content" id="content" class="form-control" ng-model="review.content" cols="30" rows="5"></textarea>
+	                    </div>
+	                    <div class="form-group" id="feedback">
+	                        <label for="pwd">Đánh giá:</label>
+	                        <div id="rateYo"></div>        
+	                    </div>
+	                </div>
+	                
+	        
+	            <!-- Modal footer -->
+	                <div class="modal-footer">
+	                    <button type="button" class="btn btn-warning" id="getRating" ng-click="addReview()" >Thêm nhận xét</button>
+	                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+	                </div>
+	        
+	            </div>
+	        </div>
+	    </div>
+    </div> <!-- End Container-product -->
+</body>
+<section layout:fragment="script">
+    <script th:src="@{/js/angularjs/controller/OrderDetailAccountController.js}"></script>
+    <script>
+
+    </script>
+</section>
+
+</html>
+
+

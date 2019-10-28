@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/parts/layout}">
+<head>
+<title>Thống kê doanh số bán hàng</title>
+</head>
+<body>
+	<section layout:fragment="content" ng-controller="DashBoardStore">
+
+		<div style="padding: 20px;">
+			<h4>Thống kê doanh số trang web</h4>
+		</div>
+		<div class="content mt-3">
+			<div class="row">
+			 	<div class="col-xl-3 col-lg-6">
+		            <div class="card">
+		                <div class="card-body">
+		                    <div class="stat-widget-one">
+		                        <div class="stat-icon dib"><i class="ti-money text-success border-success"></i></div>
+		                        <div class="stat-content dib">
+		                            <div class="stat-text">Doanh số bán hàng</div>
+		                            <div class="stat-digit">1,012</div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+				<div class="col-xl-3 col-lg-6">
+		            <div class="card">
+		                <div class="card-body">
+		                    <div class="stat-widget-one">
+		                        <div class="stat-icon dib"><i class="ti-bar-chart text-success border-success"></i></div>
+		                        <div class="stat-content dib">
+		                            <div class="stat-text">Doanh số tổng cộng</div>
+		                            <div class="stat-digit">{{sumOrder| currency: "":0}}đ</div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+
+		        <div class="col-xl-3 col-lg-6">
+		            <div class="card">
+		                <div class="card-body">
+		                    <div class="stat-widget-one">
+		                        <div class="stat-icon dib"><i class="ti-check-box text-primary border-primary"></i></div>
+		                        <div class="stat-content dib">
+		                            <div class="stat-text">Tổng đơn hàng đã xử lý</div>
+		                            <div class="stat-digit">{{donHangDaDuyet}}</div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+
+		        <div class="col-xl-3 col-lg-6">
+		            <div class="card">
+		                <div class="card-body">
+		                    <div class="stat-widget-one">
+		                        <div class="stat-icon dib"><i class="ti-comments text-warning border-warning"></i></div>
+		                        <div class="stat-content dib">
+		                            <div class="stat-text">Tổng số đánh giá / bình luận</div>
+		                            <div class="stat-digit">{{tongReview}}</div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+
+			</div>   
+            <div class="animated fadeIn">
+                <div class="row">
+
+                    <div class="col-lg-8">
+                        <div class="card">
+                        	<div class="card-header">
+                        		<div class="row">
+                        			<div class="col-2">
+                        				<p>Doanh thu</p>
+                        			</div>
+                        			<div class="col-5" style="display: flex;" >
+                        				<label class="col-form-label">Tháng</label>
+                        				<select class="form-control" name="month" id="month" ng-model="month" ng-options="month.id as month.name for month in months" ng-change="changeMonth()">				
+                        				</select>
+                        			</div>
+                        			<div class="col-5" style="display: flex;">
+                        				<label class="col-form-label">Năm</label>
+                        				<select class="form-control" name="year" id="year" ng-model="year" ng-options="year.id as year.name for year in years" ng-change="changeYear()">				
+                        				</select>
+                        			</div>
+                        		</div>
+                        	</div>
+                            <div class="card-body">
+                                <canvas id="team-chart-custom"></canvas>
+                            </div>
+                        </div>
+                    </div><!-- /# column -->
+
+                   <div class="col-lg-4">
+                        <div class="card">
+                        	<div class="card-header">
+                        		Phần trăm
+                        	</div>
+                            <div class="card-body">
+                                <canvas id="pieChart"></canvas>
+                            </div>
+                        </div>
+                    </div><!-- /# column -->
+
+
+                </div>
+
+            </div><!-- .animated -->
+        </div><!-- .content -->
+	</section>
+</body>
+
+
+<section layout:fragment="script">
+	<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+    <script th:src="@{/js/angularjs/controller/DashBoardStore.js}"></script>
+</section>
+</html>
+
+
+

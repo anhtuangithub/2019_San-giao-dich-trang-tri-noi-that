@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/parts/layout}">
+<head>
+<title>Review</title>
+<style>
+	.chat {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.darker {
+  border-color: #ccc;
+  background-color: #ddd;
+}
+
+.chat::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.chat p{
+	color:#212529;
+}
+.chat img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.chat img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+
+.time-right {
+  float: right;
+  color: #aaa;
+}
+
+.time-left {
+  float: left;
+  color: #999;
+}
+</style>
+</head>
+<body>
+	<section layout:fragment="content">
+
+		<div style="padding: 20px;">
+			<h2>Quản lý Câu hỏi và câu trả lời</h2>
+		</div>
+
+
+		<div class="content" ng-controller="QAController">
+			<div class="animated fadeIn">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<strong class="card-title">Danh sách câu hỏi và câu trả lời</strong>
+							</div>
+							<div class="card-body">
+								<table id="bootstrap-data-table-export" dt-options="dtOptions" dt-columns="dtColumns" datatable="ng" class="table table-bordered table-hover text-center">
+									<thead class="thead-light">
+										<tr>
+											<th>STT</th>
+											<th>Câu hỏi</th>
+											<th>Ngày hỏi</th>
+											<th>Sản phẩm</th>
+											<th>Khách hàng</th>
+											<th>Trạng thái</th>
+											<th></th>
+										</tr>
+										
+									</thead>
+
+									<tbody>
+										<tr ng-repeat= "question in listquestion">
+											<td>{{$index+1}}</td>
+											<td>{{question.content}}</td>
+											<td>{{question.created_at}}</td>
+											<td>{{question.products["name"]}}</td>
+											<td>{{question.customers["name"]}}</td>
+											<td ng-if="question.status == 1"><span class="fa fa-unlock"></span></td>
+											<td ng-if="question.status == 0"><span class="fa fa-lock" style="color:#bd2130"></span></td>
+											<td>
+												<button class="btn-none-background" ng-click="modal(question.id)" >
+													<span class="fa fa-pencil table-click-icon"></span>
+												</button>
+												<button class="btn-none-background" ng-click="changeStatus(question.id,question.status)">
+													<span class="fa fa-exchange table-click-icon"></span>
+												</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+			<!-- .animated -->
+
+
+			<!-- Modal -->
+			<div class="modal fade" tabindex="-1" role="dialog" id="modalQA">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">{{ frmTitle }}</h4>
+							<button type="button" class="close" data-dismiss="modal">×</button>
+						</div>
+						<div class="modal-body">
+							
+								<div class="chat">
+								  	<img th:src="@{/images/question.png}" alt="question" >
+								  	<p>{{question.content}} <span class="pull-right">Khách hàng: {{question.customers["name"]}}</span></p>
+								  	<span class="time-left">{{question.created_at}}</span>
+								</div>
+								<div class="chat darker" ng-repeat="answer in listanswer" ng-click="getAnswer(answer.id,answer.content)">
+									<img th:src="@{/images/answer.jpg}"  class="right" alt="answer" style="width:100%;">
+									<p>{{answer.content}}</p>
+									<span class="time-right">{{answer.created_at}}</span>
+								</div>
+								<hr>
+							<form name="frm" class="form-horizontal">
+								<label>{{ frmanswer }}</label>
+								<input type="text" class="form-control" ng-model="answer.content" name="txtcontent" required="true">
+								<span id="helpBlock2" class="help-block" ng-show="frm.txtcontent.$error.required">Nhập câu trả lời</span>	
+								<br>
+								<button type="button" class="btn pull-right" style="background-color: #f74906;color:#fff" 
+								ng-disabled="frm.$invalid"
+								ng-click="save(answer.id)">Lưu</button>
+							</form>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+		</div>
+		</div>
+		<!-- .content -->
+
+	</section>
+</body>
+
+<section layout:fragment="script">
+    <script th:src="@{/js/angularjs/controller/QAController.js}"></script>
+</section>
+</html>
+
+

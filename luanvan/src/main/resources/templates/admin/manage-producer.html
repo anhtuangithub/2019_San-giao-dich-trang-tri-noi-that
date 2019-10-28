@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/parts/layout}">
+<head>
+<title>Loại sản phẩm</title>
+</head>
+<body>
+	<section layout:fragment="content">
+
+		<div style="padding: 20px;">
+			<h4>Quản lý nhà sản xuất</h4>
+		</div>
+		<div  ng-controller="ProducerController">
+		<div class="row">
+			<div class="col-md-6 offset-md-3" style="padding-bottom:20px" >
+		
+				<form name="frmproducers" class="form-horizontal">
+					<div class="form-group">
+						<label>Nhà sản xuất:</label>
+						<input type="input" class="form-control" id="txtproducers" name="txtproducers" ng-model="producers.name" required="true"/>
+						<span id="helpBlock2" class="help-block" ng-show="frmproducers.txtproducers.$error.required">Nhập tên nhà sản xuất</span>
+					</div>
+					<div class="pull-right">
+						<button type="submit" class="btn btn-primary" ng-disabled="frmproducers.$invalid" ng-click="save()" >Lưu</button>
+						<button type="submit" class="btn btn-warning" ng-click="cancel()">Hủy</button>
+					</div>
+				</form>
+			</div>
+		</div>	
+		
+			
+		<div class="animated fadeIn">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<strong class="card-title">Danh sách nhà sản xuất</strong>
+							</div>
+							<div class="card-body">
+								<table id="bootstrap-data-table-export"
+									class="table table-bordered table-hover text-center">
+									<thead class="thead-light">
+										<tr>
+											<th>Mã</th>	
+											<th>Nhà sản xuất</th>
+											<th>Trạng thái</th>
+											<th>Sự kiện</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="producer in listproducers">
+											<td>{{producer.id}}</td>
+											<td>{{producer.name}}</td>
+											<td ng-if="producer.status == 0"><span class="fa fa-unlock"></span></td>
+											<td ng-if="producer.status == 1"><span class="fa fa-lock" style="color:#bd2130"></span></td>
+											<td>
+												
+												<button class="btn btn-info" ng-click="edit(producer.id)">
+													<span class="fa fa-pencil"></span>
+												</button>
+												<button class="btn btn-warning" ng-click="changeStatus(producer.id,producer.name,producer.status)">
+													<span class="fa fa-exchange"></span>
+												</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- .animated -->
+			</div>
+	</section>
+</body>
+
+<section layout:fragment="script">
+    <script th:src="@{/js/angularjs/controller/ProducerController.js}"></script>
+</section>
+</html>
+
+
+
+

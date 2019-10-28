@@ -1,0 +1,146 @@
+<table align="center" bgcolor="#dcf0f8" border="0" cellpadding="0" cellspacing="0" style="margin:0;padding:0;background-color:#f2f2f2;width:100%!important;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px" width="100%">
+    <tbody>
+    <tr>
+        <td align="center" style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal" valign="top">
+            <table border="0" cellpadding="0" cellspacing="0" style="margin-top:15px" width="600">
+                <tbody>
+
+
+                <tr style="background:#fff">
+                    <td align="left" height="auto" style="padding:15px" width="600">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <h1 style="font-size:17px;font-weight:bold;color:#444;padding:0 0 5px 0;margin:0">Cảm ơn quý khách đã đặt hàng tại NoiThat246,</h1>
+
+                                    <p style="margin:4px 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal">NoiThat246 rất vui thông báo đơn hàng #<span th:utext="${order.id}"></span> của quý khách đã được tiếp nhận và đang trong quá trình xử lý. NoiThat246 sẽ thông báo đến quý khách ngay khi hàng chuẩn bị được giao.</p>
+
+                                    <h3 style="font-size:13px;font-weight:bold;color:#f29f29;text-transform:uppercase;margin:20px 0 0 0;border-bottom:1px solid #ddd">Thông tin đơn hàng #<span th:utext="${order.id}"></span> <span style="font-size:12px;color:#777;text-transform:none;font-weight:normal"><span th:utext="${#dates.format(order.created_at, 'dd-MM-yyyy HH:mm:ss')}"></span></span></h3>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th align="left" style="padding:6px 9px 0px 9px;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;font-weight:bold" width="50%">Thông tin thanh toán</th>
+                                            <th align="left" style="padding:6px 9px 0px 9px;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;font-weight:bold" width="50%"> Địa chỉ giao hàng </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td style="padding:3px 9px 9px 9px;border-top:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal" valign="top">
+                                                <a href="javascript:void(0)" target="_blank"><span th:utext="${order.orders[0].user.email}"></span></a><br>
+                                                 SĐT: <span th:utext="${order.phone}"></span></td>
+                                            <td style="padding:3px 9px 9px 9px;border-top:0;border-left:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal" valign="top">
+                                                <span th:utext="${order.address}"></span>
+                                                <br>
+                                                SĐT: <span th:utext="${order.phone}"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="padding:7px 9px 0px 9px;border-top:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444" valign="top">
+                                                <p style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal"><strong>Phương thức thanh toán: </strong> <span th:utext="${order.orders[0].paymentType.name}"></span> <br>
+                                                    <strong>Thời gian giao hàng dự kiến:</strong> Dự kiến giao hàng trong vòng 3-4 ngày - không giao ngày Thứ Bảy &amp; Chủ Nhật  <br>
+                                                    <strong>Phí vận chuyển: </strong> 0&nbsp;₫<br>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p style="margin:4px 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal"><i>Lưu ý: Đối với đơn hàng đã được thanh toán trước, nhân viên giao nhận có thể yêu cầu người nhận hàng cung cấp CMND / giấy phép lái xe để chụp ảnh hoặc ghi lại thông tin.</i></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h2 style="text-align:left;margin:10px 0;border-bottom:1px solid #ddd;padding-bottom:5px;font-size:13px;color:#f29f29">CHI TIẾT ĐƠN HÀNG</h2>
+									<div style="padding: 10px 0; border-bottom: 1px solid #ddd;" th:each="orders, iterStat  : ${order.orders}">
+										<p style="font-size: 13px"><strong>Kiện hàng</strong> <span th:utext="${iterStat.index}+1"></span> <span>được bán bởi <span th:utext="${orders.stores.name}"></span></span></p>
+									
+	                                    <table border="0" cellpadding="0" cellspacing="0" style="background:#f5f5f5" width="100%">
+	                                        <thead>
+	                                        <tr>
+	                                            <th align="left" bgcolor="#f29f29" style="padding:6px 9px;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px">Sản phẩm</th>
+	                                            <th align="left" bgcolor="#f29f29" style="padding:6px 9px;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px">Đơn giá</th>
+	                                            <th align="left" bgcolor="#f29f29" style="padding:6px 9px;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px">Số lượng</th>
+	                                            <th align="left" bgcolor="#f29f29" style="padding:6px 9px;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px">Giảm giá</th>
+	                                            <th align="right" bgcolor="#f29f29" style="padding:6px 9px;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px">Tổng tạm</th>
+	                                        </tr>
+	                                        </thead>
+	                                        <tbody bgcolor="#eee" style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px" th:each="obj : ${orders.orderDetail}">			
+	                                        	<tr>
+	                                            <td align="left" style="padding:3px 9px" valign="top"><span th:text="${obj.product.name}"></span><br>
+	                                            </td>
+	                                            <td align="left" style="padding:3px 9px" valign="top"><span><span th:utext="${#numbers.formatDecimal(obj.unitPrice.price,0, 'COMMA', 0, 'POINT')}"></span>&nbsp;đ</span></td>
+	                                            <td align="left" style="padding:3px 9px" valign="top"><span th:utext="${obj.quantity}"></span></td>
+	                                            <td align="left" style="padding:3px 9px" valign="top">
+	                                            	<span th:if="${obj.promotion} != null"><span th:utext="${obj.promotion.sale_off}"></span>%</span>
+
+													<span th:if="${obj.promotion} == null">0</span>
+	                                            </td>
+	                                            <td align="right" style="padding:3px 9px" valign="top"><span><span th:utext="${#numbers.formatDecimal(obj.totalPrice,0, 'COMMA', 0, 'POINT')}"></span>&nbsp;đ</span></td>
+	                                        </tr>
+	                                        </tbody>
+	                                      
+	                                        </tfoot>
+	                                    </table>
+									</div>
+
+									<table border="0" cellpadding="0" cellspacing="0" style="background:#f5f5f5" width="100%">
+	                                        
+                                        <tfoot style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px">											<tr>
+                                            <td align="right" colspan="4" style="padding:5px 9px">Tổng tạm tính</td>
+                                            <td align="right" style="padding:5px 9px"><span><span th:utext="${#numbers.formatDecimal(order.total, 0, 'COMMA', 0, 'POINT')}"></span>&nbsp;đ</span></td>
+                                        </tr>
+                                      
+                                        <tr bgcolor="#eee">
+                                            <td align="right" colspan="4" style="padding:7px 9px"><strong><big>Tổng giá trị đơn hàng</big> </strong></td>
+                                            <td align="right" style="padding:5px 5px"><strong><big><span><span th:utext="${#numbers.formatDecimal(order.total, 0, 'COMMA', 0, 'POINT')}"></span>&nbsp;đ</span> </big> </strong></td>
+                                        </tr>
+                                        </tfoot>
+                                    </table>		
+                                    <div style="margin:auto"><a href="" style="display:inline-block;text-decoration:none;background-color:#00b7f1!important;margin-right:30px;text-align:center;border-radius:3px;color:#fff;padding:5px 10px;font-size:12px;font-weight:bold;margin-left:35%;margin-top:5px" target="_blank" data-saferedirecturl="https://www.google.com/url?q=http://mg-email.NoiThat246.vn/c/eJwdjs2KxCAQhJ9Gj2L8afXgYWGY1xg6tiYyiVmM7Lz-ugsFVfAVRVFcwRZCXiNaC9maRQNlsCTV4lwpvtBKCE4HZuT9qWWILbfccWTie1yDT94lKLBKHwpoxJQMwSKNNbIkfsR9jO-b6S-mnlOjvqv4aTPdeOR7-tUp9z_SMb1r2x55YD2YfqaLMtMPkF4qpaziPZJIYuzY9iUENw9t56yKdJ18xP-dV7paqf38BdZVQ5s&amp;source=gmail&amp;ust=1572182355062000&amp;usg=AFQjCNGbP2C7PySGxPW_yz8LsKpwaZaD3Q">Chi tiết đơn hàng tại NoiThat246</a></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;
+                                    <p style="margin:10px 0 0 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal">Bạn cần được hỗ trợ ngay? Chỉ cần email <a href="mailto:tuan.eze@gmail.com" style="color:#099202;text-decoration:none" target="_blank"> <strong>hotro@NoiThat246.vn</strong> </a>, hoặc gọi số điện thoại <strong style="color:#099202">1900-6035</strong> (8-21h cả T7,CN). Đội ngũ NoiThat246 luôn sẵn sàng hỗ trợ bạn bất kì lúc nào.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;
+                                    <p style="font-family:Arial,Helvetica,sans-serif;font-size:12px;margin:0;padding:0;line-height:18px;color:#444;font-weight:bold">Một lần nữa NoiThat246 cảm ơn quý khách.</p>
+
+                                    <p style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal;text-align:right"><strong><a href="" style="color:#f29f29;text-decoration:none;font-size:14px" target="_blank">NoiThat246</a> </strong></p>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <table width="600">
+                <tbody>
+                <tr>
+                    <td>
+                        <p align="left" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:18px;color:#4b8da5;padding:10px 0;margin:0px;font-weight:normal">Quý khách nhận được email này vì đã mua hàng tại NoiThat246.<br>
+                            Để chắc chắn luôn nhận được email thông báo, xác nhận mua hàng từ NoiThat246, quý khách vui lòng thêm địa chỉ <strong><a href="mailto:hotro@NoiThat246.vn" target="_blank">hotro@NoiThat246.vn</a></strong> vào số địa chỉ (Address Book, Contacts) của hộp email.<br>
+                            <b>Văn phòng NoiThat246:</b> 52 Út Tịch, phường 4, quận Tân Bình, thành phố Hồ Chí Minh, Việt Nam<br>
+                            Bạn không muốn nhận email từ NoiThat246? Hủy đăng ký tại <a href="http://mg-email.NoiThat246.vn/c/eJwNjrtuAyEQRb8GSsTDgCkonEgp00Suo4EZvMheNgI2-f0gXemc6uhiTM4WBF4jWOvIXpRxSM6i1Mr7Uq4FE4LzJrCLHH-1TPGgRh0mId9ikU5ZSYlASwQblHTOGFksBLLaXPkrMn1j_v3--XV_Y-a2zfkzFpn-WJv1WcVvW5bPMY-d-lLI-TjbXHa2caaRe020EivEe0SRxdygbSoEvz49dqgvkY-dz3h0pP6dj1Zq3_8BCMFEEw" target="_blank" data-saferedirecturl="https://www.google.com/url?q=http://mg-email.NoiThat246.vn/c/eJwNjrtuAyEQRb8GSsTDgCkonEgp00Suo4EZvMheNgI2-f0gXemc6uhiTM4WBF4jWOvIXpRxSM6i1Mr7Uq4FE4LzJrCLHH-1TPGgRh0mId9ikU5ZSYlASwQblHTOGFksBLLaXPkrMn1j_v3--XV_Y-a2zfkzFpn-WJv1WcVvW5bPMY-d-lLI-TjbXHa2caaRe020EivEe0SRxdygbSoEvz49dqgvkY-dz3h0pP6dj1Zq3_8BCMFEEw&amp;source=gmail&amp;ust=1572182355062000&amp;usg=AFQjCNGHw7s4ZichAkBvohFBwbiLinD5yQ">đây</a>.</p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>

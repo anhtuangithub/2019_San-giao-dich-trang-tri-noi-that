@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/parts/layout}">
+<head>
+<title>Loại sản phẩm</title>
+</head>
+<body>
+	<section layout:fragment="content">
+
+		<div style="padding: 20px;">
+			<h4>Quản lý loại sản phẩm</h4>
+		</div>
+		<div class="col-md-12" ng-controller="CategoryController">
+			<div class="col-md-5">
+				<form name="frmcategories" class="form-horizontal">
+					<div class="form-group">
+						<label>Loại sản phẩm:</label>
+						<input type="input" class="form-control" id="txtcategory" name="txtcategory" ng-model="categories.name" required/>
+						<span id="helpBlock2" class="help-block" ng-show="frmcategories.txtcategory.$error.required">Nhập tên danh mục</span>
+					</div>
+					<div class="form-group" ng-show="displayInput">
+						<label>Danh mục cha:</label> 
+						<input type="text" class="form-control" id="txtparentId" name="txtparentId" ng-model="categories.parentId" ng-value="categories.parentId" readonly hidden>
+						<p style="color:blue">{{categories.nameParentId}}</p>
+					</div>
+					<div class="form-group">
+						<label>Trạng thái</label> 
+							<input type="radio" ng-model="categories.status" id="txtTrangThai0" name="txtTrangThai" ng-value="0"> Kích hoạt
+							<input type="radio" ng-model="categories.status" id="txtTrangThai1" name="txtTrangThai" ng-value="1"> Tạm khóa 
+							
+					</div>
+					<div class="pull-right">
+						<button type="submit" class="btn btn-primary" ng-disabled="frmcategories.$invalid" ng-click="save()" >Lưu</button>
+						<button type="submit" class="btn btn-warning" ng-click="cancel()">Hủy</button>
+						<!-- <button type="submit" class="btn btn-danger" ng-show="checkDeleteCategory" ng-click="deleteCategories(categories.id,categories.name)">Xóa</button> -->
+					</div>
+					
+				</form>
+			</div>
+			<div class="col-md-7">
+                <div class="navigation-border" style="padding:0;z-index: 10002;display: block" > 
+                    <ul class="navigation-wrapper" id="myDropdown" >
+                        <li class="menuItem"  ng-repeat="category in listcategories" >
+                        	<a  class="linkItem">
+                        		<span  ng-click="edit(category.id,category.parentId)" class="fa fa-pencil" style="font-size: 20px"> </span>
+                        		 {{category.name}}
+                        	</a>
+	                        <div class="submenu">
+		                        <ul>
+		                            <li class="submenu-NavSub" ng-repeat="subcategory in category.categories" ng-click="edit(subcategory.id,subcategory.parentId)">
+									<span ng-click="edit(subcategory.id,subcategory.parentId)" style="font-size: 20px;" class="fa fa-pencil"> </span>
+		                            	{{subcategory.name}}
+		                            </li>
+		                            <li class="submenu-NavSub-last" ng-click="chooseParentId(category.id,category.name)">
+										<span>Thêm </span>
+		                            </li> 
+		                        </ul>
+		                    </div>                       
+                        </li>
+                       	
+                    </ul>
+                </div>
+			</div>
+		</div>
+	</section>
+</body>
+
+
+<section layout:fragment="script">
+    <script th:src="@{/js/angularjs/controller/CategoryController.js}"></script>
+</section>
+</html>
+
+
+

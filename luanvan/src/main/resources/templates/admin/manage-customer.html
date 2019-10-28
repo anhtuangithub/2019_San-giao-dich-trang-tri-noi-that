@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/parts/layout}">
+<head>
+<title>QUản lý tài khoản khách hàng</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+	<section layout:fragment="content">
+
+		<div style="padding: 20px;">
+			<h2>Quản lý tài khoản khách hàng</h2>
+		</div>
+
+
+		<div class="content" ng-controller="ManageCustomerController">
+			<div class="animated fadeIn">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<strong class="card-title">Danh sách tài khoản khách hàng</strong>
+							</div>
+							<div class="card-body">
+								<table id="bootstrap-data-table-export"
+									class="table table-bordered table-hover text-center">
+									<thead class="thead-light">
+										<tr>
+											<th>STT</th>
+											<th>Tên khách hàng</th>
+											<th>Thông tin liên hệ</th>
+											<th>Tài khoản sử dụng</th>	
+											<th></th>
+										</tr>
+										
+									</thead>
+
+									<tbody>
+										<tr ng-repeat= "customer in listCustomer">
+											<td>{{$index+1}}</td>
+											<td>{{customer.name}}</td>
+											<td style="text-align: left;">
+												<p><b>Địa chỉ:</b> {{customer.address}}</p>
+												<p><b>SĐT:</b> {{customer.phone}}</p>
+												<p><b>Giới tính:</b> {{customer.sex}}</p>
+												<p><b>Ngày sinh:</b> {{customer.birthday| date: "dd-MM-yyyy"}}</p>
+											</td>
+											<td>{{customer.users.email}}</td>
+											<td>
+												<button class="btn-none-background" ng-click="modal(review.id)" >
+													<span class="fa fa-pencil table-click-icon"></span>
+												</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+			<!-- .animated -->
+
+
+			<!-- Modal -->
+			<div class="modal fade" tabindex="-1" role="dialog" id="modalReview">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">{{ frmTitle }}</h4>
+							<button type="button" class="close" data-dismiss="modal">×</button>
+						</div>
+						<div class="modal-body">
+							<form name="frm" class="form-horizontal">
+								<div class="form-group">
+									<label>Review</label>
+									<TEXTAREA type="text" class="form-control" id="txtcontent"
+										name="txtcontent" placeholder="Nhập review của bạn"
+										ng-model="reviews.content" ng-required="true" readonly></TEXTAREA>
+								</div>
+								<div class="form-group">
+									<label>Đánh giá</label>
+									
+								</div>
+								<div class="form-group">
+									<label>Trạng thái</label> 
+									<input type="radio"
+										ng-model="reviews.status"
+										name="txtstatus" ng-value="0"> Kích hoạt 
+									<input
+										type="radio" ng-model="reviews.status"
+										name="txtstatus" ng-value="1"> Tạm khóa
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary"
+								ng-disabled="frm.$invalid"
+								ng-click="save()">Lưu</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+		</div>
+		</div>
+		<!-- .content -->
+
+	</section>
+</body>
+</html>
+
+<script th:src="@{/js/angularjs/controller/ManageCustomerController.js}"></script>

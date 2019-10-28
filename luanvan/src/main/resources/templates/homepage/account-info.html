@@ -1,0 +1,156 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{homepage/parts/layout}">
+<head>
+<title>Quản lý tài khoản</title>
+</head>
+<body>
+	<div class="container-product" layout:fragment="content" ng-controller="InfoAccountController">
+         
+        <div layout:replace="~{homepage/parts/side-bar :: side-bar}"></div>
+
+        <div class="product-listing-grid">
+            
+            <div class="row" ng-if="infoUser.customer != null">
+	            <div class="product-header">
+	                <h3 class="title-deal">
+	                    Quản lí tài khoản
+	                </h3>
+	            </div>
+                <div class="info-summary col-md-4">
+                    <h4 class="info-summary-title">Thông tin cá nhân </h4>
+                    <div class="info-summary-detail">
+                        <p>{{infoUser.customer.name}}</p>
+                        <p>{{infoUser.email}}</p>
+                    </div>
+                </div>
+                <div class="info-summary col-md-4">
+                    <h4 class="info-summary-title">Địa chỉ</h4><span> | <a href="#" data-toggle="modal" data-target="#modalAddress">chỉnh sửa</a></span>
+                    <div class="info-summary-detail">
+                        <p>Địa chỉ nhận hàng mặc định</p>
+                        <p>{{infoUser.customer.address}}</p>
+                        <p>SĐT: {{infoUser.customer.phone}}</p>
+                    </div>
+                </div>
+                <div class="info-summary col-md-4">
+                    <div class="info-summary-detail">
+                        <p>Địa chỉ thanh toán mặc định</p>
+                        <p>{{infoUser.customer.address}}</p>
+                        <p>SĐT: {{infoUser.customer.phone}}</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row"  ng-if="infoUser.store != null">
+	       		<div class="product-header">
+		                <h3 class="title-deal">
+		                    Quản lí tài khoản
+		                </h3>
+		            </div>
+	                <div class="info-summary col-md-4">
+	                    <h4 class="info-summary-title">Thông tin cá nhân </h4>
+	                    <div class="info-summary-detail">
+	                        <p>Tên cửa hàng: {{infoUser.store.name}}</p>
+	                        <p>Email: {{infoUser.email}}</p>
+	                    </div>
+	                </div>
+	                <div class="info-summary col-md-4">
+	                    <h4 class="info-summary-title">Địa chỉ</h4><span> | <a href="#" data-toggle="modal" data-target="#modalAddress">chỉnh sửa</a></span>
+	                    <div class="info-summary-detail">
+	                        <p>Địa chỉ nhận hàng mặc định</p>
+	                        <p><b>Lê Anh Tuấn</b></p>
+	                        <p>152A đường 3/2 Cần Thơ - Quận Ninh Kiều - Phường Xuân Khánh</p>
+	                        <p>(+84) 0941426824</p>
+	                    </div>
+	                </div>
+	                <div class="info-summary col-md-4">
+	                    <div class="info-summary-detail">
+	                        <p>Địa chỉ thanh toán mặc định</p>
+	                        <p>{{infoUser.store.address}}, {{infoUser.store.ward.name}}, {{infoUser.store.district.name}}, {{infoUser.store.province.name}}</p>
+	                        <p>SĐT: {{infoUser.store.phone}}</p>
+	                    </div>
+	                </div>
+	       	</div>
+	        <div class="row" ng-if="orderGroups.length > 0">
+					
+				<div class="product-header">
+	                <h3 class="title-deal">
+	                    Đơn hàng gần đây
+	                </h3>
+	            </div>
+
+	            <div class="recent-orders" >
+	                <table class="table table-hover table-custom-responsive" >
+	                    <thead>
+	                        <tr>
+	                            <th>Mã đơn hàng</th>
+	                            <th>Ngày đặt hàng</th>
+	                            <th>Sản phẩm</th>
+	                            <th>Tổng cộng</th>
+	                            <th>Quản lý</th>
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+	                        <tr ng-repeat="orderGroup in orderGroups">
+	                            <td>{{orderGroup.id}}</td>
+	                            <td>{{orderGroup.created_at | date: "dd-MM-yyyy 'at' h:mma":'UTC'}}</td>
+	                            <td>
+	                            	<div  ng-repeat="order in orderGroup.orders" style="display: flex;">
+	                            		<img ng-repeat="detail in order.orderDetail" ng-src="/img/uploads/{{detail.product.avatar}}" alt="avatar" style="width: 60px;height: 60px;padding:2px;" >
+	                            	</div>
+	                            	
+	                            </td>
+	                            <td>{{orderGroup.total| currency: "":0}} đ</td>
+	                            <td><a  ng-href="/noithat246.vn/tai-khoan/order-detail-{{orderGroup.id}} " class="order-quantiy" style="color:#1a9cb7">Quản lý</a></td>
+	                        </tr>
+	                     
+	                    </tbody>
+	                </table>
+	            </div>
+	    	</div>
+    	</div>
+       	
+
+
+	      <!-- The Modal -->
+	    <div class="modal" id="modalAddress">
+	        <div class="modal-dialog">
+	            <div class="modal-content">
+	      
+	                <!-- Modal Header -->
+	                <div class="modal-header">
+	                    <h4 class="modal-title">Thông tin giao hàng</h4>
+	                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+	                </div>
+	        
+	                <!-- Modal body -->
+	                <div class="modal-body">
+	                    <div class="form-group">
+	                        <label for="usr">Địa chỉ:</label>
+	                        <input type="text" class="form-control" id="address">
+	                    </div>
+	                    <div class="form-group">
+	                        <label for="pwd">SĐT:</label>
+	                        <input type="text" class="form-control" id="phone">
+	                    </div>
+	                </div>
+	        
+	            <!-- Modal footer -->
+	                <div class="modal-footer">
+	                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+	                </div>
+	        
+	            </div>
+	        </div>
+	    </div>
+    </div> <!-- End Container-product -->
+</body>
+<section layout:fragment="script">
+    <script th:src="@{/js/angularjs/controller/InfoAccountController.js}"></script>
+    <script>
+        
+    </script>
+</section>
+
+</html>
+
+

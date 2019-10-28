@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/parts/layout}">
+<head>
+<title>Loại sản phẩm</title>
+</head>
+<body>
+	<section layout:fragment="content">
+
+		<div style="padding: 20px;">
+			<h4>Quản lý thẻ thành viên</h4>
+		</div>
+		<div  ng-controller="MemberTypeController">
+		
+		<div class="animated fadeIn">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<strong class="card-title">Danh sách loại thẻ thành viên</strong>
+							</div>
+							<div class="card-body">
+								<table id="bootstrap-data-table-export"
+									class="table table-bordered table-hover text-center">
+									<thead class="thead-light">
+										<tr>
+											<th>Mã</th>	
+											<th>Tên thẻ</th>
+											<th>Giá</th>
+											<th>Sự kiện</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="membertype in listmembertypes">
+											<td>{{membertype.id}}</td>
+											<td>{{membertype.name}}</td>
+											<td>{{membertype.price | currency: "":0}} đ</td>
+											<td>
+												<button class="btn-none-background" ng-click="edit(membertype.id,membertype.name)">
+													<span  class="fa fa-pencil table-click-icon"></span>
+												</button>
+													
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- .animated -->
+			<!-- Modal -->
+			<div class="modal fade" tabindex="-1" role="dialog" id="modalMemberType">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">{{ frmTitle }}</h4>
+							<button type="button" class="close" data-dismiss="modal">×</button>
+						</div>
+						<div class="modal-body">
+							<form name="frmmembertypes" class="form-horizontal">
+								<div class="form-group">
+								<label>Tên thẻ:</label>
+								<input type="input" class="form-control" id="txtmembertypes" name="txtmembertypes" ng-model="membertypes.name" required="true"/>
+									<span id="helpBlock2" class="help-block" ng-show="frmmembertypes.txtmembertypes.$error.required">Nhập tên nguyên liệu</span>
+								</div>
+								<div class="form-group">
+								<label>Giá:</label>
+								<input type="input" class="form-control" id="txtprice" name="txtprice" ng-model="membertypes.price" required="true"/>
+									<span id="helpBlock2" class="help-block" ng-show="frmmembertypes.txtprice.$error.required">Nhập giá của thẻ</span>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary" ng-disabled="frmmembertypes.$invalid" ng-click="save()" >Lưu</button>
+							<button type="submit" class="btn btn-warning" ng-click="cancel()">Hủy</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+			</div>
+	</section>
+</body>
+
+
+<section layout:fragment="script">
+    <script th:src="@{/js/angularjs/controller/MemberTypeController.js}"></script>
+</section>
+</html>
+
+
+
+

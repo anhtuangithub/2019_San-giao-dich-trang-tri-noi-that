@@ -1,0 +1,25 @@
+<div class="side-bar-info-account" layout:fragment="side-bar">
+    <div class="container-info-acccount">
+        <div class="info-account-border">
+            <div class="info-account-header">
+                <h4 class="info-account-header-title"><a ng-href="/noithat246.vn/tai-khoan/quan-li-tai-khoan">Quản lý tài khoản</a></h4>
+            </div>
+            <div class="info-account-container">
+                <ul>
+                    <li class="info-account-detail" sec:authorize="!hasRole('ROLE_STORE')"><a ng-href="/noithat246.vn/tai-khoan/thong-tin-ca-nhan">Thông tin cá nhân</a></li>
+                    <li class="info-account-detail" sec:authorize="hasRole('ROLE_STORE')" ><a ng-href="/noithat246.vn/tai-khoan/thong-tin-cua-hang">Thông tin cửa hàng</a></li>
+                    <li class="info-account-detail"><a ng-href="/noithat246.vn/tai-khoan/tat-ca-order">Đơn hàng của tôi</a></li>
+
+                    <li class="info-account-detail" sec:authorize="hasRole('ROLE_STORE')" ><a ng-href="/noithat246.vn/tai-khoan/thong-tin-goi-dang-ki">Thông tin gói đăng kí</a></li>
+                </ul>
+            </div>
+            <div class="info-account-header">
+                <h4 class="info-account-header-title"><a ng-href="/noithat246.vn/tai-khoan/danh-gia-cua-toi">Nhận xét của tôi</a></h4>
+            </div>
+            <div class="info-account-header">
+                <h4 class="info-account-header-title"> <a  ng-href="/noithat246.vn/tai-khoan/cau-hoi-cua-toi">Câu hỏi của tôi</a></h4>
+            </div>
+
+        </div>
+    </div>
+</div>

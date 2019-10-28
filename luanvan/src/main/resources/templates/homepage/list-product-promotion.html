@@ -1,0 +1,103 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{homepage/parts/layout}">
+<head>
+<title>Content</title>
+</head>
+<body>
+	<div class="container-product" layout:fragment="content" >
+
+         <div class="row">
+         	<div class="product-header" style="background-color: #fff;">
+	            <h3 class="title-deal">
+	                Tiki Deal
+	            </h3>
+	            <p>Cập nhật hàng giờ tất cả những deal giảm giá đặc biệt trên Tiki. Hãy bookmark trang này và quay lại thường xuyên để không bỏ lỡ bạn nhé!</p>
+	        </div>
+			<div class="side-bar-filter">
+				<div class="container-filter">
+					<div class="filter-border">
+						<div class="filter-header">
+							<h4 class="filter-header-title">Danh mục</h4>
+						</div>
+						<div class="filter-container">
+							<ul>
+								<li th:each="category : ${categorys}" class="origin-title" th:attr="onclick=|FilterAdvanced('category','${category.id}')|">
+									<span th:utext="${category.name}"></span>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Product-listing-grid -->
+			<div class="product-listing-grid" style="background-color: #fff">
+				<!-- Grid List Product -->
+		            <div class="row-product-grid" style="background-color: #fff">
+		            	<a th:href="@{/noithat246.vn/chi-tiet-san-pham/}+${product.id}" class="product-wrapper-grid" th:each="product : ${products.content}" th:attr="title=${product.name}">
+		                    <div class="block-wrapper-grid" >
+		                        <div class="product-thumbnail-grid">
+		                             <img th:src="@{/img/uploads/}+${product.avatar}" alt="avatar">
+		                        </div>
+		                        <div class="movie-meta-grid">
+		                            <div class="product-title-grid" th:text="*{product.name}"></div>
+		                            <p style="display: inline-table;">
+		                            	<span th:if="${product.price_new} != ${product.price}">
+		                            		<span class="product-price-grid"> <span th:utext="${#numbers.formatCurrency(product.price_new)}"></span></span>	
+		                            		<span class="product-sales-off-grid"> <span th:utext="${#numbers.formatCurrency(product.price)}"></span></span>
+		                            	</span>
+		                            	<span th:if="${product.price_new} == ${product.price}">
+		                            		<span class="product-price-grid"  th:utext="${#numbers.formatCurrency(product.price_new)}"></span>
+		                            	</span>
+		                            	<span class="ribbon">
+		                            		<span th:utext="${#numbers.formatDecimal(((product.price - product.price_new)*100)/product.price, 0, 'COMMA', 0, 'POINT')}"></span> %
+		                            	</span>
+		                            </p>
+		                        </div>
+		                        <div class="product-rating-position">
+		                        	<div class="product-rating" th:if="${product.avgstart} > 0"><rate-yo-product th:attr="rating=${product.avgstart}" ></rate-yo-product></div>
+	                        		<div class="product-position"><span th:utext="*{product.stores.province.name}"></span></div>
+		                        </div>
+		                    </div> 
+		                </a>
+		            </div> <!--  End Grid List Product -->
+			</div><!--End  product-listing-grid -->
+
+
+        </div><!-- End Row -->
+        <div class="pull-right">
+	    	<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-end" id="pageable-custom">
+				</ul>
+			</nav>
+        </div>
+    </div> <!-- End Container-product -->
+</body>
+<section layout:fragment="script">
+	<script th:src="@{/js/searchAdvanted.js}"></script>
+		<script th:inline="javascript">
+		// let searchParamsCheck = new URLSearchParams(window.location.search);
+		// var map = {};
+		// if(searchParamsCheck.has("category")){
+		// 	map.categorys = [[${categorys}]] ;	
+		// }
+
+
+		var totalPages = [[${products.totalPages}]];
+		var currentPage = [[${products.number}]];
+		if(totalPages > 1){
+			page(currentPage+1,totalPages);
+		}
+
+
+		// jQuery(document).ready(function(){
+		// 	filterAndvanted(map);			
+		// });
+		
+
+	</script>	
+    
+</section>
+
+</html>
+
+
