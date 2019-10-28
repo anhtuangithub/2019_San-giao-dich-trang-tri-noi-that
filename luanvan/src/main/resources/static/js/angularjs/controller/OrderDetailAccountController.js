@@ -36,7 +36,7 @@ apt.controller('OrderDetailAccountController',function($scope,$http,URL_Home){
 		
 		$http.get(URL_Home + 'reviews/check-review-of-customer/'+productid+'/'+orderid)
 		.then(function(response){
-			jQuery("#feedback").html('<div id="rateYo"></div>');
+			jQuery("#feedback").html('<label for="pwd">Đánh giá:</label><div id="rateYo"></div>');
 			$scope.review = response.data;
 			jQuery(function () {
 		         jQuery("#rateYo").rateYo({
@@ -49,6 +49,16 @@ apt.controller('OrderDetailAccountController',function($scope,$http,URL_Home){
 		})
 		.catch(function(response){
 			$scope.review =null;
+			jQuery("#feedback").html('<label for="pwd">Đánh giá:</label><div id="rateYo"></div>');
+			$scope.review = response.data;
+			jQuery(function () {
+		         jQuery("#rateYo").rateYo({
+		             starWidth: "20px",
+		             rating:5,
+		             fullStar: true
+		         });
+		      
+		     });
 		})
 		 //Get giá trị sao vừa đánh giá
 	  	$scope.addReview = function(){

@@ -177,4 +177,15 @@ public class ProductController {
 	public ResponseEntity<?> changeStatus(@PathVariable Long id) {
 		return productService.changeStatusProduct(id);
 	}
+	
+	@PostMapping("update-stt-image/{productid}")
+	public void updateSttImage(@RequestBody List<Image> images, @PathVariable Long productid) {
+		System.out.println("vo day rôi");
+		productService.updateSttImage(images, productid);
+	}
+	
+	@PostMapping("image/deleteSelect/{productid}")
+	public void deleteImageSelect(@RequestBody List<String> imageIds, @PathVariable Long productid) {
+		System.out.print(imageIds);
+	}
 }

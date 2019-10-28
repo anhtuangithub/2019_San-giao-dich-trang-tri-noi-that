@@ -614,6 +614,19 @@ public class ProductServiceImpl  implements ProductService{
 		});
 		return dtoPage;
 	}
+
+	@Override
+	@Transactional
+	public void updateSttImage(List<Image> images, Long productid) {
+		Product product = productRepository.getOne(productid);
+		for(Image image : images) {
+			image.setProduct_id(product);;
+			imageRepository.save(image);
+		}
+		
+	}
+	
+	
 	
 	
 	

@@ -124,4 +124,6 @@ public interface ProductService {
 												int page,
 												String filter
 											);
+	
+	void updateSttImage(List<Image> images, Long productid);
 }

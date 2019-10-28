@@ -275,7 +275,14 @@ app.controller('ProductController',function($scope,$http,URL_Main){
 	}
 	// Xử lí modal Img
 	$scope.modalImg= function(productid){
-	
+		
+		$scope.productId = productid;
+
+		$http.get(URL_Main + 'products/hinh-cua-san-pham/'+$scope.productId)
+		.then(function(response){
+			$scope.listImage = response.data;
+		});
+
 		$scope.productid = productid;
 		$scope.frmTitle = "Cập nhật hình ảnh ";
 		jQuery('#modalImg').modal('show');
@@ -284,7 +291,6 @@ app.controller('ProductController',function($scope,$http,URL_Main){
 	
 	jQuery("#frmImg").on("submit", function(event){
 		var formData = new FormData(this);
-		console.log($scope.productid);
         formData.append("product",$scope.productid);
         if(jQuery("#imgs").val() != ""){
         	 jQuery.ajax({
@@ -299,6 +305,10 @@ app.controller('ProductController',function($scope,$http,URL_Main){
                 {
                 	toastr.success('Cập nhật hình ảnh thành công', 'Thành công',{timeOut: 3000, escapeHtml: true});
                 	jQuery("#imgs").val('').clone(true);
+                	 $http.get(URL_Main + 'products/hinh-cua-san-pham/'+$scope.productId)
+					.then(function(response){
+						$scope.listImage = response.data;
+					});
                       
                 },
                 error: function(response)
@@ -313,12 +323,102 @@ app.controller('ProductController',function($scope,$http,URL_Main){
          $scope.warning=true;
         }
     });
-	
+
+	$scope.updateSTT = function(){
+		var statuses = [];
+		jQuery('#frmEditImg input[name="stt[]"]').each(function() {
+		  	statuses.push(jQuery(this).val());
+		});
+		for(var i = 0; i < $scope.listImage.length ; i++){
+			$scope.listImage[i].status = statuses[i];
+		}
+		var url = URL_Main + 'products/update-stt-image/'+$scope.productId;
+		var data = $scope.listImage;
+		$http({
+			method : 'POST',
+			url : url,
+			data : data,
+			headers : {'Content-type' : 'application/json'}
+		})
+		.then(function (response){
+			toastr.success('Cập nhật thứ tự hình ảnh thành công', 'Thành công',{timeOut: 3000, escapeHtml: true});
+			$http.get(URL_Main + 'products/hinh-cua-san-pham/'+$scope.productId)
+			.then(function(response){
+				$scope.listImage = response.data;
+			});
+		})
+		.catch(function (response){
+			toastr.error('Có lỗi trong quá trình cập nhật', 'Gặp lỗi!',{timeOut: 3000, escapeHtml: true});
+			
+		});
+	}
+
+    //Modal ->form xóa hình ảnh
+	jQuery("#frmEditImg").on("submit", function(event){
+
+  		var data = [];
+		jQuery('#frmEditImg input[name="deleteImg[]"]:checked').each(function() {
+		  data.push(jQuery(this).val());
+		});
+		console.log(data);
+		
+	     
+        jQuery.ajax({
+          	headers: {'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content'),'Content-type' : 'application/json'},
+            url: URL_Main+"products/image/deleteSelect/"+$scope.productId,
+            method: "POST",
+            data: data,
+            dataType: 'JSON',
+            success: function(response)
+            {
+    //             $http.get(URL_Main + 'products/hinh-cua-san-pham/'+$scope.productId)
+				// .then(function(response){
+				// 	$scope.listImage = response.data;
+				// });
+                
+            },
+            error: function(response)
+            {
+                console.log(response);
+            }
+
+        });
+ 
+	});
+
 	$scope.filterChild = function(){
 		if($scope.childCate == -1){
 			$scope.filterReverse ="";	
 		}
 		else
 			$scope.filterReverse = $scope.childCate ;
+	}
+
+	$scope.deleteProduct = function(productid, productname){
+		Swal.fire({
+			  title: 'Bạn có chắc?',
+			  text: "Xóa sản phẩm này " + productname,
+			  type: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Đồng ý!',
+			  cancelButtonText: 'Không, thoát!',
+			}).then((result) => {
+				if (result.value) {
+					 $http.delete(URL_Main + 'products/'+productid)
+					.then(function(response){
+						toastr.success('Xóa sản phẩm thành công', 'Thành công',{timeOut: 1000, escapeHtml: true});
+						jQuery('#myModal').modal('hide');
+						refreshData();
+					})
+					.catch(function (response){
+						toastr.error('Có lỗi trong quá trình xóa sản phẩm', 'Gặp lỗi!');
+						
+					});
+				}
+			})
+		
+			
 	}
 });

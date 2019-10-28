@@ -14,12 +14,12 @@ import lombok.Data;
 public class StoreDTO {
 
 	
-	@Email(message = "email không hợp lệ")
+	@Email(message = "Email không hợp lệ")
 	@NotBlank(message = "Vui lòng nhập email")
 	private String email;
 	
 	@NotBlank(message = "Vui lòng nhập password")
-	@Length(min = 8, max = 32, message = "Độ dài phải từ 8 -32 kí tự")
+	@Length(min = 8, max = 32, message = "Mật khẩu có độ dài phải từ 8 -32 kí tự")
 	private String password; 
 	
 	@Valid

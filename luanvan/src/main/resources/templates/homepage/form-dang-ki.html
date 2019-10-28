@@ -12,7 +12,9 @@
 		
 		<hr>
 		<form name="frmkm"  class="form-horizontal" >
-			
+			<div class="alert alert-danger" role="alert" ng-if="errors.length > 0">
+				<p ng-repeat="error in errors">{{error}}</p>
+			</div>
 			<div class="col-md-8 offset-2">
 				<div class="form-group-custom">
 					<label for="usr">Thẻ bạn đăng kí <span class="help-block">*</span></label>
