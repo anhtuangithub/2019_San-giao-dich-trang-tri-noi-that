@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.security.core.Authentication;
 
 import com.luanvan.dto.request.CustomerDTO;
+import com.luanvan.dto.request.ResetPasswordDTO;
 import com.luanvan.dto.request.RoleUserDTO;
 import com.luanvan.dto.request.StoreDTO;
 import com.luanvan.dto.request.TestDTO;
@@ -46,4 +47,6 @@ public interface UsersService {
 	InfoUserDTO info(Authentication auth);
 	
 	void resetPassword(String email);
+	
+	void savePassword(ResetPasswordDTO passwordDTO);
 }

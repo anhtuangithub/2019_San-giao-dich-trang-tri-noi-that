@@ -2,6 +2,7 @@ package com.luanvan.restcontroller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -180,12 +181,11 @@ public class ProductController {
 	
 	@PostMapping("update-stt-image/{productid}")
 	public void updateSttImage(@RequestBody List<Image> images, @PathVariable Long productid) {
-		System.out.println("vo day rôi");
 		productService.updateSttImage(images, productid);
 	}
 	
 	@PostMapping("image/deleteSelect/{productid}")
-	public void deleteImageSelect(@RequestBody List<String> imageIds, @PathVariable Long productid) {
-		System.out.print(imageIds);
+	public Map<String, String> deleteImageSelect(@RequestBody List<Long> imageIds, @PathVariable Long productid) {
+		return productService.deleteImage(imageIds);
 	}
 }

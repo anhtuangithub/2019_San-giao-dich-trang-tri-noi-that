@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.luanvan.dto.request.CustomerDTO;
+import com.luanvan.dto.request.ResetPasswordDTO;
 import com.luanvan.dto.request.RoleUserDTO;
 import com.luanvan.dto.request.StoreDTO;
 import com.luanvan.dto.request.TestDTO;
@@ -104,4 +105,8 @@ public class UsersController {
 		usersService.resetPassword(email);
 	}
 	
+	@PostMapping("savePassword")
+	public void saveChangePassword(@Valid @RequestBody ResetPasswordDTO password) {
+       usersService.savePassword(password);
+	}
 }

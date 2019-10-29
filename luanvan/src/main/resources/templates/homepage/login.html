@@ -22,7 +22,9 @@
 					<div class="tab-content">
 						<div id="home" class="tab-pane  active">
 					      	<div class="col-md-12">
+					      		<p th:if="${error} != null" class="alert alert-danger">Vui lòng kiểm tra mã xác thực của bạn</p>
 					      		<p th:if="${param.error}" class="alert alert-danger">Vui lòng kiểm tra thông tin</p>
+								
 								<form style="padding: 50px 20px;" method="POST" th:action="@{/noithat246.vn/dang-nhap}">
 									<div class="form-group-custom">
 									  	<label for="usr">Email</label>
@@ -60,6 +62,9 @@
 					    </div>
 					    <div id="menu1" class="tab-pane fade">
 					      	<div class="col-md-12">
+					      		<div class="alert alert-danger" role="alert" ng-if="errors.length > 0">
+									<p ng-repeat="error in errors">{{error}}</p>
+								</div>
 								<form name="frmkm"  action="#"  method="POST" style="padding:50px 20px;">
 									<div class="form-group-custom">
 									 	<label for="name">Tên <span class="help-block">*</span></label>
@@ -155,12 +160,26 @@
 	                       	<p>Vui lòng cung cấp email hoặc số điện thoại đăng nhập để lấy lại mật khẩu.</p>
 	                       	<br>
 	                        <div class="col-md-10 offset-md-1">
-	                        	<div class="form-group">
-		                            <input type="email" class="form-control" ng-model="resetPass.email" name="email" placeholder="abc@gmail.com">
+	                        	<div class="form-group row">
+	                        		<label class="col-md-3">Email</label>
+		                            <input type="email" class="form-control col-md-9" ng-model="resetPass.email" name="email">
 		                        </div>
-		                        <div class="form-group">
-		                            <button class="btn form-control" style="background-color: rgb(253, 216, 53);" type="button" ng-click="resetPass()">
-		                            <p>Gửi</p>
+		                        <div class="form-group row" ng-show="showBtnInput">
+		                        	<label class="col-md-3">Mã xác thực</label>
+		                            <input type="text" class="form-control col-md-9" ng-model="resetPass.token" name="token">
+		                        </div>
+		                        <div class="form-group" ng-show="showBtnSend">
+		                            <button class="btn btn-theme-yellow form-control" type="button" ng-click="resetPass()">
+		                            Gửi
+		                            </button>
+		                        </div>
+		                        <div  ng-show="showBtnInput" class="row" style="float: right;">
+		                            <button style="margin: 0 10px" class="btn btn-theme-yellow"  type="button" ng-click="resetPass()">
+		                            Gửi lại
+		                            </button>
+									
+		                            <button class="btn btn-theme-orange"  type="button" ng-click="xacNhan()">
+		                            Xác nhận
 		                            </button>
 		                        </div>
 	                        </div>

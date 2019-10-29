@@ -360,29 +360,42 @@ app.controller('ProductController',function($scope,$http,URL_Main){
 		jQuery('#frmEditImg input[name="deleteImg[]"]:checked').each(function() {
 		  data.push(jQuery(this).val());
 		});
-		console.log(data);
-		
-	     
-        jQuery.ajax({
-          	headers: {'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content'),'Content-type' : 'application/json'},
-            url: URL_Main+"products/image/deleteSelect/"+$scope.productId,
-            method: "POST",
-            data: data,
-            dataType: 'JSON',
-            success: function(response)
-            {
-    //             $http.get(URL_Main + 'products/hinh-cua-san-pham/'+$scope.productId)
-				// .then(function(response){
-				// 	$scope.listImage = response.data;
-				// });
-                
-            },
-            error: function(response)
-            {
-                console.log(response);
-            }
+ 		Swal.fire({
+			  title: 'Bạn có chắc?',
+			  text: "Xóa những hình ảnh này !!!",
+			  type: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Đồng ý!',
+			  cancelButtonText: 'Không, thoát!',
+			}).then((result) => {
+				if (result.value) {
+					 jQuery.ajax({
+			          	headers: {'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content'),'Content-type' : 'application/json'},
+			            url: URL_Main+"products/image/deleteSelect/"+$scope.productId,
+			            method: "POST",
+			            data: JSON.stringify(data),
+			            dataType: 'JSON',
+			            success: function(response)
+			            {
+			                toastr.success('Xóa hình ảnh thảnh công', 'Thành công',{timeOut: 3000, escapeHtml: true});
+			                $http.get(URL_Main + 'products/hinh-cua-san-pham/'+$scope.productId)
+							.then(function(response){
+								$scope.listImage = response.data;
+							});
 
-        });
+			                
+			            },
+			            error: function(response)
+			            {
+			                toastr.error('Có lỗi trong quá trình cập nhật', 'Gặp lỗi!',{timeOut: 3000, escapeHtml: true});
+			            }
+
+			        });
+				}
+			})
+       
  
 	});
 

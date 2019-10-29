@@ -19,7 +19,7 @@ public class StoreDTO {
 	private String email;
 	
 	@NotBlank(message = "Vui lòng nhập password")
-	@Length(min = 8, max = 32, message = "Mật khẩu có độ dài phải từ 8 -32 kí tự")
+	@Length(min = 8, max = 32, message = "Mật khẩu phải có độ dài phải từ 8 -32 kí tự")
 	private String password; 
 	
 	@Valid

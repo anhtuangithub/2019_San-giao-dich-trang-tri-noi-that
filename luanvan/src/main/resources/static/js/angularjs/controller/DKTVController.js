@@ -47,7 +47,6 @@ apt.controller('DKTVController',function($scope,$http,URL_Home){
 		})
 		.catch(function (response){
 			$scope.errors = response.data.errors;
-			console.log($scope.errors);
 			toastr.error('Có lỗi trong quá trình tạo tài khoản', 'Gặp lỗi!');
 		});
 	}	

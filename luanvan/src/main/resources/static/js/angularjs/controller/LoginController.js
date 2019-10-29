@@ -17,7 +17,7 @@ apt.controller('LoginController',function($scope,$http,URL_Home){
 		})
 		.catch(function (response){
 			toastr.error('Có lỗi trong quá trình tạo tài khoản', 'Gặp lỗi!');
-			
+			$scope.errors = response.data.errors;
 		});
 	}	
 	
@@ -66,9 +66,9 @@ apt.controller('LoginController',function($scope,$http,URL_Home){
 	$scope.modalResetPass = function(){
 		jQuery('#modalPass').modal('show');
 	}
-
+	$scope.showBtnInput = false;
+	$scope.showBtnSend = true;
 	$scope.resetPass = function(){
-		console.log($scope.resetPass.email);
 		$http.get(URL_Home +'users/resetPassword?email='+$scope.resetPass.email)
 		.then(function(response){
 			console.log(response);
@@ -76,6 +76,13 @@ apt.controller('LoginController',function($scope,$http,URL_Home){
 		.catch(function(response){
 			console.log(response);
 		})
+
+		$scope.showBtnInput = true;
+		$scope.showBtnSend = false;
 	}
 	
+	$scope.xacNhan = function(){
+		var urlRedirect = URL_Home +'noithat246.vn/user/changePassword?email='+$scope.resetPass.email+'&token='+$scope.resetPass.token;
+		location.replace(urlRedirect);
+	}
 });

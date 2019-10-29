@@ -13,6 +13,7 @@ import com.luanvan.repo.MemberTypeRepository;
 import com.luanvan.repo.OriginRepository;
 import com.luanvan.repo.ProducerRepository;
 import com.luanvan.restcontroller.CategoryController;
+import com.luanvan.service.ISecurityUserService;
 import com.luanvan.service.OrderService;
 import com.luanvan.service.ProductService;
 
@@ -43,6 +44,9 @@ public class HomepageController {
 	
 	@Autowired
 	private OrderService  orderService;
+	
+	@Autowired
+	private ISecurityUserService securityUserService;
 	
 	@GetMapping()
 	public String index() {
@@ -297,4 +301,20 @@ public class HomepageController {
 		 model.addAttribute("order",orderService.orderGroupPageEmail(id));
 		return "homepage/form-mail-seller";
 	}
+	
+	@GetMapping("user/changePassword")
+	public String showChangePasswordPage(Model model, 
+	  @RequestParam("email") String email, @RequestParam("token") String token) {
+	    String result = securityUserService.validatePasswordResetToken(email, token);
+	    if (result != null) {
+	        model.addAttribute("error", result);
+	        return "homepage/login";
+	    }
+	    else {
+	    	model.addAttribute("success", "xin chao");
+	    	return "homepage/update-password";
+	    }
+	    
+	}
+	
 }

@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.luanvan.dto.request.CustomerDTO;
+import com.luanvan.dto.request.ResetPasswordDTO;
 import com.luanvan.dto.request.RoleUserDTO;
 import com.luanvan.dto.request.StoreDTO;
 import com.luanvan.dto.request.TestDTO;
@@ -220,13 +221,28 @@ public class UsersServiceImpl  implements UsersService{
 		}
 		String token = UUID.randomUUID().toString();
 		createPasswordResetTokenForUser(user, token);
-		String result = "<p>Bạn có một yêu cầu thay đổi mật khẩu và mã xác thực:<strong>"+token+ "</strong></p>";
-		sendGridMailService.sendHTML("leanhtuan9889@gmail.com", "Mã xác thực Nội Thất 246", result);
+		StringBuilder  string = new StringBuilder("NoiThat246 Xin chào bạn !!!");
+		string.append("<p>Bạn có một yêu cầu thay đổi mật khẩu và mã xác thực: <strong>"+token+ "</strong></p>");
+		string.append("<p>Lưu ý: mã xác thực có hiệu lực trong vòng 30 phút</p>");
+		string.append("Mọi thắc mắc và góp ý vui lòng liên hệ với Tiki Care qua email: support@noithat246.vn hoặc số điện thoại 0941 426 824 (1000đ/phút , 8-21h kể cả T7, CN).");
+		string.append("<p>Trân trọng</p><p>NoiThat246</p>");
+		sendGridMailService.sendHTML(user.getEmail(), "Mã xác thực Nội Thất 246", string.toString());
 		
 	}
 	public void createPasswordResetTokenForUser(Users user, String token) {
-	    PasswordResetToken myToken = new PasswordResetToken(token, user);
+		PasswordResetToken myToken = new PasswordResetToken();
+		myToken.setToken(token);
+		myToken.setUser(user);
+		myToken.setExpiryDate(30);
 	    passwordResetTokenRepository.save(myToken);
+	}
+
+	@Override
+	public void savePassword(ResetPasswordDTO passwordDTO) {
+		Users user = usersRepository.findByEmail(passwordDTO.getEmail());
+		user.setPassword(passwordEncoder.encode(passwordDTO.getPassword()));
+		usersRepository.save(user);
+		
 	}
 	
 	

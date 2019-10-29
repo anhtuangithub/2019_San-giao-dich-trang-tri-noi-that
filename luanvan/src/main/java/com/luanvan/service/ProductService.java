@@ -1,6 +1,7 @@
 package com.luanvan.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -126,4 +127,6 @@ public interface ProductService {
 											);
 	
 	void updateSttImage(List<Image> images, Long productid);
+	
+	Map<String, String> deleteImage(List<Long> imagesID);
 }

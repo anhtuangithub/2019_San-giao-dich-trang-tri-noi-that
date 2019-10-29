@@ -8,7 +8,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -624,6 +626,27 @@ public class ProductServiceImpl  implements ProductService{
 			imageRepository.save(image);
 		}
 		
+	}
+
+	@Override
+	public Map<String, String> deleteImage(List<Long> imagesID) {
+		Map<String, String> map = new HashMap<String, String>();
+		imagesID.forEach(id->{
+			Image image = imageRepository.getOne(id);
+			imageRepository.delete(image);
+			String directory = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\uploads\\";
+		  	// Delete image old
+		  	String deleteFilePath = directory + image.getPath() ;
+		  	File filePath = new File(deleteFilePath);
+		  	Path path =  Paths.get(deleteFilePath);
+		  	//check file path exits
+		  	if(Files.exists(path)) {
+		  		filePath.delete();
+		  	}
+			
+		});
+		map.put("success", "Xóa thành công");
+		return map;
 	}
 	
 	
