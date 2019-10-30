@@ -28,6 +28,7 @@ import com.luanvan.dto.response.ProductAdminDTO;
 import com.luanvan.dto.response.ProductDetailDTO;
 import com.luanvan.dto.response.ProductPromotionDTO;
 import com.luanvan.model.Image;
+import com.luanvan.model.Inventory;
 import com.luanvan.model.Product;
 import com.luanvan.model.UnitPrice;
 import com.luanvan.service.ProductService;
@@ -187,5 +188,20 @@ public class ProductController {
 	@PostMapping("image/deleteSelect/{productid}")
 	public Map<String, String> deleteImageSelect(@RequestBody List<Long> imageIds, @PathVariable Long productid) {
 		return productService.deleteImage(imageIds);
+	}
+	
+	@GetMapping("top-seller")
+	public List<Long> topSeller(){
+		return productService.topSeller();
+	}
+	
+	@GetMapping("inventory-of-product/{id}")
+	public List<Inventory> inventory(@PathVariable Long id){
+		return productService.listInventory(id);
+	}
+	
+	@PostMapping("update-quantity")
+	public void updateQuantity(@RequestBody Inventory inventory ) {
+		productService.updateQuantity(inventory);
 	}
 }

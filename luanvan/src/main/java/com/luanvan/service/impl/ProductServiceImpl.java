@@ -38,12 +38,15 @@ import com.luanvan.dto.request.ProductDTO;
 import com.luanvan.dto.response.ProductAdminDTO;
 import com.luanvan.dto.response.ProductDetailDTO;
 import com.luanvan.dto.response.ProductPromotionDTO;
+import com.luanvan.dto.response.TopSeller;
 import com.luanvan.exception.NotFoundException;
 import com.luanvan.model.Image;
+import com.luanvan.model.Inventory;
 import com.luanvan.model.Product;
 import com.luanvan.model.Store;
 import com.luanvan.model.UnitPrice;
 import com.luanvan.repo.ImageRepository;
+import com.luanvan.repo.InventoryRepository;
 import com.luanvan.repo.ProductRepository;
 import com.luanvan.repo.StoreRepository;
 import com.luanvan.repo.UnitPriceRepository;
@@ -58,18 +61,21 @@ public class ProductServiceImpl  implements ProductService{
 	private UsersRepository userRepository;
 	private StoreRepository storeRepository;
 	private ImageRepository imageRepository;
+	private InventoryRepository inventoryRepository;
 	
 	@Autowired
 	public ProductServiceImpl(ProductRepository productRepository,
 			UnitPriceRepository unitPriceRepository,
 			UsersRepository userRepository,
 			StoreRepository storeRepository,
-			ImageRepository imageRepository) {
+			ImageRepository imageRepository,
+			InventoryRepository inventoryRepository) {
 		this.productRepository = productRepository;
 		this.unitPriceRepository = unitPriceRepository;
 		this.userRepository = userRepository;
 		this.storeRepository = storeRepository;
 		this.imageRepository = imageRepository;
+		this.inventoryRepository = inventoryRepository;
 	}
 
 	@Override
@@ -463,7 +469,7 @@ public class ProductServiceImpl  implements ProductService{
 
 	@Override
 	public Page<ProductPromotionDTO> listAllPromotionHasProduct(String categoryId, int page) {
-		Pageable sorted =  PageRequest.of(page, 1);	
+		Pageable sorted =  PageRequest.of(page, 5);	
 		Page<Product> products = productRepository.pagesAllPromotionProduct( categoryId, sorted);
 		Page<ProductPromotionDTO> dtoPage = products.map(new Function<Product, ProductPromotionDTO>() {
 		    @Override
@@ -543,13 +549,12 @@ public class ProductServiceImpl  implements ProductService{
 	@Override
 	public Page<ProductPromotionDTO> bestSeller(String categoryId, float star, String producerId, String materialId,
 			String originId, int page, String filter) {
-		Pageable sorted =  PageRequest.of(page, 5);
+		Pageable sorted = PageRequest.of(page, 5,JpaSort.unsafe(Sort.Direction.DESC, "count(orD.product.id)"));
 		if(filter.equalsIgnoreCase("gia-cao")) {
 			Sort sort = new Sort(Sort.Direction.DESC, "pri.price");
 			sorted =  PageRequest.of(page, 5,sort);
 		}
 		else if(filter.equalsIgnoreCase("gia-thap")) {
-			
 			Sort sort = new Sort(Sort.Direction.ASC, "pri.price");
 			sorted =  PageRequest.of(page, 5,sort);
 		}
@@ -647,6 +652,32 @@ public class ProductServiceImpl  implements ProductService{
 		});
 		map.put("success", "Xóa thành công");
 		return map;
+	}
+
+	@Override
+	public List<Long> topSeller() {
+		List<TopSeller> topSeller = productRepository.top3BestSeller(3);
+		List<Long> listId = new ArrayList<Long>();
+		topSeller.forEach(pro->{
+			listId.add(pro.getProduct_id());
+		});
+		return listId;
+	}
+
+	@Override
+	@Transactional
+	public void updateQuantity(Inventory inventory) {
+		inventoryRepository.save(inventory);
+		Product product = productRepository.getOne(inventory.getProducts().getId());
+		int quantity = product.getQuantity() + inventory.getQuantity();
+		product.setQuantity(quantity);
+		productRepository.save(product);
+		
+	}
+
+	@Override
+	public List<Inventory> listInventory(Long productId) {
+		return inventoryRepository.findByProductsId(productId);
 	}
 	
 	

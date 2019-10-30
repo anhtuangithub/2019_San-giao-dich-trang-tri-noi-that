@@ -131,6 +131,7 @@
 		                            		<span  th:if="${product.price_new} != ${product.price}">
 		                            		<span th:utext="${#numbers.formatDecimal(((product.price - product.price_new)*100)/product.price, 0, 'COMMA', 0, 'POINT')}"></span>%
 		                            	</span>
+		                            	<span class="top-seller" th:if="${#lists.contains(topseller,product.id)}">Hot</span>
 		                            	
 		                            </p>
 		                        </div>

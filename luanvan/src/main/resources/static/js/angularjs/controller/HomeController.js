@@ -13,6 +13,12 @@ apt.controller('HomeController',function($scope,$http,URL_Home){
 		.then(function(response){
 			$scope.proRandom = response.data;
 		});
+
+		$http.get(URL_Home + 'products/top-seller')
+		.then(function(response){
+			$scope.proTop = response.data;
+			console.log($scope.proTop);
+		});
 	}
 	
 });

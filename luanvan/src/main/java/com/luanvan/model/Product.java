@@ -78,6 +78,10 @@ public class Product{
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "products")
+	private List<Inventory> inventory;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "products")
 	private List<Question> questions;
 	
 	@JsonIgnore

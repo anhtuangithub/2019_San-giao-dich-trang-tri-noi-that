@@ -144,6 +144,7 @@ public class HomepageController {
 		 model.addAttribute("materials", MaterialRepository.findAll());
 		 model.addAttribute("producers", ProducerRepository.findAll());
 		 model.addAttribute("origins", OriginRepository.findAll());
+		 model.addAttribute("topseller", productSevice.topSeller());
 		 return "homepage/search-product";
 	}
 	
@@ -170,6 +171,7 @@ public class HomepageController {
 		model.addAttribute("materials", MaterialRepository.findAll());
 		model.addAttribute("producers", ProducerRepository.findAll());
 		model.addAttribute("origins", OriginRepository.findAll());
+		model.addAttribute("topseller", productSevice.topSeller());
 		return "homepage/list-product-category";
 	}
 	@GetMapping("danh-muc")
@@ -199,6 +201,7 @@ public class HomepageController {
 		model.addAttribute("materials", MaterialRepository.findAll());
 		model.addAttribute("producers", ProducerRepository.findAll());
 		model.addAttribute("origins", OriginRepository.findAll());
+		model.addAttribute("topseller", productSevice.topSeller());
 		return "homepage/list-product-category-parent";
 	}
 	
@@ -224,6 +227,7 @@ public class HomepageController {
 		 model.addAttribute("materials", MaterialRepository.findAll());
 		 model.addAttribute("producers", ProducerRepository.findAll());
 		 model.addAttribute("origins", OriginRepository.findAll());
+		 model.addAttribute("topseller", productSevice.topSeller());
 		 return "homepage/product-of-store";
 	}
 	
@@ -250,6 +254,7 @@ public class HomepageController {
 		 model.addAttribute("materials", MaterialRepository.findAll());
 		 model.addAttribute("producers", ProducerRepository.findAll());
 		 model.addAttribute("origins", OriginRepository.findAll());
+		 model.addAttribute("topseller", productSevice.topSeller());
 		 return "homepage/page-best-seller";
 	}
 	
@@ -266,6 +271,7 @@ public class HomepageController {
 		}
 		model.addAttribute("products", productSevice.listAllPromotionHasProduct(categoryId,pageminus));
 		model.addAttribute("categorys", categoryRepository.findByParentIdNotIn((long)0));
+		model.addAttribute("topseller", productSevice.topSeller());
 		return "homepage/list-product-promotion";
 	}
 	
@@ -293,6 +299,7 @@ public class HomepageController {
 		 model.addAttribute("materials", MaterialRepository.findAll());
 		 model.addAttribute("producers", ProducerRepository.findAll());
 		 model.addAttribute("origins", OriginRepository.findAll());
+		 model.addAttribute("topseller", productSevice.topSeller());
 		 return "homepage/page-product-random";
 	}
 	

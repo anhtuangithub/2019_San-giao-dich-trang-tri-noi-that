@@ -75,6 +75,7 @@
 	                            		<span class="ribbon-grid">{{((product.price - product.price_new)/product.price)*100}}%</span>
 	                            	</span>
 	                            	<span class="ribbon">{{product.maxPromotion["sale_off"]}} %</span>
+	                            	<span class="top-seller" ng-if="proTop.includes(product.id)">Hot</span>
 	                            	
 	                            </p>
 	                        </div>
@@ -177,6 +178,7 @@
 	                            	<span ng-if="product.price_new != product.price">
 	                            		<span class="ribbon-grid">{{((product.price - product.price_new)/product.price)*100}}%</span>
 	                            	</span>
+	                            	<span class="top-seller" ng-if="proTop.includes(product.id)">Hot</span>
 	                            	
 	                            </p>
 	                        </div>

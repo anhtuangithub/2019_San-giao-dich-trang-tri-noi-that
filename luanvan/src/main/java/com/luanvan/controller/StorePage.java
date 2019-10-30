@@ -42,4 +42,9 @@ public class StorePage {
 		return "admin/dashboard-store";
 	};
 	
+	@GetMapping("/inventory")
+	public String inventory() {
+		return "admin/manage-inventory";
+	};
+	
 }

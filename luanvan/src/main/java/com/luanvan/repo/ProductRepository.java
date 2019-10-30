@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.luanvan.dto.response.TopSeller;
 import com.luanvan.model.Category;
 import com.luanvan.model.Product;
 
@@ -25,6 +26,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	
 	@Query(value = "Select * from product where product.status = 1  order by rand()", nativeQuery=true)
 	List<Product> ProductRandom();
+	
+	@Query(value = "select product_id from order_detail group by product_id order by count(product_id) desc limit ?1", nativeQuery=true)
+	List<TopSeller> top3BestSeller(int limit);
 	
 	Page<Product> findByCategorysId(Long id,Pageable pageable);
 	Page<Product> findByPlugContaining(String plug,Pageable pageable);
@@ -141,8 +145,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 				" and pro.avgstart >= :star " +
 				" and CAST(pro.producers.id as string) like :producer " +
 				" group by price.product.id having max(price.id) > 0 )"+
-			" group by pro.id"+
-			" order by count(orD.product.id) desc")
+			" group by pro.id")
 	Page<Product> bestSellerProduct(@Param("category")String category, @Param("origin") String origin, @Param("material") String material, @Param("star") float star, @Param("producer") String producer, Pageable pageable);
 	
 	
@@ -169,8 +172,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 				" and pro.avgstart >= :star " +
 				" and CAST(pro.producers.id as string) like :producer " +
 				" group by price.product.id having max(price.id) > 0)"+
-			" group by pro.id "+
-			" order by rand()")
+			" group by pro.id ")
 	Page<Product> pageRandomProduct(@Param("plug") String plug ,@Param("category")String category, @Param("origin") String origin, @Param("material") String material, @Param("star") float star, @Param("producer") String producer, Pageable pageable);
 	
 }

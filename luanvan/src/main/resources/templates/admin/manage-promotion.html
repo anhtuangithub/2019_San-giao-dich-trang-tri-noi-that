@@ -45,7 +45,7 @@
 												<button class="btn-none-background" ng-click="modal('edit',promotion.id)">
 													<span class="table-click-icon fa fa-pencil"></span>
 												</button>
-												<button class="btn-none-background" ng-click="confirmDelete(promotion.id,promotion.name)">
+												<button class="btn-none-background" ng-if="promotion.status == 1" ng-click="confirmDelete(promotion.id,promotion.name)">
 													<span class="table-click-icon fa fa-trash-o "></span>
 												</button>
 
@@ -102,7 +102,7 @@
 										ng-model="promotion.end_time"  />
 								</div>
 								<div class="form-group">
-									<label>Giá trị</label> <input type="int"
+									<label>Giá trị</label> <input type="number"
 										class="form-control" id="txtsaleoff" name="txtsaleoff"
 										placeholder="100%" ng-model="promotion.sale_off" ng-required="true" />
 									<span id="helpBlock2" class="help-block"
@@ -112,10 +112,6 @@
 								<div class="form-group">
 									<label>Danh sách sản phẩm được khuyến mãi: <span class="help-block">*</span>:
 									</label> 
-									<!-- <select ng-model="promotion.products" id="product" name="product" class="selectpicker form-control" multiple  data-live-search="true" data-actions-box="true">
-									  <option ng-repeat="product in listproduct"  value="{{product.id}}"  data-tokens="{{product.name}}">{{product.name}}</option>
-									  
-									</select> -->
 									<select multiple class="form-control selectpicker" data-live-search="true" data-actions-box="true" ng-model="promotion.products" ng-options="product.id as product.name for product in products" required=""></select>
 								</div>
 								<div class="form-group">

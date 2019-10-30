@@ -14,6 +14,7 @@ import com.luanvan.dto.response.ProductAdminDTO;
 import com.luanvan.dto.response.ProductDetailDTO;
 import com.luanvan.dto.response.ProductPromotionDTO;
 import com.luanvan.model.Image;
+import com.luanvan.model.Inventory;
 import com.luanvan.model.Product;
 import com.luanvan.model.UnitPrice;
 
@@ -129,4 +130,10 @@ public interface ProductService {
 	void updateSttImage(List<Image> images, Long productid);
 	
 	Map<String, String> deleteImage(List<Long> imagesID);
+	
+	List<Long> topSeller();
+	
+	void updateQuantity(Inventory inventory);
+	
+	List<Inventory> listInventory(Long productId);
 }

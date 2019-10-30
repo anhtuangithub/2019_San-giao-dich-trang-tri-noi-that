@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/parts/layout}">
+<head>
+<title>Quản lý hàng tồn kho</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+	<section layout:fragment="content">
+
+		<div style="padding: 20px;">
+			<h2>Quản lý hàng tồn kho</h2>
+		</div>
+
+
+		<div class="content row" ng-controller="ManageInventoryController">
+			<!-- form quản lý tồn kho -->
+			<div class="col-md-6">
+				<form name="frmkm">
+					<div class="form-group">
+						<label>Danh sách sản phẩm: <span class="help-block">*</span>:
+						</label> 
+						<select class="form-control selectpicker" data-live-search="true" data-actions-box="true" ng-model="product.id" ng-options="product.id as product.name for product in products" ng-change="chooseProduct(product.id)" required></select>
+					</div>
+					<div class="form-group">
+						<label>Số lượng tồn</label>
+						<input type="number" class="form-control" name="slConLai" ng-model="product.inventory_number" readonly />
+					</div>
+					<div class="form-group">
+						<label>Ngày nhập hàng <span class="help-block">*</span></label> 
+						<input type="datetime-local" class="form-control" id="txtstarttime" name="txtstarttime"
+							ng-model="inventory.date_receipt"/>
+					</div>
+					<div class="form-group">
+						<label>Số lượng nhập hàng <span class="help-block">*</span></label>
+						<input type="number" min="0" class="form-control" name="slThem" ng-model="inventory.quantity" required="true" />
+						<span class="help-block" ng-show="frmkm.slThem.$touched && frmkm.slThem.$error.required">Vui lòng nhập số lượng</span>
+					</div>
+					<button type="button" style="float: right;" class="btn btn-primary" ng-disabled="frmkm.$invalid" ng-click="save()">Cập nhật số lượng</button>
+				</form>
+			</div>
+			<!-- List Invetory after choose product -->
+			<div class="col-md-6">
+				
+				<table class="table table-striped">
+					<tr>
+						<th>STT</th>
+						<th>Số lượng</th>
+						<th>Ngày nhập</th>
+						<th>Ngày tạo</th>
+					</tr>
+					<tr ng-repeat="inventory in inventorys">
+						<td>{{$index +1 }}</td>
+						<td>{{inventory.quantity}}</td>
+						<td>{{inventory.date_receipt| date: "dd-MM-yyyy 'giờ' h:mma ":'UTC' }}</td>
+						<td>{{inventory.created_at| date: "dd-MM-yyyy 'giờ' h:mma ":'UTC' }}</td>
+					</tr>
+				</table>
+					
+			</div>
+		</div><!-- .content -->
+
+	</section>
+</body>
+</html>
+
+<script th:src="@{/js/angularjs/controller/ManageInventoryController.js}"></script>

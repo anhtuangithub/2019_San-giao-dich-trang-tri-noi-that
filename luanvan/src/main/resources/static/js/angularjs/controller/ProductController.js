@@ -245,16 +245,8 @@ app.controller('ProductController',function($scope,$http,URL_Main){
 				$http.get(URL_Main + 'products/'+id)
 				.then(function(response){
 					$scope.product = response.data;
-//					jQuery("#colors").selectpicker();
-//					var colorpicker = [];
-//					for(i = 0 ; i < $scope.product.colors.length; i++ ){
-//						colorpicker.push($scope.product.colors[i].id);
-//						
-//					}
-//					jQuery('.selectpicker').selectpicker('refresh');
-//					jQuery("#colors").selectpicker('val',colorpicker);
-			
 				});
+				
 				$http.get(URL_Main + 'products/price/'+id)
 				.then(function(response){
 					$scope.Prices = response.data;
