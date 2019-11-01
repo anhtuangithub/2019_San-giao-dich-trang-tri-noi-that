@@ -266,24 +266,32 @@ app.controller('ProductController',function($scope,$http,URL_Main){
 		$scope.showInputPrice = true;
 	}
 	// Xử lí modal Img
-	$scope.modalImg= function(productid){
-		
-		$scope.productId = productid;
-
-		$http.get(URL_Main + 'products/hinh-cua-san-pham/'+$scope.productId)
-		.then(function(response){
-			$scope.listImage = response.data;
+	$scope.modalImg= function(productid, productname){
+		jQuery("#imgs").fileinput({
+		    theme: 'fa',
+		    showUpload: false,
+		    showCaption: false,
+		    browseClass: "btn btn-primary",
+		    allowedFileExtensions: ['jpg', 'png', 'gif'],
+		    previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+		    overwriteInitial: false,
+		    initialPreviewAsData: true
 		});
-
-		$scope.productid = productid;
-		$scope.frmTitle = "Cập nhật hình ảnh ";
+		$scope.productId = productid;
+		$scope.frmTitle = productname;
+		$http.get(URL_Main + 'products/hinh-cua-san-pham/'+$scope.productId)
+			.then(function(response){
+				$scope.listImage = response.data;
+			});
 		jQuery('#modalImg').modal('show');
+
+		
 	}
 	
 	
 	jQuery("#frmImg").on("submit", function(event){
 		var formData = new FormData(this);
-        formData.append("product",$scope.productid);
+        formData.append("product",$scope.productId);
         if(jQuery("#imgs").val() != ""){
         	 jQuery.ajax({
                 url: URL_Main+"products/mutiple-image",
@@ -422,8 +430,160 @@ app.controller('ProductController',function($scope,$http,URL_Main){
 						
 					});
 				}
-			})
-		
-			
+			})	
 	}
+
+
+	
+
+	$scope.modalImg360= function(productid, productname){
+		// Xử lí modal Img
+		jQuery("#imgview360").fileinput({
+		    theme: 'fa',
+		    showUpload: false,
+		    showCaption: false,
+		    browseClass: "btn btn-primary",
+		    allowedFileExtensions: ['jpg', 'png', 'gif'],
+		    previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+		    overwriteInitial: false,
+		    initialPreviewAsData: true
+		});
+		jQuery("#mySpriteSpin").spritespin("destroy");
+		$scope.productId = productid;
+		let sourceImgs = []
+		$http.get(URL_Main + 'products/hinh-cua-san-pham-360/'+$scope.productId)
+		.then(function(response){
+			
+			$scope.listImage360 = response.data;
+
+			$scope.listImage360.forEach(function(img){
+				sourceImgs.push('/img/uploads/'+img.path);
+			})
+		})
+		.then(function(){
+			if($scope.listImage360.length > 0){
+				jQuery("#mySpriteSpin").spritespin({
+					source: sourceImgs,
+					width   : 480,  // width in pixels of the window/frame
+					height  : 327,  // height in pixels of the window/frame
+				});	
+			}
+			
+		});
+		$scope.frmTitle = productname;
+		jQuery('#modalView360').modal('show');
+
+		
+	}
+	
+	
+	jQuery("#frmImg360").on("submit", function(event){
+		var formData = new FormData(this);
+        formData.append("product",$scope.productId);
+        if(jQuery("#imgview360").val() != ""){
+        	 jQuery.ajax({
+                url: URL_Main+"products/mutiple-image-360",
+                method: "POST",
+                data:formData,
+                contentType: false,
+                cache: false,
+                enctype: 'multipart/form-data',
+                processData: false,
+                success: function(response)
+                {
+                	toastr.success('Cập nhật hình ảnh 360 thành công', 'Thành công',{timeOut: 3000, escapeHtml: true});
+                	 $http.get(URL_Main + 'products/hinh-cua-san-pham-360/'+$scope.productId)
+					.then(function(response){
+						$scope.listImage360 = response.data;
+					});
+                      
+                },
+                error: function(response)
+                {
+                    toastr.error('Có lỗi trong quá trình cập nhật', 'Gặp lỗi!',{timeOut: 3000, escapeHtml: true});
+                }
+
+          });
+        }
+        else
+        {
+         $scope.warning=true;
+        }
+    });
+
+	$scope.update360STT = function(){
+		var statuses = [];
+		jQuery('#frmEditImg360 input[name="stt360[]"]').each(function() {
+		  	statuses.push(jQuery(this).val());
+		});
+		for(var i = 0; i < $scope.listImage360.length ; i++){
+			$scope.listImage360[i].status = statuses[i];
+		}
+		var url = URL_Main + 'products/update-stt-image-360/'+$scope.productId;
+		var data = $scope.listImage360;
+		$http({
+			method : 'POST',
+			url : url,
+			data : data,
+			headers : {'Content-type' : 'application/json'}
+		})
+		.then(function (response){
+			toastr.success('Cập nhật thứ tự hình ảnh 360 thành công', 'Thành công',{timeOut: 3000, escapeHtml: true});
+			$http.get(URL_Main + 'products/hinh-cua-san-pham-360/'+$scope.productId)
+			.then(function(response){
+				$scope.listImage360 = response.data;
+			});
+		})
+		.catch(function (response){
+			toastr.error('Có lỗi trong quá trình cập nhật', 'Gặp lỗi!',{timeOut: 3000, escapeHtml: true});
+			
+		});
+	}
+
+    //Modal ->form xóa hình ảnh
+	jQuery("#frmEditImg360").on("submit", function(event){
+
+  		var data = [];
+		jQuery('#frmEditImg360 input[name="deleteImg360[]"]:checked').each(function() {
+		  data.push(jQuery(this).val());
+		});
+ 		Swal.fire({
+			  title: 'Bạn có chắc?',
+			  text: "Xóa những hình ảnh này !!!",
+			  type: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Đồng ý!',
+			  cancelButtonText: 'Không, thoát!',
+			}).then((result) => {
+				if (result.value) {
+					 jQuery.ajax({
+			          	headers: {'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content'),'Content-type' : 'application/json'},
+			            url: URL_Main+"products/image/deleteSelect-360/"+$scope.productId,
+			            method: "POST",
+			            data: JSON.stringify(data),
+			            dataType: 'JSON',
+			            success: function(response)
+			            {
+			                toastr.success('Xóa hình ảnh 360 thành công', 'Thành công',{timeOut: 3000, escapeHtml: true});
+			                $http.get(URL_Main + 'products/hinh-cua-san-pham-360/'+$scope.productId)
+							.then(function(response){
+								$scope.listImage360 = response.data;
+							});
+
+			                
+			            },
+			            error: function(response)
+			            {
+			                toastr.error('Có lỗi trong quá trình cập nhật', 'Gặp lỗi!',{timeOut: 3000, escapeHtml: true});
+			            }
+
+			        });
+				}
+			})
+       
+ 
+	});
+
 });

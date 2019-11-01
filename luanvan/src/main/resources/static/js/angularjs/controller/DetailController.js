@@ -171,6 +171,40 @@ apt.controller('DetailController',function($scope,$http,URL_Home){
 			
 		});
 	}
+
+	$scope.open360 = function() {
+		jQuery('#contentProduct').append(' <div class="ajax360">'+
+            '<div class="close360">x</div>'+
+            '<div class="boxpicture360">'+
+                '<h2>Hình 360 độ</h2>'+
+                '<div class="content360">'+
+                    '<div id="mySpriteSpin"></div>'+
+                '</div>'+
+            '</div>'+
+        '</div>');
+
+		let sourceImgs = []
+		$http.get(URL_Home + 'products/hinh-cua-san-pham-360/'+id)
+		.then(function(response){
+			$scope.listImage = response.data;
+			$scope.listImage.forEach(function(img){
+				sourceImgs.push('/img/uploads/'+img.path);
+			})
+		})
+		.then(function(){
+			jQuery("#mySpriteSpin").spritespin({
+				source: sourceImgs,
+				width   : 700,  // width in pixels of the window/frame
+				height  : 600,  // height in pixels of the window/frame
+			});
+		});
+	}
+
+	jQuery(document).on('click', '.close360' ,function(){
+		console.log("vo");
+		jQuery('.ajax360').remove()
+	})
+
 	function imageZoom(imgID, resultID) {
 		var img, lens, result, cx, cy;
 		img = document.getElementById(imgID);
@@ -227,23 +261,7 @@ apt.controller('DetailController',function($scope,$http,URL_Home){
 			    return {x : x, y : y};
 			}
 		}
-	// $("#mySpriteSpin").spritespin({
- //        // path to the source images.
- //        source: [
- //            "path/to/frame_001.jpg",
- //            "path/to/frame_002.jpg",
- //            "path/to/frame_003.jpg",
- //            "path/to/frame_004.jpg",
- //            "path/to/frame_005.jpg",
- //            "path/to/frame_006.jpg",
- //            "path/to/frame_007.jpg",
- //            "path/to/frame_008.jpg",
- //            "path/to/frame_009.jpg",
- //            "path/to/frame_010.jpg",
- //        ],
- //        width   : 480,  // width in pixels of the window/frame
- //        height  : 327,  // height in pixels of the window/frame
- //    });
+
 
 	
 });

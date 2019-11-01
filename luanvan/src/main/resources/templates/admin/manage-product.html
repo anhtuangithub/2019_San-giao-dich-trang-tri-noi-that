@@ -74,8 +74,11 @@
 												<button class="btn-none-background" ng-click="modal('edit',product.id)" >
 													<span class="fa fa-pencil table-click-icon"></span>
 												</button>
-												<button class="btn-none-background" ng-click="modalImg(product.id)" >
+												<button class="btn-none-background" ng-click="modalImg(product.id, product.name)" >
 													<span class="fa fa-picture-o table-click-icon"></span>
+												</button>
+												<button class="btn-none-background" ng-click="modalImg360(product.id, product.name)" >
+													<span class="fa fa-arrows table-click-icon"></span>
 												</button>
 												<button class="btn-none-background" ng-click="deleteProduct(product.id, product.name)" ng-if="product.status == 0">
 													<span class="fa fa-trash-o table-click-icon"></span>
@@ -321,19 +324,19 @@
 					<div class="modal-content">
 						<div class="modal-header">
 
-							<h4 class="modal-title">{{ frmTitle }}</h4>
+							<p class="modal-header-custom">Cập nhật ảnh cho sản phẩm: <span class="modal-title">{{ frmTitle }}</span></p>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
 						<div class="modal-body">
-
 							<div class="col-md-12 card">
-						  		<h5>Ảnh chi tiết sản phẩm</h5>
+						  		<p class="modal-header-custom">Ảnh chi tiết của sản phẩm</p>
 						  		<br>
 					  			<form method="post"  id="frmEditImg" class="form-horizontal" enctype="multipart/form-data">
 					  				<meta name="csrf-token" content="{{ csrf_token() }}">
+						  			<div class="alert alert-primary" ng-if="listImage.length <= 0">Chưa có ảnh chi tiết sản phẩm</div>
 						  			<div class="row-image" ng-if="listImage.length > 0" >
 								    	<div class="column-image hover-shadow" ng-repeat="img in listImage" >
 								      		<img ng-src="/img/uploads/{{img.path}}" alt="Image">
@@ -382,6 +385,75 @@
 			</div>
 			<!-- /.modal -->
 
+			<!--Modal cập nhật hình ảnh 360 -->
+			<div class="modal fade" tabindex="-1" role="dialog" id="modalView360">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+
+							<p class="modal-header-custom">Cập nhật ảnh 360 cho sản phẩm: <span class="modal-title">{{ frmTitle }}</span></p>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="col-md-12">
+								<div id='mySpriteSpin'></div>
+							</div>
+							<div class="col-md-12 card">
+						  		<p class="modal-header-custom">Ảnh 360 của sản phẩm</p>
+						  		<br>
+					  			<form method="post"  id="frmEditImg360" class="form-horizontal" enctype="multipart/form-data">
+					  				<meta name="csrf-token" content="{{ csrf_token() }}">
+						  			<div class="alert alert-primary" ng-if="listImage360.length <= 0">Chưa có ảnh 360 của sản phẩm</div>
+						  			<div class="row-image" ng-if="listImage360.length > 0" >
+								    	<div class="column-image hover-shadow" ng-repeat="img360 in listImage360" >
+								      		<img ng-src="/img/uploads/{{img360.path}}" alt="Image">
+								      		<div style="text-align: center; padding: 10px 0">
+								      			<div class="input-group mb-3">
+												    <div class="input-group-prepend">
+												      <span class="input-group-text">STT</span>
+												    </div>
+												    <input type="number" name="stt360[]" max="14" min="0" id="status_{{img360.id}}" class="form-control" ng-value="img360.status">
+												</div>
+												<div class="form-check">
+													<label class="form-check-label">
+														<input  type="checkbox" class="form-check-input" name="deleteImg360[]" id="check_{{img360.id}}" value="{{img360.id}}">Xóa
+													</label>
+												</div>
+								      			
+								      		</div>
+								      		
+								    	</div>
+									</div>
+									<div style="float: right; padding:10px " ng-if="listImage360.length > 0">
+										<button type="button" ng-click="update360STT()" class="btn btn-success" ><i class="fa fa-dot-circle-o"></i> Cập nhật</button>
+						    			<button type="submit" class="btn btn-danger" ><i class="fa fa-trash-o"></i> Xóa ảnh</button>
+						    		</div>
+					    		</form>
+					  		</div>	
+						  	
+								<form  method="post" name="frmImg360" id="frmImg360"	enctype="multipart/form-data" >
+									<meta name="csrf-token" content="{{ csrf_token() }}">
+									<div class="col-md-12">
+										<div class="form-group">
+								            <div class="file-loading">
+								                <input id="imgview360" name="imgview360" type="file" multiple accept='image/jpeg , image/jpg, image/gif, image/png'>
+								            </div>
+								        </div>
+								        <button type="submit" class="btn btn-success" style="float: right;"><i class="fa fa-dot-circle-o"></i> Thêm ảnh mới</button>
+									</div>
+									
+								</form>	
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+
 		</div>
 		<!-- .content -->
 
@@ -389,25 +461,17 @@
 </body>
 
 <section layout:fragment="script">
-    <script th:src="@{/js/angularjs/controller/ProductController.js}"></script>
+   
     <script th:src="@{/js/piexif.js}"></script>
     <script th:src="@{/js/sortable.js}"></script>
     <script th:src="@{/js/fileinput.js}"></script>
+    <script th:src="@{/js/spritespin.js}"></script>
 
     <script th:src="@{/js/themes/fa/theme.js}"></script>
     <script th:src="@{/js/themes/explorer-fa/theme.js}"></script>
+    <script th:src="@{/js/angularjs/controller/ProductController.js}"></script>
     <script>
-    	jQuery("#imgs").fileinput({
-        theme: 'fa',
-        showUpload: false,
-        showCaption: false,
-        browseClass: "btn btn-primary",
-        allowedFileExtensions: ['jpg', 'png', 'gif'],
-        previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
-        overwriteInitial: false,
-        initialPreviewAsData: true
-    });
-
+    	
     </script>
 </section>
 </html>

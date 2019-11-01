@@ -14,6 +14,7 @@ import com.luanvan.dto.response.ProductAdminDTO;
 import com.luanvan.dto.response.ProductDetailDTO;
 import com.luanvan.dto.response.ProductPromotionDTO;
 import com.luanvan.model.Image;
+import com.luanvan.model.Image360;
 import com.luanvan.model.Inventory;
 import com.luanvan.model.Product;
 import com.luanvan.model.UnitPrice;
@@ -136,4 +137,13 @@ public interface ProductService {
 	void updateQuantity(Inventory inventory);
 	
 	List<Inventory> listInventory(Long productId);
+	
+	
+	//Add product
+	ResponseEntity<?> uploadImage360(int product ,MultipartFile[] uploadfiles, Authentication auth);
+	List<Image360> allImage360Product(Long productid);
+	
+	void updateSttImage360(List<Image360> image360s, Long productid);
+	
+	Map<String, String> deleteImage360(List<Long> imagesID);
 }

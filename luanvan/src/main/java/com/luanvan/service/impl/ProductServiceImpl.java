@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,10 +42,12 @@ import com.luanvan.dto.response.ProductPromotionDTO;
 import com.luanvan.dto.response.TopSeller;
 import com.luanvan.exception.NotFoundException;
 import com.luanvan.model.Image;
+import com.luanvan.model.Image360;
 import com.luanvan.model.Inventory;
 import com.luanvan.model.Product;
 import com.luanvan.model.Store;
 import com.luanvan.model.UnitPrice;
+import com.luanvan.repo.Image360Repository;
 import com.luanvan.repo.ImageRepository;
 import com.luanvan.repo.InventoryRepository;
 import com.luanvan.repo.ProductRepository;
@@ -62,6 +65,7 @@ public class ProductServiceImpl  implements ProductService{
 	private StoreRepository storeRepository;
 	private ImageRepository imageRepository;
 	private InventoryRepository inventoryRepository;
+	private Image360Repository image360Repository;
 	
 	@Autowired
 	public ProductServiceImpl(ProductRepository productRepository,
@@ -69,13 +73,15 @@ public class ProductServiceImpl  implements ProductService{
 			UsersRepository userRepository,
 			StoreRepository storeRepository,
 			ImageRepository imageRepository,
-			InventoryRepository inventoryRepository) {
+			InventoryRepository inventoryRepository,
+			Image360Repository image360Repository) {
 		this.productRepository = productRepository;
 		this.unitPriceRepository = unitPriceRepository;
 		this.userRepository = userRepository;
 		this.storeRepository = storeRepository;
 		this.imageRepository = imageRepository;
 		this.inventoryRepository = inventoryRepository;
+		this.image360Repository = image360Repository;
 	}
 
 	@Override
@@ -188,6 +194,12 @@ public class ProductServiceImpl  implements ProductService{
 				    mapPriceRoot.setProduct(newPro);
 				    unitPriceRepository.save(mapPriceRoot);
 				    
+				    Inventory inventory = new Inventory();
+				    Date today = new Date();
+				    inventory.setProducts(newPro);
+				    inventory.setQuantity(newPro.getQuantity());
+				    inventory.setDate_receipt(today);
+				    inventoryRepository.save(inventory);
 				    
 				    if(unitPrice.length() > 4) {
 				    	 UnitPrice mapUnitPrice = mapper.readValue(unitPrice, UnitPrice.class);
@@ -678,6 +690,74 @@ public class ProductServiceImpl  implements ProductService{
 	@Override
 	public List<Inventory> listInventory(Long productId) {
 		return inventoryRepository.findByProductsId(productId);
+	}
+
+	@Override
+	public ResponseEntity<?> uploadImage360(int product, MultipartFile[] uploadfiles, Authentication auth) {
+		try {
+
+			Product productmap = productRepository.getOne((long)product);
+			for(MultipartFile uploadedFile : uploadfiles) {
+					String file = uploadedFile.getOriginalFilename();
+					Long userid = userRepository.findByEmail(auth.getName()).getId();
+					Long storeid = storeRepository.findByUsersId(userid).getId();
+					String filename = storeid +"_"+System.currentTimeMillis()+"_"+file;
+					String directory = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\uploads\\";
+					String filepath = directory+filename;
+
+				    Image360 image360 = new Image360();
+				    image360.setPath(filename);
+				    image360.setProduct_id(productmap);
+				    image360Repository.save(image360);
+				 
+				    BufferedOutputStream stream =
+				        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+				    stream.write(uploadedFile.getBytes());
+				    stream.close();
+				 
+	        }
+			return new ResponseEntity<>(HttpStatus.OK);
+		}
+		catch (Exception e) {
+		    System.out.println(e.getMessage());
+		    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	@Override
+	public List<Image360> allImage360Product(Long productid) {
+		return image360Repository.image360Product(productid);
+	}
+
+	@Override
+	public void updateSttImage360(List<Image360> image360s, Long productid) {
+		Product product = productRepository.getOne(productid);
+		for(Image360 image360 : image360s) {
+			image360.setProduct_id(product);;
+			image360Repository.save(image360);
+		}
+		
+	}
+
+	@Override
+	public Map<String, String> deleteImage360(List<Long> imagesID) {
+		Map<String, String> map = new HashMap<String, String>();
+		imagesID.forEach(id->{
+			Image360 image360 = image360Repository.getOne(id);
+			image360Repository.delete(image360);
+			String directory = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\uploads\\";
+		  	// Delete image old
+		  	String deleteFilePath = directory + image360.getPath() ;
+		  	File filePath = new File(deleteFilePath);
+		  	Path path =  Paths.get(deleteFilePath);
+		  	//check file path exits
+		  	if(Files.exists(path)) {
+		  		filePath.delete();
+		  	}
+			
+		});
+		map.put("success", "Xóa thành công");
+		return map;
 	}
 	
 	

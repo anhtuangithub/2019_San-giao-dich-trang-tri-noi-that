@@ -1696,3 +1696,63 @@
         border-radius: 4px;
         text-align: center;
     }
+
+    .ajax360{
+        display: block;
+        overflow: hidden;
+        background-color: #fff;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1600;
+    }
+    .close360{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        font-size: 16px;
+        z-index: 100;
+        color: #333;
+        border: 1px solid;
+        text-align: center;
+        cursor: pointer;
+    }
+    .boxpicture360{
+        float: none;
+        overflow: hidden;
+        background-color: #fff;
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        width: auto;
+        min-width: 1024px;
+        max-width: 1366px;
+
+    }
+    .boxpicture360 h4, .boxpicture360 h2 {
+        display: block;
+        overflow: hidden;
+        line-height: 5vh;
+        height: 5vh;
+        font-size: 20px;
+        color: #333;
+        margin-bottom: 1vh;
+        text-align: center;
+    }
+    .content360{
+        background-color: #fff;
+        display: block;
+        width: 800px;
+        overflow: hidden;
+        position: relative;
+        margin: 0 auto;
+    }

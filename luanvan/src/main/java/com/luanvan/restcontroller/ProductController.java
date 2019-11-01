@@ -28,6 +28,7 @@ import com.luanvan.dto.response.ProductAdminDTO;
 import com.luanvan.dto.response.ProductDetailDTO;
 import com.luanvan.dto.response.ProductPromotionDTO;
 import com.luanvan.model.Image;
+import com.luanvan.model.Image360;
 import com.luanvan.model.Inventory;
 import com.luanvan.model.Product;
 import com.luanvan.model.UnitPrice;
@@ -203,5 +204,30 @@ public class ProductController {
 	@PostMapping("update-quantity")
 	public void updateQuantity(@RequestBody Inventory inventory ) {
 		productService.updateQuantity(inventory);
+	}
+	
+	@PostMapping("/mutiple-image-360")
+	@ResponseBody
+	@Transactional
+	public ResponseEntity<?> uploadImage360(
+			@RequestParam(value = "product") int product,
+			@RequestParam(value = "imgview360") MultipartFile[] uploadfiles,
+			Authentication auth) throws IOException {
+	  return productService.uploadImage360(product, uploadfiles, auth);
+	}
+	
+	@GetMapping("hinh-cua-san-pham-360/{productid}")
+	public List<Image360> imag360eOfPro(@PathVariable Long productid){
+		return productService.allImage360Product(productid);
+	}
+	
+	@PostMapping("update-stt-image-360/{productid}")
+	public void updateSttImage360(@RequestBody List<Image360> image360s, @PathVariable Long productid) {
+		productService.updateSttImage360(image360s, productid);
+	}
+	
+	@PostMapping("image/deleteSelect-360/{productid}")
+	public Map<String, String> deleteImage360Select(@RequestBody List<Long> imageIds, @PathVariable Long productid) {
+		return productService.deleteImage360(imageIds);
 	}
 }

@@ -89,6 +89,10 @@ public class Product{
     private List<Image> images;
 	
 	@JsonIgnore
+	@OneToMany(mappedBy="product_id")
+    private List<Image360> image360;
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "product")
 	private List<OrderDetail> orderDetails;
 	
