@@ -42,10 +42,10 @@
 											<td>{{promotion.start_time | date: "dd-MM-yyyy 'at' h:mma"}}</td>
 											<td>{{promotion.end_time | date: "dd-MM-yyyy 'at' h:mma"}}</td>
 											<td>
-												<button class="btn-none-background" ng-click="modal('edit',promotion.id)">
-													<span class="table-click-icon fa fa-pencil"></span>
+												<button class="btn btn-outline-success" ng-click="modal('edit',promotion.id)">
+													<span class="fa fa-pencil"></span>
 												</button>
-												<button class="btn-none-background" ng-if="promotion.status == 1" ng-click="confirmDelete(promotion.id,promotion.name)">
+												<button class="btn btn-outline-danger" ng-if="promotion.status == 1" ng-click="confirmDelete(promotion.id,promotion.name)">
 													<span class="table-click-icon fa fa-trash-o "></span>
 												</button>
 

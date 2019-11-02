@@ -21,10 +21,11 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	
 	// find product where in list id
 	List<Product> findByIdIn(List<Long> id);
+	List<Product> findByIdInAndStatus(List<Long> id, int status);
 	
 	List<Product> findByStoresId(Long storeid);
 	
-	@Query(value = "Select * from product where product.status = 1  order by rand()", nativeQuery=true)
+	@Query(value = "Select * from product where product.status = 1  order by rand() limit 10", nativeQuery=true)
 	List<Product> ProductRandom();
 	
 	@Query(value = "select product_id from order_detail group by product_id order by count(product_id) desc limit ?1", nativeQuery=true)

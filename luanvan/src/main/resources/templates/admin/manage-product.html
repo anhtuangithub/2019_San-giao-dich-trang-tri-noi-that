@@ -67,21 +67,21 @@
 											<td>{{product.created_at| date: "dd-MM-yyyy 'giờ' h:mma ":'UTC' }}</td>
 											<td ng-if="product.status == 1"><span class="fa fa-unlock"></span></td>
 											<td ng-if="product.status == 0"><span class="fa fa-lock" style="color:#bd2130"></span></td>
-											<td>
-												<button class="btn-none-background btn-detail" ng-click="frmCreateEdit_Show(product.id)" >
-													<span class="fa fa-eye-slash table-click-icon"></span>
+											<td style="width: 21%;">
+												<button class="btn btn-outline-info" ng-click="frmCreateEdit_Show(product.id)" >
+													<span class="fa fa-eye-slash"></span>
 												</button>
-												<button class="btn-none-background" ng-click="modal('edit',product.id)" >
-													<span class="fa fa-pencil table-click-icon"></span>
+												<button class="btn btn-outline-success" ng-click="modal('edit',product.id)" >
+													<span class="fa fa-pencil"></span>
 												</button>
-												<button class="btn-none-background" ng-click="modalImg(product.id, product.name)" >
-													<span class="fa fa-picture-o table-click-icon"></span>
+												<button class="btn btn-outline-primary" ng-click="modalImg(product.id, product.name)" >
+													<span class="fa fa-picture-o"></span>
 												</button>
-												<button class="btn-none-background" ng-click="modalImg360(product.id, product.name)" >
-													<span class="fa fa-arrows table-click-icon"></span>
+												<button class="btn btn-outline-warning" ng-click="modalImg360(product.id, product.name)" >
+													<span class="fa fa-arrows"></span>
 												</button>
-												<button class="btn-none-background" ng-click="deleteProduct(product.id, product.name)" ng-if="product.status == 0">
-													<span class="fa fa-trash-o table-click-icon"></span>
+												<button class="btn btn-outline-danger" ng-click="deleteProduct(product.id, product.name)" ng-if="product.status == 0">
+													<span class="fa fa-trash-o"></span>
 												</button>
 												
 											</td>
@@ -177,7 +177,7 @@
 												<label>Số lượng <span class="help-block">*</span>:
 												</label> 
 												<input type="number" ng-model="product.quantity"
-													class="form-control" id="quantity"  min="1">
+													class="form-control" id="quantity"  min="1" ng-readonly="readOnlyPro">
 											</div>
 											<div class="form-group">
 												<label>Xuất xứ <span class="help-block">*</span>:
@@ -260,6 +260,7 @@
 													<th>Giá</th>
 													<th>Ngày bắt đầu</th>
 													<th>Ngày áp dụng</th>
+													<th>Loại</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -269,7 +270,8 @@
 													<td>{{price.price| currency: "":0}} đ</td>
 													<td>{{price.start_time| date: "dd-MM-yyyy 'giờ' h:mma ":'UTC' }}</td>
 													<td>{{price.end_time| date: "dd-MM-yyyy 'giờ' h:mma ":'UTC' }}</td>
-													
+													<td ng-if="price.root == 1"> Giá gốc</td>
+													<td ng-if="price.root == 0"> Giá ưu đãi</td>
 												</tr>
 
 											</tbody>
@@ -330,8 +332,8 @@
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-						<div class="modal-body">
-							<div class="col-md-12 card">
+						<div class="modal-body" style="padding: 0;">
+							<div class="col-md-12 card" style="padding: 1rem">
 						  		<p class="modal-header-custom">Ảnh chi tiết của sản phẩm</p>
 						  		<br>
 					  			<form method="post"  id="frmEditImg" class="form-horizontal" enctype="multipart/form-data">
@@ -366,7 +368,7 @@
 						  	
 								<form  method="post" name="frmImg" id="frmImg"	enctype="multipart/form-data" >
 									<meta name="csrf-token" content="{{ csrf_token() }}">
-									<div class="col-md-12">
+									<div class="col-md-12" style="padding: 5px;">
 										<div class="form-group">
 								            <div class="file-loading">
 								                <!-- <label>Preview File Icon</label> -->
@@ -397,8 +399,8 @@
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-						<div class="modal-body">
-							<div class="col-md-12">
+						<div class="modal-body" style="padding: 0;">
+							<div class="col-md-12" style="padding: 1rem">
 								<div id='mySpriteSpin'></div>
 							</div>
 							<div class="col-md-12 card">
@@ -436,7 +438,7 @@
 						  	
 								<form  method="post" name="frmImg360" id="frmImg360"	enctype="multipart/form-data" >
 									<meta name="csrf-token" content="{{ csrf_token() }}">
-									<div class="col-md-12">
+									<div class="col-md-12" style="padding: 5px">
 										<div class="form-group">
 								            <div class="file-loading">
 								                <input id="imgview360" name="imgview360" type="file" multiple accept='image/jpeg , image/jpg, image/gif, image/png'>

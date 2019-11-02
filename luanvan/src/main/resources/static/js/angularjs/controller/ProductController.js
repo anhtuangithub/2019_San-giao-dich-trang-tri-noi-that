@@ -219,6 +219,7 @@ app.controller('ProductController',function($scope,$http,URL_Main){
 	$scope.modal= function(state,id){
 		$scope.state = state;
 		$scope.showInputPrice = false;
+		$scope.readOnlyPro = false;
 		switch(state){
 			case "add":
 				jQuery("ul.nav-tabs li a").removeClass("active");
@@ -238,8 +239,8 @@ app.controller('ProductController',function($scope,$http,URL_Main){
 				jQuery(".tab-content div").removeClass("active");
 				jQuery("ul.nav-tabs li:first-child a").addClass("active");
 				jQuery("#home").addClass("active");
-				
-				
+				$scope.readOnlyPro = true;
+
 				$scope.frmTitle = "Sửa thông tin sản phẩm ";
 				$scope.unitPrice = null;
 				$http.get(URL_Main + 'products/'+id)
@@ -267,6 +268,7 @@ app.controller('ProductController',function($scope,$http,URL_Main){
 	}
 	// Xử lí modal Img
 	$scope.modalImg= function(productid, productname){
+		jQuery('#imgs').fileinput('clear');
 		jQuery("#imgs").fileinput({
 		    theme: 'fa',
 		    showUpload: false,
@@ -304,11 +306,7 @@ app.controller('ProductController',function($scope,$http,URL_Main){
                 success: function(response)
                 {
                 	toastr.success('Cập nhật hình ảnh thành công', 'Thành công',{timeOut: 3000, escapeHtml: true});
-                	jQuery("#imgs").val('').clone(true);
-                	 $http.get(URL_Main + 'products/hinh-cua-san-pham/'+$scope.productId)
-					.then(function(response){
-						$scope.listImage = response.data;
-					});
+                	jQuery('#modalImg').modal('hide');
                       
                 },
                 error: function(response)
@@ -437,6 +435,7 @@ app.controller('ProductController',function($scope,$http,URL_Main){
 	
 
 	$scope.modalImg360= function(productid, productname){
+		jQuery('#imgview360').fileinput('clear');
 		// Xử lí modal Img
 		jQuery("#imgview360").fileinput({
 		    theme: 'fa',
@@ -492,10 +491,7 @@ app.controller('ProductController',function($scope,$http,URL_Main){
                 success: function(response)
                 {
                 	toastr.success('Cập nhật hình ảnh 360 thành công', 'Thành công',{timeOut: 3000, escapeHtml: true});
-                	 $http.get(URL_Main + 'products/hinh-cua-san-pham-360/'+$scope.productId)
-					.then(function(response){
-						$scope.listImage360 = response.data;
-					});
+                	jQuery('#modalView360').modal('hide');
                       
                 },
                 error: function(response)

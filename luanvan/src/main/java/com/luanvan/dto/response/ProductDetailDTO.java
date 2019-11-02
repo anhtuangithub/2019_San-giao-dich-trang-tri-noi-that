@@ -22,6 +22,7 @@ public class ProductDetailDTO {
 	@Getter @Setter private int quantity;
 	@Getter @Setter private float avgstart;
 	@Getter @Setter private String description;
+	@Getter @Setter private int status;
 	
 	@Setter private List<UnitPrice> unitPrices;
 	@Setter private List<Promotion> promotions;

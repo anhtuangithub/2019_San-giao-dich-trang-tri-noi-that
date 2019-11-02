@@ -7775,7 +7775,7 @@ body.open .navbar .navbar-brand.hidden {
 	padding-left: 0 !important;
 	-webkit-transition: all 0.35s ease;
 	transition: all 0.35s ease;
-	background-color: #fff;
+	background-color: #f8f9fc;
 }
 
 .right-panel .breadcrumbs {
@@ -8365,7 +8365,6 @@ header .form-inline .search-form.close {
 	border-radius: 0;
 	cursor: pointer;
 	border-radius: 5px;
-	border:0;
 }
 
 /* Icons */

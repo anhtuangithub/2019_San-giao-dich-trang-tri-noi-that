@@ -65,15 +65,15 @@
 											<td>{{product.created_at| date: "dd-MM-yyyy 'giờ' h:mma ":'UTC' }}</td>
 											<td ng-if="product.status == 1"><span class="fa fa-unlock"></span></td>
 											<td ng-if="product.status == 0"><span class="fa fa-lock" style="color:#bd2130"></span></td>
-											<td>
-												<button class="btn-none-background btn-detail" ng-click="frmCreateEdit_Show(product.id)" >
-													<span class="fa fa-eye-slash table-click-icon"></span>
+											<td style="width: 18%;">
+												<button class="btn btn-outline-info" ng-click="frmCreateEdit_Show(product.id)" >
+													<span class="fa fa-eye-slash"></span>
 												</button>
-												<button class="btn-none-background" ng-click="modal('edit',product.id)" >
-													<span class="fa fa-pencil table-click-icon"></span>
+												<button class="btn btn-outline-success" ng-click="modal('edit',product.id)" >
+													<span class="fa fa-pencil"></span>
 												</button>
-												<button class="btn-none-background" ng-click="changeStatus(product.id,product.name)">
-													<span class="fa fa-exchange table-click-icon"></span>
+												<button class="btn btn-outline-warning" ng-click="changeStatus(product.id,product.name)">
+													<span class="fa fa-exchange"></span>
 												</button>
 											</td>
 										</tr>

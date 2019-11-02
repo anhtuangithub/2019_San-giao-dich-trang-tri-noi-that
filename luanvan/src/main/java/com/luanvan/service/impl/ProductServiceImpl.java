@@ -150,7 +150,7 @@ public class ProductServiceImpl  implements ProductService{
 		cart.forEach(pro->{
 			id.add(pro.getId());
 		});
-		List<Product> product = productRepository.findByIdIn(id);
+		List<Product> product = productRepository.findByIdInAndStatus(id,1);
 		ModelMapper mapper = new ModelMapper();
 		List<ProductPromotionDTO> productPromotion = mapper.map(product,new TypeToken<List<ProductPromotionDTO>>(){}.getType());
 		cart.forEach(item->{
@@ -161,8 +161,7 @@ public class ProductServiceImpl  implements ProductService{
 			});
 		});
 		
-		return productPromotion.stream()
-				.filter(pro -> pro.getStatus() == 1).collect(Collectors.toList());
+		return productPromotion;
 	}
 
 	@Override
@@ -261,10 +260,6 @@ public class ProductServiceImpl  implements ProductService{
 			  
 			  	String  plug = covertToString(map.getProduct().getName());
 			    map.getProduct().setPlug(plug);
-			    map.getProduct().setStatus(0);
-			    if(auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
-			    	map.getProduct().setStatus(1);
-			    }
 			    save(map);
 			    
 			    UnitPrice mapPriceRoot = mapper.readValue(priceRoot, UnitPrice.class);
@@ -311,8 +306,7 @@ public class ProductServiceImpl  implements ProductService{
 		List<Product> products = productRepository.ProductRandom();
 		ModelMapper mapper = new ModelMapper();
 		List<ProductPromotionDTO> productPromotion = mapper.map(products,new TypeToken<List<ProductPromotionDTO>>(){}.getType());
-		return productPromotion.stream()
-				.limit(10).collect(Collectors.toList());
+		return productPromotion;
 	}
 	
 	public static String covertToString(String value) {
@@ -695,21 +689,24 @@ public class ProductServiceImpl  implements ProductService{
 	@Override
 	public ResponseEntity<?> uploadImage360(int product, MultipartFile[] uploadfiles, Authentication auth) {
 		try {
-
+			
+			int stt = 1;
+			String directory = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\uploads\\";
 			Product productmap = productRepository.getOne((long)product);
 			for(MultipartFile uploadedFile : uploadfiles) {
 					String file = uploadedFile.getOriginalFilename();
 					Long userid = userRepository.findByEmail(auth.getName()).getId();
 					Long storeid = storeRepository.findByUsersId(userid).getId();
 					String filename = storeid +"_"+System.currentTimeMillis()+"_"+file;
-					String directory = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\uploads\\";
 					String filepath = directory+filename;
 
 				    Image360 image360 = new Image360();
 				    image360.setPath(filename);
 				    image360.setProduct_id(productmap);
+				    image360.setStatus(stt);
 				    image360Repository.save(image360);
-				 
+				    stt++;
+				    
 				    BufferedOutputStream stream =
 				        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
 				    stream.write(uploadedFile.getBytes());
