@@ -26,18 +26,28 @@
                             <div class="form-group row padding-10">
                                 <label class="col-sm-2 col-form-label" >Gói đăng kí</label>
                                 <div class="col-sm-10">
-                                    <select class="form-control"  ng-model="giaHan">
-										<option ng-repeat="memberType in memberTypes" ng-value="memberType.id">{{memberType.name}} ('{{memberType.price| currency: "":0}}đ') </option>
+                                    <select class="form-control"  ng-model="giaHan" ng-change="GiaHanTK()">
+										<option ng-repeat="memberType in memberTypes" ng-value="memberType" >{{memberType.name}} ('{{memberType.price| currency: "":0}}đ') </option>
                                     </select>    
                                 </div>
                             </div>
-                           
+                            <div class="form-group row padding-10" ng-if="giaHan != null">
+                                <label class="col-sm-2 col-form-label" >Phí đăng kí (VNĐ)</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" ng-value="giaHan.price" readonly>
+                                </div>
+                            </div>
+                           	<div class="form-group row padding-10" ng-if="giaHan != null">
+                                <label class="col-sm-2 col-form-label" >Phí đăng kí (USD)</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" value="{{giaHan.price/gia.bantienmat | number:0}}" readonly>
+                                </div>
+                            </div>
                             
-                            <div class="row padding-10">
+                            <div class="row padding-10" >
                                 <div class="col-sm-6 offset-sm-3">
-                                    <button class="btn color-input-custom" ng-click="update()" ng-if="giaHan" style="background-color: rgb(253, 216, 53);" type="button" ng-disabled="frmkm.$invalid">
-                                        <p style="text-align: center;color: #000">Gia hạn thành viên</p>
-                                    </button>
+                                	<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+                                	<div  id="paypal-button" class="hidden"></div>
                                 </div>
                             </div>
                         

@@ -1,7 +1,7 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{homepage/parts/layout}">
 <head>
-<title>Content</title>
+<title>Danh mục sản phẩm</title>
 </head>
 <body>
 	<div class="container-product" layout:fragment="content">
@@ -102,13 +102,11 @@
 		                	<span>Ưu tiên xem:</span>
 		                	<ul class="sort-list">
 		                		<ul class="sort-list">
-		                		<li th:attr="onclick=|FilterAdvanced('filter','hang-moi')|"  ><a id="filter-new" href="">HÀNG MỚI</a></li>
-		                		<li th:attr="onclick=|FilterAdvanced('filter','ban-chay')|"><a id="filter-bestsealler" href="">BÁN CHẠY</a></li>
-		                		<li th:attr="onclick=|FilterAdvanced('filter','giam-gia')|" ><a id="filter-promotion" href="">GIẢM GIÁ</a></li>
-		                		<li th:attr="onclick=|FilterAdvanced('filter','gia-thap')|" ><a id="filter-priceMin" href="">GIÁ THẤP</a></li>
-		                		<li th:attr="onclick=|FilterAdvanced('filter','gia-cao')|" ><a id="filter-priceMax" href="">GIÁ CAO</a></li>
-		                		<li th:attr="onclick=|FilterAdvanced('filter','loc')|"><a href="">LỌC</a></li>
-		                	</ul>
+		                		<li th:attr="onclick=|FilterAdvanced('filter','hang-moi')|"  ><a id="filter-new" href="javascript:void(0)">HÀNG MỚI</a></li>
+		                		<li th:attr="onclick=|FilterAdvanced('filter','ban-chay')|"><a id="filter-bestsealler" href="javascript:void(0)">BÁN CHẠY</a></li>
+		                		<li th:attr="onclick=|FilterAdvanced('filter','gia-thap')|" ><a id="filter-priceMin" href="javascript:void(0)">GIÁ THẤP</a></li>
+		                		<li th:attr="onclick=|FilterAdvanced('filter','gia-cao')|" ><a id="filter-priceMax" href="javascript:void(0)">GIÁ CAO</a></li>
+		                		
 		                	</ul>
 		                </div>
 		            </div>
@@ -147,13 +145,10 @@
 		            
 			</div><!--End  product-listing-grid -->
         </div><!-- End Row -->
-        <div class="pull-right">
-        	 <nav aria-label="Page navigation example">
-				<ul class="pagination justify-content-end" id="pageable-custom">
-				    
-				</ul>
-			</nav>
-        </div>
+       	<nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-end" id="pageable-custom">
+			</ul>
+		</nav>
     </div> <!-- End Container-product -->
 </body>
 <section layout:fragment="script">
@@ -186,7 +181,7 @@
 			filterAndvanted(map);			
 		});
 		
-
+		
 	</script>	
 </section>
 

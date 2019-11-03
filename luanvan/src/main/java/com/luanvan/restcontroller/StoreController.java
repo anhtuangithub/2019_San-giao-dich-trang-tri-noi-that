@@ -56,4 +56,9 @@ public class StoreController {
 	public StoreDTOResponse getStore(Authentication auth){
 		return storeService.storeLogIn(auth);
 	}
+	
+	@PostMapping("xet-duyet")
+	public void xetDuyet(@RequestBody Long id) {
+		storeService.xetDuyet(id);
+	}
 }

@@ -51,6 +51,9 @@ public class Store {
 	@Column(name = "website")
 	private String website;
 	
+	@Column(name = "status", columnDefinition = "tinyInt(1) default 0")
+	private int status;
+	
 	@JsonIgnore
 	@OneToOne
     @JoinColumn(name = "user_id")

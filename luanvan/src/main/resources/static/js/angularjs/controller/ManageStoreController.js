@@ -4,55 +4,44 @@ app.controller('ManageStoreController',function($scope,$http,URL_Main){
 	$http.get(URL_Main + 'stores/all-store-dto')
 	.then(function(response){
 		$scope.listStore = response.data;
-		console.log($scope.listStore);
 	});
 	
-//	function refreshData(){
-//		$http.get(URL_Main + 'reviews')
-//		.then(function(response){
-//			$scope.listreview = response.data;
-//		});
-//	}
-	
-	// Xử lí modal Img
-	$scope.modal= function(id){
-		$scope.frmTitle = "Chỉnh sửa Review ";
-//		$http.get(URL_Main + 'reviews/'+id)
-//		.then(function(response){
-//			$scope.reviews = response.data;
-//		})
-//		.then(function(){
-//		 	jQuery("#rateYoReview").rateYo({
-//		 		starWidth: "20px",
-//		    	rating: 0,
-//		    	fullStar: true,
-//		    	readOnly: true
-//		  	});
-//		})
-//		.then(function(){
-//			jQuery("#modalReview .jq-ry-container>.jq-ry-group-wrapper>.jq-ry-group.jq-ry-rated-group").css('width',$scope.reviews.rating*20+'%');
-//		});
-		
-		jQuery('#modalReview').modal('show');
+	function refreshData(){
+		$http.get(URL_Main + 'stores/all-store-dto')
+		.then(function(response){
+			$scope.listStore = response.data;
+		});
 	}
 	
-//	$scope.save = function(){
-//		var url = URL_Main + 'reviews';
-//		var data = $scope.reviews;
-//		$http({
-//			method : 'POST',
-//			url : url,
-//			data : data,
-//			headers : {'Content-type' : 'application/json'}
-//		})
-//		.then(function (response){
-//			refreshData();
-//			jQuery('#modalReview').modal('hide');
-//		})
-//		.catch(function (response){
-//			console.log(response);
-//			
-//		});
-//	}
-	
+	$scope.xacNhan = function(storeid,storename){
+		Swal.fire({
+			  title: 'Bạn có chắc?',
+			  text: "Thay đổi tình trạng xét duyệt cho nhà bán hàng " + storename,
+			  type: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Đồng ý!',
+			  cancelButtonText: 'Không, thoát!',
+			}).then((result) => {
+				if (result.value) {
+					$http({
+						method : 'POST',
+						url : "/stores/xet-duyet",
+						data : storeid,
+						headers : {'Content-type' : 'application/json'}
+					})
+					.then(function (response){
+						toastr.success('Thay đổi trạng thái xét duyệt thành công', 'Thành công',{timeOut: 1000, escapeHtml: true});
+						refreshData();
+					})
+					.catch(function (response){
+						toastr.error('Có lỗi trong quá trình xét duyệt', 'Gặp lỗi!',{timeOut: 1000, escapeHtml: true});
+						
+					});
+				}
+			})
+	}
+
+
 });

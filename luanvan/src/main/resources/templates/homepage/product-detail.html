@@ -218,7 +218,7 @@
                             <div class="item-image">
                                 <img ng-src="/img/uploads/{{proRelated.avatar}}" alt="">
                             </div>
-                           <div class="item-name-carousel" ng-if="proRelated.price_new != proRelated.price">
+                            <div class="item-name-carousel" ng-if="proRelated.price_new != proRelated.price">
                                 <div class="product-title-carousel">{{proRelated.name}} </div>
                                 <span class="product-price-carousel">{{proRelated.price_new | currency: "":0}}đ</span>
                                 <span class="product-sales-off-carousel">{{proRelated.price | currency: "":0}}đ</span>
@@ -226,7 +226,13 @@
                             </div>
                             <div class="item-name-carousel" ng-if="proRelated.price_new == proRelated.price">
                                 <div class="product-title-carousel">{{proRelated.name}} </div>
-                                <span class="product-price-carousel">{{proRelated.price | currency: "":0}}đ</span>
+                                <span class="product-price-carousel">{{proRelated.price_new | currency: "":0}}đ</span>
+                                <span class="product-sales-off-carousel"></span>
+                                <span class="ribbon-carousel"></span>
+                            </div>
+                            <div class="product-rating-position">
+                                <div class="product-rating" ng-if="proRelated.avgstart > 0"><rate-yo-product rating="proRelated.avgstart" ></rate-yo-product></div>
+                                <div class="product-position">{{proRelated.stores.province.name}}</div>
                             </div>
                         </div>
                     </a>

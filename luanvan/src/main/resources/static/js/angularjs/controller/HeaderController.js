@@ -104,5 +104,35 @@ apt.controller('HeaderController',function($scope,$http,URL_Home){
 		$scope.disableSelectQuan =true;
 		$scope.disableSelectTinh =true;
     }
-	
+
+    var cart =  JSON.parse(localStorage.getItem("cart"));
+	if(cart != null) refreshData();
+	function refreshData(){
+		
+		var url = URL_Home + 'products/cart';
+		
+		$http({
+			method : 'POST',
+			url : url,
+			data : cart,
+			headers : {'Content-type' : 'application/json'}
+		})
+		.then(function (response){
+			updateCart(response.data);
+			jQuery("#countItem").text(quantityofcart());
+		})
+		.catch(function (response){
+			console.log(response);
+			
+		});
+	}
+
+	function updateCart(objectArray){
+		localStorage.removeItem("cart");
+		var cart = [];
+		for(var i = 0; i < objectArray.length ; i++){
+			cart.push({id:objectArray[i].id,quantity:objectArray[i].buyQuantity});
+		}
+		localStorage.setItem("cart", JSON.stringify(cart));
+	}
 });

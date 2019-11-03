@@ -415,11 +415,7 @@ public class ProductServiceImpl  implements ProductService{
 			Sort sort = JpaSort.unsafe(Sort.Direction.DESC, "count(orD.product.id)");
 			sorted =  PageRequest.of(page, 5,sort);
 		}
-		else if(filter.equalsIgnoreCase("giam-gia")) {
-			
-			Sort sort = JpaSort.unsafe(Sort.Direction.DESC, "COALESCE(max(ppro.sale_off),0)");
-			sorted =  PageRequest.of(page, 5,sort);
-		}
+
 		Page<Product> products = 
 				productRepository.pageSearchProduct( search , categoryId, originId, materialId, star, producerId, sorted);
 

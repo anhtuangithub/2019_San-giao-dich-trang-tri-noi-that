@@ -65,7 +65,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	
 	@Query(value = "select pro from product pro join pro.unitPrices pri on pri.product.id = pro.id "+
 			" left join pro.orderDetail orD" +
-			" left join pro.promotions ppro "+
 			" where" + 
 				" pri.id in" + 
 					" (select price.id from unitprice price WHERE price.end_time > CURRENT_DATE  AND price.start_time < CURRENT_DATE GROUP by price.id HAVING max(price.id) > 0)" + 

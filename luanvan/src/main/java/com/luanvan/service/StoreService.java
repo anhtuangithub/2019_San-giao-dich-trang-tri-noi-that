@@ -22,4 +22,6 @@ public interface StoreService {
 	
 	StoreDTOResponse storeLogIn(Authentication auth);
 	
+	void xetDuyet(Long id);
+	
 }

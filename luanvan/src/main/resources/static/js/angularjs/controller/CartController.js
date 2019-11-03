@@ -89,9 +89,9 @@ apt.controller('CartController',function($scope,$http,URL_Home){
 			headers : {'Content-type' : 'application/json'}
 		})
 		.then(function (response){
-			 $scope.cart = groupBy(response.data, "stores");
-			 $scope.total = getTotal(response.data);
-			 $scope.canBuy = canBuy(response.data);
+			$scope.cart = groupBy(response.data, "stores");
+			$scope.total = getTotal(response.data);
+			$scope.canBuy = canBuy(response.data);
 		})
 		.catch(function (response){
 			console.log(response);
@@ -140,6 +140,15 @@ apt.controller('CartController',function($scope,$http,URL_Home){
 //	}
 	
 	
+	// function updateCart(objectArray){
+	// 	localStorage.removeItem("cart");
+	// 	var cart = [];
+	// 	for(var i = 0; i < objectArray.length ; i++){
+	// 		cart.push({id:objectArray[i].id,quantity:objectArray[i].buyQuantity});
+	// 	}
+	// 	localStorage.setItem("cart", JSON.stringify(cart));
+	// }
+
 	function groupBy(objectArray, property) {
 		return objectArray.reduce(function (acc, obj) {
 			var key = obj[property].id;

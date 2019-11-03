@@ -22,6 +22,7 @@ public class StoreDTOResponse {
 	private String phone;
 	private String website;
 	private String introduce;
+	private int status;
 	private Users users;
 	private Province province;
 	private District district;

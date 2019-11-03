@@ -71,6 +71,16 @@ public class StoreServiceImpl implements StoreService {
 		return storeDTO;
 	}
 
+	@Override
+	public void xetDuyet(Long id) {
+		Store store = storeRepository.getOne(id);
+		if(store.getStatus() == 0) {
+			store.setStatus(1);
+		}
+		else store.setStatus(0);
+		storeRepository.save(store);
+	}
+
 
 	
 	

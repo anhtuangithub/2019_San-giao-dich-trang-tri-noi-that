@@ -2,7 +2,7 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{admin/parts/layout}">
 <head>
-<title>QUản lý tài khoản bán hàng</title>
+<title>Quản lý tài khoản bán hàng</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -31,6 +31,7 @@
 											<th>Tên CH</th>
 											<th>Tài khoản sử dụng</th>
 											<th>Thông tin liên hệ</th>
+											<th>Trạng thái</th>
 											<th></th>
 										</tr>
 										
@@ -42,14 +43,15 @@
 											<td>{{store.name}}</td>
 											<td>{{store.users.email}}</td>
 											<td style="text-align: left;">
-												<p><b>Địa chỉ:</b> {{store.address}},{{store.ward.name}},{{store.district.name}},{{store.province.name}}</p>
-												<p><b>SĐT:</b> {{store.phone}}</p>
-												<p ng-if="store.website != null"><b>website:</b> {{store.website}}</p>
+												<p style="color:#000;"><b>Địa chỉ:</b> {{store.address}},{{store.ward.name}},{{store.district.name}},{{store.province.name}}</p>
+												<p style="color:#000;"><b>SĐT:</b> {{store.phone}}</p>
+												<p style="color:#000;" ng-if="store.website != null"><b>website:</b> {{store.website}}</p>
 											</td>
-											
+											<td ng-if="store.status == 1"><span class="fa fa-unlock"></span></td>
+											<td ng-if="store.status == 0"><span class="fa fa-lock" style="color:#bd2130"></span></td>
 											<td>
-												<button class="btn btn-outline-success" ng-click="modal(review.id)" >
-													<span class="fa fa-pencil"></span>
+												<button class="btn btn-outline-warning" ng-click="xacNhan(store.id,store.name)">
+													<span class="fa fa-exchange"></span>
 												</button>
 											</td>
 										</tr>

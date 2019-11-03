@@ -51,10 +51,10 @@
 						<a th:href="@{'/store/manage/review'}"> <i class="menu-icon ti-email"></i>Quản lý đánh giá</a>
 					</li>
 					<li>
-						<a th:href="@{'/store/manage/qa'}"> <i class="menu-icon ti-email"></i>Quản lý QA</a>
+						<a th:href="@{'/store/manage/qa'}"> <i class="menu-icon ti-email"></i>Quản lý câu hỏi</a>
 					</li>
 				<!-- Phần admin-->
-				<div sec:authorize="hasRole('ROLE_STORE')">
+				<div sec:authorize="hasRole('ROLE_ADMIN')">
 					<h3 class="menu-title">Admin</h3>
 					<!-- /.menu-title -->
 					<li>
