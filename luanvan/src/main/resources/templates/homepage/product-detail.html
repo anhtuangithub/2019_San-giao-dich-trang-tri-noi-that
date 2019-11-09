@@ -134,12 +134,12 @@
                 <h3 class="tilte-deal-black">
                     Khách hàng nhận xét
                 </h3>
+                <h4 class="title-view-all"><a href="/noithat246.vn/san-pham/tat-ca-danh-gia?productid={{product.id}}">Xem tất cả</a></h4>
             </div>
             <!-- Hiển thị nhận xét -->
             <div class="review-list">
                 <div class="review-item" ng-if="reviews.length > 0" ng-repeat="review in reviews">
                     <div class="review-col-left">
-                        <p class="review-name">{{review.user.store.name}}</p>
                         <p class="review-name">{{review.user.customer.name}}</p>
                         <p class="review-time">{{review.created_at| date: "dd-MM-yyyy 'at' h:mma ":'UTC' }}</p>
                     </div>
@@ -170,7 +170,7 @@
                 <h3 class="tilte-deal-black">
                     Hỏi đáp về sản phẩm
                 </h3>
-                <h4 class="title-view-all">Xem tất cả</h4>
+                <h4 class="title-view-all"><a href="/noithat246.vn/san-pham/tat-ca-cau-hoi?productid={{product.id}}">Xem tất cả</a></h4>
             </div>
             <!-- Hiển thị nhận xét -->
             <ul class="qna-list" >
@@ -179,7 +179,7 @@
                         <span class="qna-icon qna-icon-q">Q</span>
                         <div class="qna-content">{{question.content}}</div>
                         <div class="qna-meta" ng-if="question.user.customer != null">{{question.user.customer.name}} - {{question.created_at| date: "dd-MM-yyyy 'at' h:mma ":'UTC' }}</div>
-                        <div class="qna-meta" ng-if="question.user.store != null">{{question.user.store.name}} - {{question.created_at| date: "dd-MM-yyyy 'at' h:mma ":'UTC' }}</div>
+                        <!-- <div class="qna-meta" ng-if="question.user.store != null">{{question.user.store.name}} - {{question.created_at| date: "dd-MM-yyyy 'at' h:mma ":'UTC' }}</div> -->
                     </div>
                     <div class="qna-item-group" >
                         <span class="qna-icon qna-icon-a">A</span>

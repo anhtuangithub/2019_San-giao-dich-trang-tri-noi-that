@@ -13,7 +13,7 @@ app.controller('ManageStoreController',function($scope,$http,URL_Main){
 		});
 	}
 	
-	$scope.xacNhan = function(storeid,storename){
+	$scope.xacNhan = function(storeid,storename,status){
 		Swal.fire({
 			  title: 'Bạn có chắc?',
 			  text: "Thay đổi tình trạng xét duyệt cho nhà bán hàng " + storename,
@@ -28,7 +28,7 @@ app.controller('ManageStoreController',function($scope,$http,URL_Main){
 					$http({
 						method : 'POST',
 						url : "/stores/xet-duyet",
-						data : storeid,
+						data : { id : storeid, quantity: status },
 						headers : {'Content-type' : 'application/json'}
 					})
 					.then(function (response){

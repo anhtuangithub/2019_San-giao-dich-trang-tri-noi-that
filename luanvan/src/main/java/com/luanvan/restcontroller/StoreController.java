@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.luanvan.dto.request.CartDTO;
 import com.luanvan.dto.response.StoreDTOResponse;
 import com.luanvan.model.Store;
 import com.luanvan.service.StoreService;
@@ -58,7 +59,7 @@ public class StoreController {
 	}
 	
 	@PostMapping("xet-duyet")
-	public void xetDuyet(@RequestBody Long id) {
-		storeService.xetDuyet(id);
+	public void xetDuyet(@RequestBody CartDTO cartDTO) {
+		storeService.xetDuyet(cartDTO);
 	}
 }

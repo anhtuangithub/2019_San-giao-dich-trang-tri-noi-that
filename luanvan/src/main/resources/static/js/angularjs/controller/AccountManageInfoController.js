@@ -8,6 +8,7 @@ apt.controller('AccountManageInfoController',function($scope,$http,URL_Home){
 		$http.get(URL_Home + 'customers/thong-tin')
 		.then(function(response){
 			$scope.saveCustomer  = response.data;
+			console.log($scope.saveCustomer);
 			$scope.saveCustomer.birthday = new Date($scope.saveCustomer.birthday);
 		});
 	}

@@ -79,7 +79,7 @@ public class ReviewServiceImpl implements ReviewService{
 
 	@Override
 	public List<ReviewDTO> reviewOfProduct(Long id) {
-		List<Review> reviews = reviewRepository.findByProductsIdAndStatusOrderByIdDesc(id, 0);
+		List<Review> reviews = reviewRepository.findByProductsIdAndStatusOrderByIdDesc(id, 1);
 		ModelMapper mapper = new ModelMapper();
 		List<ReviewDTO> reviewDTOs = mapper.map(reviews,new TypeToken<List<ReviewDTO>>(){}.getType());
 		return reviewDTOs.stream().limit(5).collect(Collectors.toList());
@@ -130,6 +130,25 @@ public class ReviewServiceImpl implements ReviewService{
 		    }
 		});
 		
+		return reviewDTOs;
+	}
+
+	@Override
+	public Page<ReviewDTO> reviewPageHome(Long productid, int page) {
+		int pageminus = 0;
+		if(page>=1) {
+			pageminus = page-1;
+		}
+		Pageable sorted =  PageRequest.of(pageminus, 5);
+		Page<Review> reviews = reviewRepository.findByProductsIdAndStatusOrderByIdDesc(productid, 1, sorted);
+		Page<ReviewDTO> reviewDTOs = reviews.map(new Function<Review, ReviewDTO>() {
+		    @Override
+		    public ReviewDTO apply(Review entity) {
+		    	ModelMapper mapper = new ModelMapper();
+		    	ReviewDTO reviewDTO = mapper.map(entity,ReviewDTO.class);
+		        return reviewDTO;
+		    }
+		});
 		return reviewDTOs;
 	}
 	

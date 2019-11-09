@@ -44,8 +44,8 @@
 											<td><rate-yo rating="review.rating"></rate-yo></td>
 											<td>{{review.updated_at}}</td>
 											<td>{{review.products["name"]}}</td>
-											<td ng-if="review.status == 0"><span class="fa fa-unlock"></span></td>
-											<td ng-if="review.status == 1"><span class="fa fa-lock" style="color:#bd2130"></span></td>
+											<td ng-if="review.status == 1"><span class="fa fa-unlock"></span></td>
+											<td ng-if="review.status == 0"><span class="fa fa-lock" style="color:#bd2130"></span></td>
 											<td>
 												<button class="btn btn-outline-success" ng-click="modal(review.id)" >
 													<span class="fa fa-pencil"></span>
@@ -88,10 +88,10 @@
 									<label>Trạng thái</label> 
 									<input type="radio"
 										ng-model="reviews.status"
-										name="txtstatus" ng-value="0"> Kích hoạt 
+										name="txtstatus" ng-value="1"> Hiện 
 									<input
 										type="radio" ng-model="reviews.status"
-										name="txtstatus" ng-value="1"> Tạm khóa
+										name="txtstatus" ng-value="0"> Ẩn
 								</div>
 							</form>
 						</div>

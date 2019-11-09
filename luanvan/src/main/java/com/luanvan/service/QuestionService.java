@@ -32,4 +32,6 @@ public interface QuestionService {
 	List<QuestionResponseDTO> findAllQuestionHome(Long productid,int status);
 	
 	Page<QuestionResponseDTO> questionByUser(Authentication auth, int page);
+	
+	Page<QuestionResponseDTO> AllQuestionHome(Long productid,int page);
 }

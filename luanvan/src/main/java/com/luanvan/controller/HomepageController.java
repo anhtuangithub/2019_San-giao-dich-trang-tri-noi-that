@@ -38,7 +38,7 @@ public class HomepageController {
 	
 	@Autowired
 	private CategoryRepository categoryRepository;
-	
+
 	@Autowired
 	private ProductService productSevice;
 	
@@ -324,4 +324,16 @@ public class HomepageController {
 	    
 	}
 	
+	
+	@GetMapping("san-pham/tat-ca-cau-hoi")
+	public String allQuestionHome(Model model, @RequestParam("productid") Long productid,
+			@RequestParam(value ="page", required = false, defaultValue = "0") int page) {
+		return "homepage/all-question";
+	}
+	
+	@GetMapping("san-pham/tat-ca-danh-gia")
+	public String allReviewHome(Model model, @RequestParam("productid") Long productid,
+			@RequestParam(value ="page", required = false, defaultValue = "0") int page) {
+		return "homepage/all-review";
+	}
 }

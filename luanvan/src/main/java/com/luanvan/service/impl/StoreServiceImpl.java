@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import com.luanvan.dto.request.CartDTO;
 import com.luanvan.dto.response.StoreDTOResponse;
 import com.luanvan.exception.NotFoundException;
 import com.luanvan.model.Store;
 import com.luanvan.model.Users;
 import com.luanvan.repo.StoreRepository;
 import com.luanvan.repo.UsersRepository;
+import com.luanvan.service.SendGridMailService;
 import com.luanvan.service.StoreService;
 
 @Service
@@ -21,12 +23,15 @@ public class StoreServiceImpl implements StoreService {
 
 	private StoreRepository storeRepository;
 	private UsersRepository userRepository;
+	private SendGridMailService sendGridMailService;
 	
 	@Autowired
 	public StoreServiceImpl(StoreRepository storeRepository,
-			UsersRepository userRepository) {
+			UsersRepository userRepository,
+			SendGridMailService sendGridMailService) {
 		this.storeRepository = storeRepository;
 		this.userRepository = userRepository;
+		this.sendGridMailService = sendGridMailService;
 	}
 
 	@Override
@@ -72,13 +77,24 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public void xetDuyet(Long id) {
-		Store store = storeRepository.getOne(id);
-		if(store.getStatus() == 0) {
-			store.setStatus(1);
-		}
-		else store.setStatus(0);
+	public void xetDuyet(CartDTO cartDTO) {
+		Store store = storeRepository.getOne(cartDTO.getId());
+		store.setStatus(cartDTO.getQuantity());
 		storeRepository.save(store);
+		
+		StringBuilder  string = new StringBuilder("NoiThat246 Xin chào bạn !!!");
+		if(cartDTO.getQuantity() == 1) {
+			string.append("<p>Yêu câu bán hàng của bạn đã được duyệt.</p>");
+		}
+		else if(cartDTO.getQuantity() == 2) {
+			string.append("<p>Yêu câu bán hàng của bạn đã bị từ chối do bạn không đáp ứng yêu cầu của Nội Thất 246.</p>");
+		}
+		else if(cartDTO.getQuantity() == 3) {
+			string.append("<p>Tài khoản của bạn tạm khóa do vi phạm điều lệ của NoiThat246.</p>");
+		}
+		string.append("<p>Mọi thắc mắc và góp ý vui lòng liên hệ với Nội Thất Care qua email: support@noithat246.vn hoặc số điện thoại 0941 426 824 (1000đ/phút , 8-21h kể cả T7, CN).</p>");
+		string.append("<p>Trân trọng</p><p>NoiThat246</p>");
+		sendGridMailService.sendHTML(store.getUsers().getEmail(), "Xác nhận bán hàng cùng NoiThat246", string.toString());
 	}
 
 

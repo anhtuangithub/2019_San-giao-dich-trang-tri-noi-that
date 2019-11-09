@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.security.core.Authentication;
 
+import com.luanvan.dto.request.CartDTO;
 import com.luanvan.dto.response.StoreDTOResponse;
 import com.luanvan.model.Store;
 
@@ -22,6 +23,6 @@ public interface StoreService {
 	
 	StoreDTOResponse storeLogIn(Authentication auth);
 	
-	void xetDuyet(Long id);
+	void xetDuyet(CartDTO cartDTO);
 	
 }

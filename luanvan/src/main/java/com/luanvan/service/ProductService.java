@@ -37,7 +37,7 @@ public interface ProductService {
 	List<Product> findProductByCategory(Long id);
 	
 	//List product with promotion
-	List<ProductPromotionDTO> allPromotionOfProduct();
+	List<ProductPromotionDTO> PromotionTop10OfProduct();
 	
 	// Max promotion of product
 	ProductPromotionDTO PromotionOfProductById(Long id);
@@ -86,7 +86,7 @@ public interface ProductService {
 	ResponseEntity<?> uploadImage(int product,MultipartFile[] uploadfiles, Authentication auth);
 	
 	//List related Product by category id (DTO)
-	List<ProductPromotionDTO> findRelatedProductByCategory(Long id);
+	List<ProductPromotionDTO> RelatedProductByCategory(Long id);
 	
 	Page<ProductPromotionDTO> listAllPromotionHasProduct(String categoryId, int page);
 	

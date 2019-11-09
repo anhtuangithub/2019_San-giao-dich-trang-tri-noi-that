@@ -24,7 +24,7 @@
 							</div>
 							<div class="card-body">
 								<table id="bootstrap-data-table-export"
-									class="table table-bordered table-hover text-center">
+									class="table table-bordered table-hover text-center" dt-options="dtOptions" dt-columns="dtColumns" datatable="ng">
 									<thead class="thead-light">
 										<tr>
 											<th>STT</th>
@@ -47,11 +47,22 @@
 												<p style="color:#000;"><b>SĐT:</b> {{store.phone}}</p>
 												<p style="color:#000;" ng-if="store.website != null"><b>website:</b> {{store.website}}</p>
 											</td>
-											<td ng-if="store.status == 1"><span class="fa fa-unlock"></span></td>
-											<td ng-if="store.status == 0"><span class="fa fa-lock" style="color:#bd2130"></span></td>
-											<td>
-												<button class="btn btn-outline-warning" ng-click="xacNhan(store.id,store.name)">
-													<span class="fa fa-exchange"></span>
+											<td ng-if="store.status == 0" style="color: blue">Đang chờ duyệt</td>
+											<td ng-if="store.status == 1" style="color: green">Đã duyệt</td>
+											<td ng-if="store.status == 2" style="color: red">Đã từ chối</td>
+											<td ng-if="store.status == 3" style="color: #ffc107">Tạm khóa</td>
+											<td style="width: 16%;">
+												<button ng-if="store.status == 0" class="btn btn-outline-success" ng-click="xacNhan(store.id,store.name,'1')">
+													Duyệt
+												</button>
+												<button ng-if="store.status == 0" class="btn btn-outline-danger" ng-click="xacNhan(store.id,store.name,'2')">
+													Hủy
+												</button>
+												<button ng-if="store.status == 1" class="btn btn-outline-warning" ng-click="xacNhan(store.id,store.name,'3')">
+													Khóa
+												</button>
+												<button ng-if="store.status == 3" class="btn btn-outline-info" ng-click="xacNhan(store.id,store.name,'1')">
+													Mở khóa
 												</button>
 											</td>
 										</tr>
@@ -66,49 +77,6 @@
 			</div>
 			<!-- .animated -->
 
-
-			<!-- Modal -->
-			<div class="modal fade" tabindex="-1" role="dialog" id="modalReview">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title">{{ frmTitle }}</h4>
-							<button type="button" class="close" data-dismiss="modal">×</button>
-						</div>
-						<div class="modal-body">
-							<form name="frm" class="form-horizontal">
-								<div class="form-group">
-									<label>Review</label>
-									<TEXTAREA type="text" class="form-control" id="txtcontent"
-										name="txtcontent" placeholder="Nhập review của bạn"
-										ng-model="reviews.content" ng-required="true" readonly></TEXTAREA>
-								</div>
-								<div class="form-group">
-									<label>Đánh giá</label>
-									
-								</div>
-								<div class="form-group">
-									<label>Trạng thái</label> 
-									<input type="radio"
-										ng-model="reviews.status"
-										name="txtstatus" ng-value="0"> Kích hoạt 
-									<input
-										type="radio" ng-model="reviews.status"
-										name="txtstatus" ng-value="1"> Tạm khóa
-								</div>
-							</form>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary"
-								ng-disabled="frm.$invalid"
-								ng-click="save()">Lưu</button>
-						</div>
-					</div>
-					<!-- /.modal-content -->
-				</div>
-				<!-- /.modal-dialog -->
-			</div>
-			<!-- /.modal -->
 		</div>
 		<!-- .content -->
 

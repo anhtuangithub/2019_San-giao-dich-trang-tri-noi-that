@@ -1,0 +1,95 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{homepage/parts/layout}">
+<head>
+<title>Content</title>
+</head>
+<body>
+	<div class="container-product" layout:fragment="content" >
+        
+        <div class="col-md-12" style="margin:20px 0px;background-color: #fff" ng-controller="PageQuestionController">
+            <div class="row">
+                <div class="col-lg-10 col-md-9">
+                    <div class="product-header">
+                        <h3 class="tilte-deal-black">
+                            Hỏi đáp về sản phẩm
+                        </h3>
+                    </div>
+                    <!-- Hiển thị nhận xét -->
+                    <ul class="qna-list" >
+                        <li class="qna-item" ng-if="questions.content.length > 0" ng-repeat="question in questions.content">
+                            <div class="qna-item-group">
+                                <span class="qna-icon qna-icon-q">Q</span>
+                                <div class="qna-content">{{question.content}}</div>
+                                <div class="qna-meta" ng-if="question.user.customer != null">{{question.user.customer.name}} - {{question.created_at| date: "dd-MM-yyyy 'at' h:mma ":'UTC' }}</div>
+                            </div>
+                            <div class="qna-item-group" >
+                                <span class="qna-icon qna-icon-a">A</span>
+                                <div class="qna-content">{{question.answers[0].content}}</div>
+                                <div class="qna-meta">{{question.answers[0].stores.name}} - {{question.answers[0].created_at| date: "dd-MM-yyyy 'at' h:mma ":'UTC' }}</div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div ng-if="questions.content.length <= 0" style="text-align: center;">
+                        <img  ng-src="/images/discuss-issue.svg" alt="" style="width: 50px;height: 50px">
+                        <p>Chưa có câu hỏi cho sản phẩm này.</p>
+                        <p><a ng-href="/noithat246.vn/dang-nhap" style="color:#fea100">Đăng nhập</a> hoặc <a ng-href="/noithat246.vn/dang-nhap" style="color: #fea100">Đăng ký</a> để đặt câu hỏi cho nhà bán hàng ngay và câu trả lời sẽ được hiển thị tại đây.</p>
+                    </div>
+                </div>
+                <div class=" col-lg- 3 col-md-2">
+                    <div class="product-list">
+                        <div class="item">
+                            <a href="">
+                                <span class="image">
+                                    <img ng-src="/img/uploads/{{product.avatar}}" style="height: 182px; width: 100%">
+                                </span>
+                                <span class="title">{{product.name}}</span>
+                            </a>
+                            <p class="rating"><span id="rateYoProduct"></span></p>
+                            <p class="review">(nhận xét)</p>
+                            <p class="price-sale">{{product.price_new| currency: "":0}}đ</p>
+                            <p class="price-regular">{{product.price| currency: "":0}}đ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+
+        </div>
+    </div> <!-- End Container-product -->
+</body>
+<section layout:fragment="script">
+ <script th:src="@{/js/searchAdvanted.js}"></script>
+    <script>
+        apt.controller('PageQuestionController',function($scope,$http,URL_Home){
+    
+        let searchParams = new URLSearchParams(window.location.search);
+
+        $http.get(URL_Home + 'questions/tat-ca-cau-hoi?productid='+searchParams.get('productid'))
+        .then(function(response){
+            $scope.questions = response.data;
+            var totalPages = $scope.questions.totalPages;
+            var currentPage = $scope.questions.number;
+            if(totalPages > 1){
+                page(currentPage+1,totalPages);
+            }
+        });
+
+        $http.get(URL_Home + 'products/detail-product/'+searchParams.get('productid'))
+        .then(function(response){
+            $scope.product = response.data;
+            jQuery(function () {
+                jQuery("#rateYoProduct").rateYo({
+                    starWidth: "15px",
+                    rating: $scope.product.avgstart,
+                    readOnly: true
+                });
+             
+            });
+        });
+    });
+    </script>
+</section>
+
+</html>
+
+

@@ -81,4 +81,11 @@ public class ReviewController {
 		reviewService.delete(id);
 	}
 	
+	@GetMapping("san-pham")
+	public Page<ReviewDTO> reviewHome(@RequestParam("productid") Long productid,
+			@RequestParam(value ="page", required = false, defaultValue = "0") int page){
+		return reviewService.reviewPageHome(productid, page);
+	}
+	
+	
 }

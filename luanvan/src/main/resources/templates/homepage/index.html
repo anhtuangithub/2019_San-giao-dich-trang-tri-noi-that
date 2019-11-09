@@ -206,25 +206,29 @@
         
         var today = new Date();
         var result = [[${session.SPRING_SECURITY_CONTEXT.authentication.principal.hethan}]];
-        var hethan = new Date(result);
-        var nam = hethan.getFullYear() - today.getFullYear();
-        var thang = hethan.getMonth() - today.getMonth();
-        var ngay = hethan.getDate() - today.getDate();
-        if(nam <= 0 && thang <= 0){
-            if(ngay <= 5){
-                toastr.warning('Cửa hàng sắp hết hạn', 'Cảnh báo',{ 
-                        timeOut: 0, 
-                        extendedTimeOut: 0,
-                        escapeHtml: true, 
-                        closeButton: true,
-                        positionClass: "toast-bottom-right", 
-                        hideEasing: "linear", 
-                        showMethod: "fadeIn",
-                        hideMethod: "fadeOut", 
-                        showEasing: "swing"
-                    });
-            }
-        }
+        var roles = [[${session.SPRING_SECURITY_CONTEXT.authentication.principal.authorities}]];
+      	if(roles.length >= 2){
+      		var hethan = new Date(result);
+	        var nam = hethan.getFullYear() - today.getFullYear();
+	        var thang = hethan.getMonth() - today.getMonth();
+	        var ngay = hethan.getDate() - today.getDate();
+	        if(nam <= 0 && thang <= 0){
+	            if(ngay <= 5){
+	                toastr.warning('Cửa hàng sắp hết hạn vui lòng gia hạn tài khoản để sử dụng dịch vụ', 'Cảnh báo',{ 
+	                        timeOut: 0, 
+	                        extendedTimeOut: 0,
+	                        escapeHtml: true, 
+	                        closeButton: true,
+	                        positionClass: "toast-bottom-right", 
+	                        hideEasing: "linear", 
+	                        showMethod: "fadeIn",
+	                        hideMethod: "fadeOut", 
+	                        showEasing: "swing"
+	                    });
+	            }
+	        }
+      	}
+        
         
     </script>  
 </section>

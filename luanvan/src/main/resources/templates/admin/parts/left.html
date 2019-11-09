@@ -21,14 +21,14 @@
 				<div  sec:authorize="hasRole('ROLE_ADMIN')">
 					<li class="active">
 						<a th:href="@{'/admin/manage/dashboard'}"> 
-							<i class="menu-icon fa fa-dashboard"></i>Thông kê doanh số trang web
+							<i class="menu-icon fa fa-line-chart"></i>Thông kê doanh số trang web
 						</a>
 					</li>
 				</div>
 				<div  sec:authorize="hasRole('ROLE_STORE')">
 					<li class="active">
 						<a th:href="@{'/store/manage/dashboard'}"> 
-							<i class="menu-icon fa fa-dashboard"></i>Thống kê doanh số bán hàng
+							<i class="menu-icon fa fa-area-chart"></i>Thống kê doanh số bán hàng
 						</a>
 					</li>
 				</div>
@@ -36,48 +36,48 @@
 				<!-- /.menu-title -->
 				
 					<li>
-						<a th:href="@{'/store/manage/neworder'}"> <i class="menu-icon ti-email"></i>Quản lý Hóa đơn</a>
+						<a th:href="@{'/store/manage/neworder'}"> <i class="menu-icon ti-shopping-cart"></i>Quản lý Hóa đơn</a>
 					</li>
 					<li>
-						<a th:href="@{'/store/manage/product'}"> <i class="menu-icon fa fa-laptop"></i>Quản lý sản phẩm</a>
+						<a th:href="@{'/store/manage/product'}"> <i class="menu-icon ti-book"></i>Quản lý sản phẩm</a>
 					</li>
 					<li>
-						<a th:href="@{'/store/manage/inventory'}"> <i class="menu-icon ti-email"></i>Quản lý tồn kho</a>
+						<a th:href="@{'/store/manage/inventory'}"> <i class="menu-icon fa fa-th-large"></i>Quản lý tồn kho</a>
 					</li>
 					<li>
-						<a th:href="@{'/store/manage/promotion'}"> <i class="menu-icon ti-email"></i>Quản lý khuyến mãi</a>
+						<a th:href="@{'/store/manage/promotion'}"> <i class="menu-icon fa fa-btc"></i>Quản lý khuyến mãi</a>
 					</li>
 					<li>
-						<a th:href="@{'/store/manage/review'}"> <i class="menu-icon ti-email"></i>Quản lý đánh giá</a>
+						<a th:href="@{'/store/manage/review'}"> <i class="menu-icon ti-comment-alt"></i>Quản lý đánh giá</a>
 					</li>
 					<li>
-						<a th:href="@{'/store/manage/qa'}"> <i class="menu-icon ti-email"></i>Quản lý câu hỏi</a>
+						<a th:href="@{'/store/manage/qa'}"> <i class="menu-icon ti-comments"></i>Quản lý câu hỏi</a>
 					</li>
 				<!-- Phần admin-->
 				<div sec:authorize="hasRole('ROLE_ADMIN')">
 					<h3 class="menu-title">Admin</h3>
 					<!-- /.menu-title -->
 					<li>
-						<a th:href="@{'/admin/manage/product-all'}"><i class="menu-icon ti-email"></i>Quản lý sản phẩm Admin</a>
+						<a th:href="@{'/admin/manage/product-all'}"><i class="menu-icon fa fa-book"></i>Quản lý sản phẩm Admin</a>
 					</li>
 
 					<li class="menu-item-has-children dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false">
-							<i class="menu-icon fa fa-area-chart"></i>Quản lý danh mục
+							<i class="menu-icon fa fa-tasks"></i>Quản lý danh mục
 						</a>
 						<ul class="sub-menu children dropdown-menu">
 							<li><i class="menu-icon fa fa-map-o"></i><a
 								th:href="@{'/admin/manage/category'}">Loại sản phẩm</a></li>
-							<li><i class="menu-icon fa fa-street-view"></i><a
+							<li><i class="menu-icon fa fa-gavel"></i><a
 								th:href="@{'/admin/manage/producer'}">Nhà sản xuất</a></li>
-							<li><i class="menu-icon fa fa-street-view"></i><a
+							<li><i class="menu-icon fa fa-lemon-o"></i><a
 								th:href="@{'/admin/manage/material'}">Nguyên liệu</a></li>
 							<!-- <li><i class="menu-icon fa fa-street-view"></i><a
 								th:href="@{'/admin/manage/color'}">Màu sắc sản phẩm</a></li> -->
-							<li><i class="menu-icon fa fa-street-view"></i><a
+							<li><i class="menu-icon fa fa-pagelines"></i><a
 								th:href="@{'/admin/manage/orderstatus'}">Trạng thái đơn hàng</a></li>
-							<li><i class="menu-icon fa fa-street-view"></i><a
+							<li><i class="menu-icon fa fa-ticket"></i><a
 								th:href="@{'/admin/manage/membertypes'}">Thẻ thành viên</a></li>
 						</ul>
 					</li>
@@ -86,13 +86,13 @@
 						<a href="#"
 							class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> 
-							<i class="menu-icon fa fa-bar-chart"></i>Quản
+							<i class="menu-icon fa fa-sitemap"></i>Quản
 								lý tài khoản
 							</a>
 						<ul class="sub-menu children dropdown-menu">
-							<li><i class="menu-icon fa fa-line-chart"></i><a
+							<li><i class="menu-icon fa fa-users"></i><a
 								th:href="@{'/admin/manage/store'}">Thông tin Cửa hàng</a></li>
-							<li><i class="menu-icon fa fa-area-chart"></i><a
+							<li><i class="menu-icon ti-user"></i><a
 								th:href="@{'/admin/manage/customer'}">Thông tin khách hàng</a></li>
 						</ul>
 					</li>

@@ -35,4 +35,6 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 	List<Review> listReviewStore(@Param("store") Long store);
 	
 	Page<Review> findByUserIdOrderByIdDesc(Long userid,Pageable pageable);
+	
+	Page<Review> findByProductsIdAndStatusOrderByIdDesc(Long productid, int status, Pageable pageable);
 }

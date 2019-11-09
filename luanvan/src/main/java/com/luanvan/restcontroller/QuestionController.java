@@ -74,4 +74,10 @@ public class QuestionController {
 	public List<Question> QuestionOfUser(Authentication auth){
 		return questionService.listQuestionByStore(auth);
 	}
+	
+	@GetMapping("tat-ca-cau-hoi")
+	public Page<QuestionResponseDTO> questionHoem(@RequestParam("productid") Long productid,
+			@RequestParam(value ="page", required = false, defaultValue = "0") int page){
+		return questionService.AllQuestionHome(productid, page);
+	}
 }

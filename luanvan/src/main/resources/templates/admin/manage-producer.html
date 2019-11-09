@@ -43,7 +43,7 @@
 										<tr>
 											<th>Mã</th>	
 											<th>Nhà sản xuất</th>
-											<th>Trạng thái</th>
+											<!-- <th>Trạng thái</th> -->
 											<th>Sự kiện</th>
 										</tr>
 									</thead>
@@ -51,16 +51,16 @@
 										<tr ng-repeat="producer in listproducers">
 											<td>{{producer.id}}</td>
 											<td>{{producer.name}}</td>
-											<td ng-if="producer.status == 0"><span class="fa fa-unlock"></span></td>
-											<td ng-if="producer.status == 1"><span class="fa fa-lock" style="color:#bd2130"></span></td>
+											<!-- <td ng-if="producer.status == 0"><span class="fa fa-unlock"></span></td>
+											<td ng-if="producer.status == 1"><span class="fa fa-lock" style="color:#bd2130"></span></td> -->
 											<td>
 												
-												<button class="btn btn-outline-info" ng-click="edit(producer.id)">
+												<button class="btn btn-outline-success" ng-click="edit(producer.id)">
 													<span class="fa fa-pencil"></span>
 												</button>
-												<button class="btn btn-outline-warning" ng-click="changeStatus(producer.id,producer.name,producer.status)">
+												<!-- <button class="btn btn-outline-warning" ng-click="changeStatus(producer.id,producer.name,producer.status)">
 													<span class="fa fa-exchange"></span>
-												</button>
+												</button> -->
 											</td>
 										</tr>
 									</tbody>

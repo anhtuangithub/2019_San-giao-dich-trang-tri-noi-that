@@ -41,13 +41,20 @@
 											<td>{{order.id}}</td>
 											<td style="text-align: left">
 												<p  ng-if="order.user.customer != null"><b>Khách hàng:</b> {{order.user.customer.name}}</p>
-												<p  ng-if="order.user.store != null"><b>Khách hàng:</b> {{order.user.store.name}}</p>
 												<p><b>Địa chỉ giao:</b> {{order.address}}</p>
 												<p><b>SĐT: </b>{{order.phone}}</p>
 											</td>
 											<td>{{order.total | currency: "":0}}đ</td>
 											<td>{{order.created_at| date: "dd-MM-yyyy 'giờ' h:mma ":'UTC' }}</td>
-											<td>{{order.orderStatus.name}}</td>
+
+											<td ng-if="order.orderStatus.id == 1" style="color: #007bff">{{order.orderStatus.name}}</td>
+											<td ng-if="order.orderStatus.id == 2" style="color: #17a2b8">{{order.orderStatus.name}}</td>
+											<td ng-if="order.orderStatus.id == 3" style="color: #ffc107">{{order.orderStatus.name}}</td>
+											<td ng-if="order.orderStatus.id == 4" style="color: #007bff">{{order.orderStatus.name}}</td>
+											<td ng-if="order.orderStatus.id == 5" style="color: #28a745">{{order.orderStatus.name}}</td>
+											<td ng-if="order.orderStatus.id == 6" style="color: #e74c3c">{{order.orderStatus.name}}</td>
+											<td ng-if="order.orderStatus.id == 7" style="color: #e74c3c">{{order.orderStatus.name}}</td>
+											
 											<td>
 												<button class="btn btn-outline-success" ng-click="modal(order.id)">
 													<span class="fa fa-pencil"></span>

@@ -168,9 +168,16 @@ public class UsersServiceImpl  implements UsersService{
         user.setRoles(roles);
 		Users usered = usersRepository.save(user);
 		
-		Store	store = mapper.map(storeDTO.getStores(),Store.class);
+		Store store = mapper.map(storeDTO.getStores(),Store.class);
 		store.setUsers(usered);
 		Store stored = storeRepository.save(store);
+		
+		Customer customer = new Customer();
+		customer.setName(store.getName());
+		customer.setPhone(store.getPhone());
+		customer.setAddress(store.getAddress()+", "+store.getWard().getName()+", "+store.getDistrict().getName()+ ", " +store.getProvince().getName());
+		customer.setUsers(usered);
+		customerRepository.save(customer);
 		
 		Calendar today = Calendar.getInstance();
 		Member member = new Member();
@@ -224,7 +231,7 @@ public class UsersServiceImpl  implements UsersService{
 		StringBuilder  string = new StringBuilder("NoiThat246 Xin chào bạn !!!");
 		string.append("<p>Bạn có một yêu cầu thay đổi mật khẩu và mã xác thực: <strong>"+token+ "</strong></p>");
 		string.append("<p>Lưu ý: mã xác thực có hiệu lực trong vòng 30 phút</p>");
-		string.append("Mọi thắc mắc và góp ý vui lòng liên hệ với Tiki Care qua email: support@noithat246.vn hoặc số điện thoại 0941 426 824 (1000đ/phút , 8-21h kể cả T7, CN).");
+		string.append("Mọi thắc mắc và góp ý vui lòng liên hệ với NoiThat Care qua email: support@noithat246.vn hoặc số điện thoại 0941 426 824 (1000đ/phút , 8-21h kể cả T7, CN).");
 		string.append("<p>Trân trọng</p><p>NoiThat246</p>");
 		sendGridMailService.sendHTML(user.getEmail(), "Mã xác thực Nội Thất 246", string.toString());
 		

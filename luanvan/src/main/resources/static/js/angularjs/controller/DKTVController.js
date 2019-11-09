@@ -43,7 +43,7 @@ apt.controller('DKTVController',function($scope,$http,URL_Home){
 		})
 		.then(function (response){
 			toastr.success('Đăng kí thành công', 'Thành công',{timeOut: 2000, escapeHtml: true});
-			window.location = "../noithat246.vn";
+			window.location = "/noithat246.vn";
 		})
 		.catch(function (response){
 			$scope.errors = response.data.errors;

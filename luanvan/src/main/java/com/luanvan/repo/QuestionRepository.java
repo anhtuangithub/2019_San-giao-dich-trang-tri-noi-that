@@ -18,4 +18,6 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 	List<Question> listQuestionStore(@Param("store") Long store);
 	
 	Page<Question> findByUserIdOrderByIdDesc(Long userid, Pageable pageable);
+	
+	Page<Question> findByProductsIdAndStatusOrderByIdDesc(Long productid, int status, Pageable pageable);
 }

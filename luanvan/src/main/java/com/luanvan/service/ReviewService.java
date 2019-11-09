@@ -35,4 +35,6 @@ public interface ReviewService {
 	List<Review> reviewOfStore(Authentication auth);
 	
 	Page<ReviewAccountDTO> reviewOfUser(Authentication auth,int page);
+	
+	Page<ReviewDTO> reviewPageHome(Long productid, int page);
 }

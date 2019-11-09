@@ -1,0 +1,104 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{homepage/parts/layout}">
+<head>
+<title>Tất cá đánh giá của sản phẩm</title>
+</head>
+<body>
+	<div class="container-product" layout:fragment="content" ng-controller="PageReviewController">
+        
+         <div class="col-md-12" style="margin:20px 0px;background-color: #fff;">
+            <div class="row">
+            	<div class="col-lg-9 col-md-10">
+            		<div class="product-header">
+		                <h3 class="tilte-deal-black">
+		                    Khách hàng nhận xét
+		                </h3>
+		            </div>
+		            <!-- Hiển thị nhận xét -->
+		            <div class="review-list">
+		                <div class="review-item" ng-if="reviews.content.length > 0" ng-repeat="review in reviews.content">
+		                    <div class="review-col-left">
+		                        <p class="review-name">{{review.user.customer.name}}</p>
+		                        <p class="review-time">{{review.created_at| date: "dd-MM-yyyy 'at' h:mma ":'UTC' }}</p>
+		                    </div>
+		                    <div class="review-col-right">
+		                        <div class="review-info">
+		                            <div class="rating">
+		                                <rate-yo rating="review.rating"></rate-yo>
+		                                <p class="buy-already"><i class="fa fa-check-circle-o" style=""></i> Đã mua sản phẩm này tại Noithat246</p>
+		                            </div>
+		                            <div class="review-content">
+		                                <p>{{review.content}}</p>
+		                            </div>
+
+		                        </div>
+		                    </div>
+		                </div>
+		                
+		            </div>
+		            <div ng-if="reviews.content.length <= 0"  style="text-align: center;">
+		                <img  ng-src="/images/smile.svg" alt="" style="width: 50px;height: 50px">
+		                <p>Hiện chưa có nhận xét nào cho sản phẩm.</p>
+		                <p>Cho người khác biết ý kiến của bạn và trở thành người đầu tiên nhận xét sản phẩm này.</p>
+		            </div>
+            	</div>
+            	<div class=" col-lg- 3 col-md-2">
+            		<div class="product-list">
+            			<div class="item">
+            				<a href="">
+            					<span class="image">
+	            					<img ng-src="/img/uploads/{{product.avatar}}" style="height: 182px; width: 100%">
+	            				</span>
+	            				<span class="title">{{product.name}}</span>
+            				</a>
+            				<p class="rating"><span id="rateYoProduct"></span></p>
+            				<p class="review">(nhận xét)</p>
+            				<p class="price-sale">{{product.price_new| currency: "":0}}đ</p>
+            				<p class="price-regular">{{product.price| currency: "":0}}đ</p>
+            			</div>
+            		</div>
+            	</div>
+            </div>
+        </div>
+        <nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-end" id="pageable-custom">
+			</ul>
+		</nav>
+    </div> <!-- End Container-product -->
+</body>
+<section layout:fragment="script">
+	<script th:src="@{/js/searchAdvanted.js}"></script>
+    <script>
+    	apt.controller('PageReviewController',function($scope,$http,URL_Home){
+	
+		let searchParams = new URLSearchParams(window.location.search);
+
+		$http.get(URL_Home + 'reviews/san-pham?productid='+searchParams.get('productid'))
+		.then(function(response){
+			$scope.reviews = response.data;
+			var totalPages = $scope.reviews.totalPages;
+			var currentPage = $scope.reviews.number;
+			if(totalPages > 1){
+				page(currentPage+1,totalPages);
+			}
+		});
+
+		$http.get(URL_Home + 'products/detail-product/'+searchParams.get('productid'))
+		.then(function(response){
+			$scope.product = response.data;
+			jQuery(function () {
+			 	jQuery("#rateYoProduct").rateYo({
+			 		starWidth: "15px",
+			    	rating: $scope.product.avgstart,
+			    	readOnly: true
+			  	});
+			 
+			});
+		});
+	});
+    </script>
+</section>
+
+</html>
+
+

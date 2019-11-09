@@ -110,4 +110,25 @@ public class QuestionServiceImpl implements QuestionService {
 		
 		return questionDTOS;
 	}
+
+	@Override
+	public Page<QuestionResponseDTO> AllQuestionHome(Long productid, int page) {
+		int pageminus = 0;
+		if(page>=1) {
+			pageminus = page-1;
+		}
+		Pageable sorted =  PageRequest.of(pageminus, 1);
+		Page<Question> questions = questionRepository.findByProductsIdAndStatusOrderByIdDesc(productid, 1, sorted);
+		Page<QuestionResponseDTO> questionDTOS = questions.map(new Function<Question, QuestionResponseDTO>() {
+		    @Override
+		    public QuestionResponseDTO apply(Question entity) {
+		    	ModelMapper mapper = new ModelMapper();
+		    	QuestionResponseDTO questionDTO = mapper.map(entity,QuestionResponseDTO.class);
+		        return questionDTO;
+		    }
+		});
+		
+		return questionDTOS;
+
+	}
 }

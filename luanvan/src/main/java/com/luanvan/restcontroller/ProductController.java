@@ -64,7 +64,7 @@ public class ProductController {
 
 	@GetMapping("/promotion-products")
 	public List<ProductPromotionDTO> findAllPromotionOfProduct() {
-		return productService.allPromotionOfProduct();
+		return productService.PromotionTop10OfProduct();
 	}
 	@GetMapping("/promotion-products/{id}")
 	public ProductPromotionDTO findAllPromotionOfProductById(@PathVariable Long id) {
@@ -88,7 +88,7 @@ public class ProductController {
 	//	related products
 	@GetMapping("/related-product/{id}")
 	public List<ProductPromotionDTO> findAllProductByCategoryId(@PathVariable Long id){
-		 return productService.findRelatedProductByCategory(id); 
+		 return productService.RelatedProductByCategory(id); 
 	}
 	
 //	//List Product by category parent

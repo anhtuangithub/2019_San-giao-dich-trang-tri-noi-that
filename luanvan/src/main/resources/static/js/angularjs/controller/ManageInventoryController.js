@@ -15,7 +15,6 @@ app.controller('ManageInventoryController',function($scope,$http,URL_Main){
 		$http.get(URL_Main + 'products/inventory-of-product/'+id)
 		.then(function(response){
 			$scope.inventorys = response.data;
-			console.log($scope.inventorys);
 		});
 	}
 

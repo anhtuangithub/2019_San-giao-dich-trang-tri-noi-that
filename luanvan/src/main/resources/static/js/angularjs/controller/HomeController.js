@@ -17,7 +17,6 @@ apt.controller('HomeController',function($scope,$http,URL_Home){
 		$http.get(URL_Home + 'products/top-seller')
 		.then(function(response){
 			$scope.proTop = response.data;
-			console.log($scope.proTop);
 		});
 	}
 	

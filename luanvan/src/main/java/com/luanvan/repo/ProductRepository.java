@@ -25,10 +25,20 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	
 	List<Product> findByStoresId(Long storeid);
 	
-	@Query(value = "Select * from product where product.status = 1  order by rand() limit 10", nativeQuery=true)
+	@Query(value = "Select * from product "+
+			" join store on store.id = product.store_id " +
+			" where product.status = 1 and product.store_id in (select members.store_id from members where members.end_time > CURRENT_DATE GROUP by members.store_id) " + 
+			" and store.status = 1 " +
+			"order by rand() limit 10", nativeQuery=true)
 	List<Product> ProductRandom();
 	
-	@Query(value = "select product_id from order_detail group by product_id order by count(product_id) desc limit ?1", nativeQuery=true)
+	@Query(value = "select product_id " + 
+			" from order_detail " + 
+			" join product on product.id = order_detail.product_id " +
+			" join store on store.id = product.store_id "+
+			" where product.status = 1 and product.store_id in (select members.store_id from members where members.end_time > CURRENT_DATE GROUP by members.store_id) " + 
+			" and store.status = 1 " +
+			" group by product_id order by count(product_id) desc limit ?1", nativeQuery=true)
 	List<TopSeller> top3BestSeller(int limit);
 	
 	Page<Product> findByCategorysId(Long id,Pageable pageable);
@@ -43,6 +53,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 				" and pro.categorys.id in (select cate.id from category cate where cate.parentId = :category )" + 
 				" and pro.plug like %:plug% " +
 				" and pro.status = 1 " +
+				" and pro.stores.status = 1 " +
+				" and pro.stores.id in (select members.stores.id from members members where members.end_time > CURRENT_DATE group by members.stores.id) " +
 				" and CAST(pro.categorys.id as string) like :categoryChild " + 
 				" and CAST(pro.origins.id as string) like :origin " + 
 				" and CAST(pro.materials.id string) like :material " + 
@@ -52,6 +64,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 					" (select price.id from unitprice price where price.product.id not in (select price.product.id from unitprice price WHERE price.end_time > CURRENT_DATE AND price.start_time < CURRENT_DATE GROUP by price.id HAVING max(price.id) > 0)" + 
 				" and pro.plug like %:plug% " +
 				" and pro.status = 1 " +
+				" and pro.stores.status = 1 " +
+				" and pro.stores.id in (select members.stores.id from members members where members.end_time > CURRENT_DATE group by members.stores.id) " +
 				" and pro.categorys.id in (select cate.id from category cate where cate.parentId = :category )" + 
 				" and CAST(pro.categorys.id as string) like :categoryChild " + 
 				" and CAST(pro.origins.id as string) like :origin " + 
@@ -70,6 +84,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 					" (select price.id from unitprice price WHERE price.end_time > CURRENT_DATE  AND price.start_time < CURRENT_DATE GROUP by price.id HAVING max(price.id) > 0)" + 
 				" and pro.plug like %:plug% " +
 				" and pro.status = 1 " +
+				" and pro.stores.status = 1 " +
+				" and pro.stores.id in (select members.stores.id from members members where members.end_time > CURRENT_DATE group by members.stores.id) " +
 				" and CAST(pro.categorys.id as string) like :category " + 
 				" and CAST(pro.origins.id as string) like :origin " + 
 				" and CAST(pro.materials.id string) like :material " + 
@@ -79,6 +95,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 					" (select price.id from unitprice price where price.product.id not in (select price.product.id from unitprice price WHERE price.end_time > CURRENT_DATE AND price.start_time < CURRENT_DATE GROUP by price.id HAVING max(price.id) > 0)" + 
 				" and pro.plug like %:plug% " +
 				" and pro.status = 1 " +
+				" and pro.stores.status = 1 " +
+				" and pro.stores.id in (select members.stores.id from members members where members.end_time > CURRENT_DATE group by members.stores.id) " +
 				" and CAST(pro.categorys.id as string) like :category " + 
 				" and CAST(pro.origins.id as string) like :origin " + 
 				" and CAST(pro.materials.id string) like :material " + 
@@ -92,9 +110,39 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	@Query(value = "select * from product "
 			+ " join product_promotion on product_promotion.product_id = product.id "
 			+ " join promotion on promotion.id = product_promotion.promotion_id "
+			+ " join store on store.id = product.store_id "
+			+ " where promotion.start_time < CURRENT_DATE and promotion.end_time > CURRENT_DATE and product.status =1 "
+			+ " and product.store_id in (select members.store_id from members where members.end_time > CURRENT_DATE GROUP by members.store_id) "
+			+ " and product.status = 1 "
+			+ " and store.status = 1 "
+			+ " group by product.id "
+			+ " limit 10",nativeQuery = true)
+	List<Product> pagesTop10PromotionProduct();
+	
+	@Query(value = "select * from product "
+			+ " join product_promotion on product_promotion.product_id = product.id "
+			+ " join promotion on promotion.id = product_promotion.promotion_id "
 			+ " join category on category.id = product.category_id "
+			+ " join store on store.id = product.store_id "
 			+ " where promotion.start_time < CURRENT_DATE and promotion.end_time > CURRENT_DATE and product.status =1 "
 			+ " and category.id like :category"
+			+ " and product.status = 1 "
+			+ " and store.status = 1 "
+			+ " and product.store_id in (select members.store_id from members where members.end_time > CURRENT_DATE GROUP by members.store_id) "
+			+ " group by product.id "
+			+ " limit 15",nativeQuery = true)
+	List<Product> RelatedProduct(@Param("category")Long category);
+	
+	@Query(value = "select * from product "
+			+ " join product_promotion on product_promotion.product_id = product.id "
+			+ " join promotion on promotion.id = product_promotion.promotion_id "
+			+ " join category on category.id = product.category_id "
+			+ " join store on store.id = product.store_id "
+			+ " where promotion.start_time < CURRENT_DATE and promotion.end_time > CURRENT_DATE and product.status =1 "
+			+ " and category.id like :category"
+			+ " and product.status = 1 "
+			+ " and store.status = 1 "
+			+ " and product.store_id in (select members.store_id from members where members.end_time > CURRENT_DATE GROUP by members.store_id) "
 			+ " group by product.id ",nativeQuery = true)
 	Page<Product> pagesAllPromotionProduct(@Param("category")String category,Pageable pageable);
 	
@@ -105,6 +153,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 				" in" + 
 					" (select price.id from unitprice price WHERE price.end_time > CURRENT_DATE  AND price.start_time < CURRENT_DATE GROUP by price.id HAVING max(price.id) > 0)" + 
 				" and pro.status = 1 " +
+				" and pro.stores.status = 1 " +
+				" and pro.stores.id in (select members.stores.id from members members where members.end_time > CURRENT_DATE group by members.stores.id) " +
 				" and CAST(pro.categorys.id as string) like :category " + 
 				" and CAST(pro.origins.id as string) like :origin " + 
 				" and CAST(pro.materials.id string) like :material " + 
@@ -114,6 +164,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 			" or pri.id in " + 
 					" (select price.id from unitprice price where price.product.id not in (select price.product.id from unitprice price WHERE price.end_time > CURRENT_DATE AND price.start_time < CURRENT_DATE GROUP by price.id HAVING max(price.id) > 0)" + 
 				" and pro.status = 1 " +
+				" and pro.stores.status = 1 " +
+				" and pro.stores.id in (select members.stores.id from members members where members.end_time > CURRENT_DATE group by members.stores.id) " +
 				" and CAST(pro.categorys.id as string) like :category " + 
 				" and CAST(pro.origins.id as string) like :origin " + 
 				" and CAST(pro.materials.id string) like :material " + 
@@ -131,6 +183,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 				" in" + 
 					" (select price.id from unitprice price WHERE price.end_time > CURRENT_DATE  AND price.start_time < CURRENT_DATE GROUP by price.id HAVING max(price.id) > 0)" + 
 				" and pro.status = 1 " +
+				" and pro.stores.status = 1 " +
+				" and pro.stores.id in (select members.stores.id from members members where members.end_time > CURRENT_DATE group by members.stores.id) " +
 				" and CAST(pro.categorys.id as string) like :category " + 
 				" and CAST(pro.origins.id as string) like :origin " + 
 				" and CAST(pro.materials.id string) like :material " + 
@@ -139,6 +193,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 			" or pri.id in " + 
 					" (select price.id from unitprice price where price.product.id not in (select price.product.id from unitprice price WHERE price.end_time > CURRENT_DATE AND price.start_time < CURRENT_DATE GROUP by price.id HAVING max(price.id) > 0)" + 
 				" and pro.status = 1 " +
+				" and pro.stores.status = 1 " +
+				" and pro.stores.id in (select members.stores.id from members members where members.end_time > CURRENT_DATE group by members.stores.id) " +
 				" and CAST(pro.categorys.id as string) like :category " + 
 				" and CAST(pro.origins.id as string) like :origin " + 
 				" and CAST(pro.materials.id string) like :material " + 
@@ -150,13 +206,15 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	
 	
 	@Query(value = "select pro from product pro join pro.unitPrices pri on pri.product.id = pro.id" + 
-			" left join pro.orderDetail orD " +
+			" left join pro.orderDetail orD " +		
 			" where" + 
 				" pri.id" + 
 				" in" + 
 					" (select price.id from unitprice price WHERE price.end_time > CURRENT_DATE  AND price.start_time < CURRENT_DATE GROUP by price.id HAVING max(price.id) > 0)" + 
 				" and pro.plug like %:plug% " +
 				" and pro.status = 1 " +
+				" and pro.stores.status = 1 " +
+				" and pro.stores.id in (select members.stores.id from members members where members.end_time > CURRENT_DATE group by members.stores.id) " +
 				" and CAST(pro.categorys.id as string) like :category " + 
 				" and CAST(pro.origins.id as string) like :origin " + 
 				" and CAST(pro.materials.id string) like :material " + 
@@ -166,6 +224,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 					" (select price.id from unitprice price where price.product.id not in (select price.product.id from unitprice price WHERE price.end_time > CURRENT_DATE AND price.start_time < CURRENT_DATE GROUP by price.id HAVING max(price.id) > 0)" + 
 				" and pro.plug like %:plug% " +
 				" and pro.status = 1 " +
+				" and pro.stores.status = 1 " +
+				" and pro.stores.id in (select members.stores.id from members members where members.end_time > CURRENT_DATE group by members.stores.id) " +
 				" and CAST(pro.categorys.id as string) like :category " + 
 				" and CAST(pro.origins.id as string) like :origin " + 
 				" and CAST(pro.materials.id string) like :material " + 

@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -127,13 +126,11 @@ public class ProductServiceImpl  implements ProductService{
 	}
 
 	@Override
-	public List<ProductPromotionDTO> allPromotionOfProduct() {
-		List<Product> product = productRepository.findAll();
+	public List<ProductPromotionDTO> PromotionTop10OfProduct() {
+		List<Product> product = productRepository.pagesTop10PromotionProduct();
 		ModelMapper mapper = new ModelMapper();
 		List<ProductPromotionDTO> productPromotion = mapper.map(product,new TypeToken<List<ProductPromotionDTO>>(){}.getType());
-		return productPromotion.stream()
-				.filter(pro -> pro.getMaxPromotion().getId()!= null && pro.getStatus() ==1)
-				.limit(10).collect(Collectors.toList());
+		return productPromotion;
 	}
 
 	@Override
@@ -372,12 +369,11 @@ public class ProductServiceImpl  implements ProductService{
 	}
 
 	@Override
-	public List<ProductPromotionDTO> findRelatedProductByCategory(Long id) {
-		List<Product> product = productRepository.findByCategorysIdAndStatus(id,1);
+	public List<ProductPromotionDTO> RelatedProductByCategory(Long id) {
+		List<Product> product = productRepository.RelatedProduct(id);
 		ModelMapper mapper = new ModelMapper();
 		List<ProductPromotionDTO> productPromotion = mapper.map(product,new TypeToken<List<ProductPromotionDTO>>(){}.getType());
-		return productPromotion.stream()
-				.limit(15).collect(Collectors.toList());
+		return productPromotion;
 	}
 
 	@Override

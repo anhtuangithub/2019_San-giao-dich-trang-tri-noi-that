@@ -24,7 +24,7 @@
 							</div>
 							<div class="card-body">
 								<table id="bootstrap-data-table-export"
-									class="table table-bordered table-hover text-center">
+									class="table table-bordered table-hover text-center" dt-options="dtOptions" dt-columns="dtColumns" datatable="ng">
 									<thead class="thead-light">
 										<tr>
 											<th>STT</th>
@@ -65,49 +65,6 @@
 			<!-- .animated -->
 
 
-			<!-- Modal -->
-			<div class="modal fade" tabindex="-1" role="dialog" id="modalReview">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title">{{ frmTitle }}</h4>
-							<button type="button" class="close" data-dismiss="modal">×</button>
-						</div>
-						<div class="modal-body">
-							<form name="frm" class="form-horizontal">
-								<div class="form-group">
-									<label>Review</label>
-									<TEXTAREA type="text" class="form-control" id="txtcontent"
-										name="txtcontent" placeholder="Nhập review của bạn"
-										ng-model="reviews.content" ng-required="true" readonly></TEXTAREA>
-								</div>
-								<div class="form-group">
-									<label>Đánh giá</label>
-									
-								</div>
-								<div class="form-group">
-									<label>Trạng thái</label> 
-									<input type="radio"
-										ng-model="reviews.status"
-										name="txtstatus" ng-value="0"> Kích hoạt 
-									<input
-										type="radio" ng-model="reviews.status"
-										name="txtstatus" ng-value="1"> Tạm khóa
-								</div>
-							</form>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary"
-								ng-disabled="frm.$invalid"
-								ng-click="save()">Lưu</button>
-						</div>
-					</div>
-					<!-- /.modal-content -->
-				</div>
-				<!-- /.modal-dialog -->
-			</div>
-			<!-- /.modal -->
-		</div>
 		</div>
 		<!-- .content -->
 

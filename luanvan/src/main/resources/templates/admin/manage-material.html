@@ -38,12 +38,12 @@
 							</div>
 							<div class="card-body">
 								<table id="bootstrap-data-table-export"
-									class="table table-bordered table-hover text-center">
+									class="table table-bordered table-hover text-center" dt-options="dtOptions" dt-columns="dtColumns" datatable="ng">
 									<thead class="thead-light">
 										<tr>
 											<th>Mã</th>	
 											<th>Nguyên liệu</th>
-											<th>Trạng thái</th>
+											<!-- <th>Trạng thái</th> -->
 											<th>Sự kiện</th>
 										</tr>
 									</thead>
@@ -51,16 +51,16 @@
 										<tr ng-repeat="material in listmaterials">
 											<td>{{material.id}}</td>
 											<td>{{material.name}}</td>
-											<td ng-if="material.status == 0"><span class="fa fa-unlock"></span></td>
-											<td ng-if="material.status == 1"><span class="fa fa-lock" style="color:#bd2130"></span></td>
+											<!-- <td ng-if="material.status == 0"><span class="fa fa-unlock"></span></td>
+											<td ng-if="material.status == 1"><span class="fa fa-lock" style="color:#bd2130"></span></td> -->
 											<td>
 												
 												<button class="btn btn-outline-success" ng-click="edit(material.id)">
 													<span class="fa fa-pencil"></span>
 												</button>
-												<button class="btn btn-outline-warning" ng-click="changeStatus(material.id,material.name,material.status)">
+												<!-- <button class="btn btn-outline-warning" ng-click="changeStatus(material.id,material.name,material.status)">
 													<span class="fa fa-exchange"></span>
-												</button>
+												</button> -->
 											</td>
 										</tr>
 									</tbody>
