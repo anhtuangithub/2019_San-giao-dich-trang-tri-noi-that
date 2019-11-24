@@ -4,7 +4,6 @@ app.controller('ManageCustomerController',function($scope,$http,URL_Main){
 	$http.get(URL_Main + 'customers/all-customer-dto')
 	.then(function(response){
 		$scope.listCustomer = response.data;
-		console.log($scope.listCustomer);
 	});
 	
 //	function refreshData(){

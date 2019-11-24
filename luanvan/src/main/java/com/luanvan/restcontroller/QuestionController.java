@@ -1,7 +1,6 @@
 package com.luanvan.restcontroller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,8 +36,8 @@ public class QuestionController {
 	}
 	
 	@GetMapping("/{id}")
-	public Optional<Question> findQuestionById(@PathVariable Long id){
-		return questionService.findById(id);
+	public QuestionResponseDTO findQuestionById(@PathVariable Long id){
+		return questionService.questionById(id);
 	}
 	
 	@GetMapping("detail-of-product/{productid}")
@@ -73,6 +72,11 @@ public class QuestionController {
 	@GetMapping("cau-hoi-cua-user")
 	public List<Question> QuestionOfUser(Authentication auth){
 		return questionService.listQuestionByStore(auth);
+	}
+	
+	@GetMapping("cau-hoi-cua-store-reponse")
+	public List<QuestionResponseDTO> QuestionDTOByStore(Authentication auth){
+		return questionService.listQuestionDTOByStore(auth);
 	}
 	
 	@GetMapping("tat-ca-cau-hoi")

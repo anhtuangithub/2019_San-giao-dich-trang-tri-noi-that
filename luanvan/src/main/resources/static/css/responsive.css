@@ -265,6 +265,7 @@
 ******/
 /********************************************************************************************/
 @media (max-width: 767px){
+
 /*navBar*/
     .navigation-border{
         width: 40%;
@@ -492,6 +493,9 @@
     .product-header-background-white{
         padding-top: 5px;
         padding-left: 10px;
+    }
+    .display-image-360{
+        display: none;
     }
 
 
@@ -872,6 +876,10 @@
         line-height: 8px;
         margin-bottom: 4px;
     }
+    .btn-theme-yellow, .btn-theme-orange{
+        margin: 5px 0;
+        font-size: 12px;
+    }
 }
 
 /********************************************************************************************/
@@ -987,6 +995,7 @@
         font-size: 7px;
         font-weight: 400;
     }
+ 
    
 /****
 *

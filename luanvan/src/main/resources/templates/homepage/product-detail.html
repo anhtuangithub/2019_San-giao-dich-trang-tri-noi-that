@@ -25,7 +25,7 @@
                     <div class="column-image" ng-repeat="img in listImages" >
                         <img  ng-src="/img/uploads/{{img.path}}" id="{{$index+2}}" ng-click="changeImage(img.path)" class="demo cursor" style="width:100%;height: 60px;" onclick="currentSlide(this.id)" alt="">
                     </div>
-                     <div class="column-image">
+                    <div class="column-image display-image-360" ng-if="listImage.length > 0">
                         <img  ng-src="/images/360-degrees.svg" class="demo cursor" ng-click="open360()" style="width:100%;height: 60px;"  alt="">
                     </div>
                 </div>  
@@ -77,6 +77,10 @@
                                     <span class="detail-content-item" style="color:red;">
                                         {{product.price_new| currency: "":0}}đ
                                     </span>
+                                </td>
+                                <td>
+                                    <span style="color: #242424; font-family: 'UTMCafetaRegular'">Khuyến mãi kết thúc sau:</span>
+                                    <span style="color: #242424; font-family: 'UTMCafetaRegular';" id="timeCountDown"></span>
                                 </td>
                             </tr> 
                            
@@ -280,30 +284,34 @@
             slides[slideIndex-1].style.display = " block";
             dots[slideIndex-1].className += " active";
             
-            if(n ==1) {
-                setTimeout(function() {
+            if(screen.availWidth > 768){
+                console.log(screen.availWidth);
+                if(n ==1) {
+                    setTimeout(function() {
+                        jQuery("#img_"+n).elevateZoom({
+                            zoomWindowFadeIn: 500,
+                            zoomWindowFadeOut: 500,
+                            scrollZoom: true,
+                            lensFadeIn: 500,
+                            lensFadeOut: 500,
+                            lensSize : 200,
+                            responsive: true
+                        });
+                    }, 700);
+                }
+                else{
                     jQuery("#img_"+n).elevateZoom({
-                        zoomWindowFadeIn: 500,
-                        zoomWindowFadeOut: 500,
-                        scrollZoom: true,
-                        lensFadeIn: 500,
-                        lensFadeOut: 500,
-                        lensSize : 200,
-                        responsive: true
-                    });
-                }, 500);
+                            zoomWindowFadeIn: 500,
+                            zoomWindowFadeOut: 500,
+                            scrollZoom: true,
+                            lensFadeIn: 500,
+                            lensFadeOut: 500,
+                            lensSize : 200,
+                            responsive: true
+                        });
+                } 
             }
-            else{
-                jQuery("#img_"+n).elevateZoom({
-                        zoomWindowFadeIn: 500,
-                        zoomWindowFadeOut: 500,
-                        scrollZoom: true,
-                        lensFadeIn: 500,
-                        lensFadeOut: 500,
-                        lensSize : 200,
-                        responsive: true
-                    });
-            }
+           
         }
 
         ResCarouselCustom();

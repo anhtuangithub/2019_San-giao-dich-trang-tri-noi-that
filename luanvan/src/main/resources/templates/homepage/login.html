@@ -90,7 +90,7 @@
 									  	
 									  	<div  ng-show="frmkm.$submitted || frmkm.email.$touched">
 									  		<span id="helpBlock2" class="help-block" ng-show="nameError">Tài khoản đã sử dụng</span>
-											<span  ng-show="nameRight" style="color:green">Có thể sử dụng tài khoản</span>
+											<span  ng-show="nameRight && !frmkm.email.$error.email && !frmkm.email.$error.required" style="color:green">Có thể sử dụng tài khoản</span>
 									      	<span class="help-block" ng-show="frmkm.email.$error.required">Vui lòng nhập Email</span>
 									      	<span class="help-block" ng-show="frmkm.email.$error.email">Vui lòng nhập đúng định dạng</span>
 									    </div>

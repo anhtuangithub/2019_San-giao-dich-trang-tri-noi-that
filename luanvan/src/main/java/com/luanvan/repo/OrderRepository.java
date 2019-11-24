@@ -74,4 +74,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 	
 	@Query(value = "select count(orders.orderstatus_id) as count, orders.orderstatus_id as id from orders where orders.store_id = :store group by orders.orderstatus_id",nativeQuery=true)
 	List<RoleUserDTO> thongKeTrangThaiDonHang(@Param("store") Long storeid);
+	
+	@Query(value = "select count(orders.orderstatus_id) as count, orders.orderstatus_id as id from orders group by orders.orderstatus_id",nativeQuery=true)
+	List<RoleUserDTO> thongKeTTDHAdmin();
 }

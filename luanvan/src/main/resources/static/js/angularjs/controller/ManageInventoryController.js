@@ -1,8 +1,13 @@
-app.controller('ManageInventoryController',function($scope,$http,URL_Main){
+app.controller('ManageInventoryController',function($scope,$http,URL_Main,$timeout){
 	
 	$http.get(URL_Main + 'products/store')
 	.then(function(response){
 		$scope.products = response.data;
+	})
+	.then(function(){
+		$timeout(function(){
+			jQuery('.selectpicker').selectpicker('refresh');
+		},1);
 	});
 
 	

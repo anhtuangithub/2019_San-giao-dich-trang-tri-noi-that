@@ -31,6 +31,11 @@ public class AdminPage {
 		return "admin/manage-material";
 	}
 	
+	@GetMapping("/origin")
+	public String manageOrigin() {
+		return "admin/manage-origin";
+	}
+	
 	@GetMapping("/orderstatus")
 	public String manageOrderStatus() {
 		return "admin/manage-orderstatus";

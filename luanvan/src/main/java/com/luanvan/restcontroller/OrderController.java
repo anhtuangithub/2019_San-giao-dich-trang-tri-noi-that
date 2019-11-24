@@ -111,6 +111,11 @@ public class OrderController {
 		return orderService.thongKeTrangThaiStore(auth);
 	}
 	
+	@GetMapping("thong-ke-trang-thai-admin")
+	public List<RoleUserDTO> thongKeTrangThaiAdmin(){
+		return orderService.thongKeTrangThaiAdmin();
+	}
+	
 	@GetMapping("don-hang-da-duyet")
 	public float donHangDuyetAdmin(){
 		return orderService.donHangDaDuyet();

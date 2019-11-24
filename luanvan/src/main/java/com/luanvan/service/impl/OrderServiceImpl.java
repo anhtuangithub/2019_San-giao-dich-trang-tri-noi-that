@@ -477,6 +477,11 @@ public class OrderServiceImpl implements OrderService{
 		
 		return orderDTO;
 	}
+
+	@Override
+	public List<RoleUserDTO> thongKeTrangThaiAdmin() {
+		return orderRepository.thongKeTTDHAdmin();
+	}
 	
 	
 	

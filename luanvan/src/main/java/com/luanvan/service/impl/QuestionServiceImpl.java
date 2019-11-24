@@ -131,4 +131,22 @@ public class QuestionServiceImpl implements QuestionService {
 		return questionDTOS;
 
 	}
+
+	@Override
+	public List<QuestionResponseDTO> listQuestionDTOByStore(Authentication auth) {
+		Long userid = userRepository.findByEmail(auth.getName()).getId();
+		Long storeid = storeRepository.findByUsersId(userid).getId();
+		List<Question> questions = questionRepository.listQuestionStore(storeid);
+		ModelMapper mapper = new ModelMapper();
+		List<QuestionResponseDTO> questionDTO = mapper.map(questions,new TypeToken<List<QuestionResponseDTO>>(){}.getType());
+		return questionDTO;
+	}
+
+	@Override
+	public QuestionResponseDTO questionById(Long id) {
+		Question question = questionRepository.findById(id).get();
+		ModelMapper mapper = new ModelMapper();
+		QuestionResponseDTO questionDTO = mapper.map(question,QuestionResponseDTO.class);
+		return questionDTO;
+	}
 }

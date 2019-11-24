@@ -194,7 +194,6 @@ app.controller('DashBoardStore',function($scope,$http,URL_Main){
 	$http.get(URL_Main + 'orders/thong-ke-trang-thai-store')
 	.then(function(response){
 		$scope.tongStatus= response.data;
-		console.log($scope.tongStatus);
 	})
 	.then(function(){
 		var dulieu1 = 0;

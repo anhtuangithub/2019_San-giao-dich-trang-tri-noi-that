@@ -19,4 +19,6 @@ public interface ProducerService {
 	
 	// Get Producer by id
 	Optional<Producer> findProducerById(Long id);
+	
+	List<Producer> findStatus();
 }

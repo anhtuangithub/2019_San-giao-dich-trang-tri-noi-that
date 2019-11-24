@@ -2,7 +2,7 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{admin/parts/layout}">
 <head>
-<title>Review</title>
+<title>Câu hỏi</title>
 <style>
 	.chat {
   border: 2px solid #dedede;
@@ -85,9 +85,9 @@
 										<tr ng-repeat= "question in listquestion">
 											<td>{{$index+1}}</td>
 											<td>{{question.content}}</td>
-											<td>{{question.created_at}}</td>
-											<td>{{question.products["name"]}}</td>
-											<td>{{question.customers["name"]}}</td>
+											<td>{{question.created_at| date: "dd-MM-yyyy 'giờ' h:mma"}}</td>
+											<td>{{question.products.name}}</td>
+											<td>{{question.user.customer.name}}</td>
 											<td ng-if="question.status == 1"><span class="fa fa-unlock"></span></td>
 											<td ng-if="question.status == 0"><span class="fa fa-lock" style="color:#bd2130"></span></td>
 											<td style="width: 15%">
@@ -123,13 +123,13 @@
 							
 								<div class="chat">
 								  	<img th:src="@{/images/question.png}" alt="question" >
-								  	<p>{{question.content}} <span class="pull-right">Khách hàng: {{question.customers["name"]}}</span></p>
-								  	<span class="time-left">{{question.created_at}}</span>
+								  	<p>{{question.content}} <span class="pull-right">Khách hàng: {{question.user.customer.name}}</span></p>
+								  	<span class="time-left">{{question.created_at| date: "dd-MM-yyyy 'giờ' h:mma"}}</span>
 								</div>
 								<div class="chat darker" ng-repeat="answer in listanswer" ng-click="getAnswer(answer.id,answer.content)">
 									<img th:src="@{/images/answer.jpg}"  class="right" alt="answer" style="width:100%;">
 									<p>{{answer.content}}</p>
-									<span class="time-right">{{answer.created_at}}</span>
+									<span class="time-right">{{answer.created_at| date: "dd-MM-yyyy 'giờ' h:mma"}}</span>
 								</div>
 								<hr>
 							<form name="frm" class="form-horizontal">

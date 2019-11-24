@@ -100,6 +100,7 @@ apt.controller('HeaderController',function($scope,$http,URL_Home){
     	var shipping = shipping = {address:address,phone:$scope.localShipping.phone};
     	localStorage.setItem("info-shipping", JSON.stringify(shipping));
     	$scope.localShipping = JSON.parse(localStorage.getItem("info-shipping"));
+    	toastr.success('Cập nhật địa chỉ thành công', 'Thành công',{timeOut: 2000, escapeHtml: true});
     	$scope.saveShipping = null;
 		$scope.disableSelectQuan =true;
 		$scope.disableSelectTinh =true;

@@ -1,7 +1,7 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{homepage/parts/layout}">
 <head>
-<title>Content</title>
+<title>Đăng kí thành viên</title>
 </head>
 <body>
 	<div class="container-product" layout:fragment="content" ng-controller="DKTVController">
@@ -27,7 +27,7 @@
 				  	<input type="email" class="color-input-custom" id="email" ng-model="info.email" name="email" placeholder="Nhập email" required="true" ng-Blur="ktTen()">
 				  	
 				  	<div  ng-show="frmkm.$submitted || frmkm.email.$touched">
-				  		<span id="helpBlock2" class="help-block" ng-show="nameError">Tài khoản đã sử dụng</span>
+				  		<span id="helpBlock2" class="help-block" ng-show="nameError && !frmkm.email.$error.email && !frmkm.email.$error.required">Tài khoản đã sử dụng</span>
 						<span  ng-show="nameRight" style="color:green">Có thể sử dụng tài khoản</span>
 				      	<span class="help-block" ng-show="frmkm.email.$error.required">Vui lòng nhập Email</span>
 				      	<span class="help-block" ng-show="frmkm.email.$error.email">Vui lòng nhập đúng định dạng</span>

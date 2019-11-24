@@ -19,12 +19,20 @@ public class QuestionResponseDTO {
 	private Date created_at;
 	private List<Answer> answers;
 	private Users user;
+	private Product products;
+	private int status;
 	
 	@Getter @Setter 
 	public static class Users{
 		private String email;
 		private Store store;
 		private Customer customer;
+	}
+	
+	@Getter @Setter 
+	public static class Product{
+		private String name;
+		private String avatar;
 	}
 	
 	@Getter @Setter

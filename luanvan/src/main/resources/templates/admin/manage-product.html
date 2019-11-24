@@ -45,7 +45,6 @@
 										<tr>
 											<th>Sản phẩm</th>
 											<th>Hàng còn</th>
-											<th>Giá Gốc</th>
 											<th>Giá Bán</th>
 											<th>Danh mục</th>
 											<th>Ngày đăng</th>
@@ -60,13 +59,23 @@
 									<!-- 	|filter:{product.categorys: filterReverse } -->
 										<tr ng-repeat="product in listproduct "  id="tr_{{ product.id }}">
 											<td>{{product.name}}</td>
-											<td>{{product.inventory_number}}</td>
-											<td>{{product.price| currency: "":0}} đ</td>
+											<td>{{product.inventory_number}} <span ng-if="product.inventory_number ==0"><i class="fa fa-warning (alias)" style="color:red"></i></span></td>
 											<td>{{product.price_new| currency: "":0}} đ</td>
 											<td>{{product.categorys.name}}</td>
 											<td>{{product.created_at| date: "dd-MM-yyyy 'giờ' h:mma ":'UTC' }}</td>
-											<td ng-if="product.status == 1"><span class="fa fa-unlock"></span></td>
-											<td ng-if="product.status == 0"><span class="fa fa-lock" style="color:#bd2130"></span></td>
+											<td ng-if="product.status == 2">
+												<button class="btn btn-outline-danger" ng-click="hienSanPham(product.id,product.name)" >
+													<span class="fa fa-lock"></span>
+												</button>
+											</td>
+											<td ng-if="product.status == 1">
+												<button class="btn btn-outline-success" ng-click="anSanPham(product.id, product.name)" >
+													<span class="fa fa-check"></span>
+												</button>
+											</td>
+											<td ng-if="product.status == 0">
+												<span>Chưa duyệt</span>
+											</td>
 											<td style="width: 21%;">
 												<button class="btn btn-outline-info" ng-click="frmCreateEdit_Show(product.id)" >
 													<span class="fa fa-eye-slash"></span>
@@ -80,9 +89,9 @@
 												<button class="btn btn-outline-warning" ng-click="modalImg360(product.id, product.name)" >
 													<span class="fa fa-arrows"></span>
 												</button>
-												<button class="btn btn-outline-danger" ng-click="deleteProduct(product.id, product.name)" ng-if="product.status == 0">
+												<!-- <button class="btn btn-outline-danger" ng-click="deleteProduct(product.id, product.name)" ng-if="product.status == 0">
 													<span class="fa fa-trash-o"></span>
-												</button>
+												</button> -->
 												
 											</td>
 										</tr>
@@ -347,7 +356,7 @@
 												    <div class="input-group-prepend">
 												      <span class="input-group-text">STT</span>
 												    </div>
-												    <input type="number" name="stt[]" max="14" min="0" id="status_{{img.id}}" class="form-control" ng-value="img.status">
+												    <input type="number" name="stt[]" min="0" id="status_{{img.id}}" class="form-control" ng-value="img.status">
 												</div>
 												<div class="form-check">
 													<label class="form-check-label">
@@ -417,7 +426,7 @@
 												    <div class="input-group-prepend">
 												      <span class="input-group-text">STT</span>
 												    </div>
-												    <input type="number" name="stt360[]" max="14" min="0" id="status_{{img360.id}}" class="form-control" ng-value="img360.status">
+												    <input type="number" name="stt360[]" min="0" id="status_{{img360.id}}" class="form-control" ng-value="img360.status">
 												</div>
 												<div class="form-check">
 													<label class="form-check-label">

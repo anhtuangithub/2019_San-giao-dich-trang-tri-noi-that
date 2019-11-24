@@ -38,7 +38,7 @@
 									</thead>
 
 									<tbody>
-										<tr ng-repeat= "store in listStore">
+										<tr ng-repeat= "store in listStore | filter : {id : '!1'}">
 											<td>{{$index+1}}</td>
 											<td>{{store.name}}</td>
 											<td>{{store.users.email}}</td>

@@ -39,8 +39,8 @@
 										<tr ng-repeat="promotion in listpromotion">
 											<td>{{promotion.name}}</td>
 											<td>{{promotion.sale_off}}%</td>
-											<td>{{promotion.start_time | date: "dd-MM-yyyy 'at' h:mma"}}</td>
-											<td>{{promotion.end_time | date: "dd-MM-yyyy 'at' h:mma"}}</td>
+											<td>{{promotion.start_time | date: "dd-MM-yyyy 'giờ' h:mma"}}</td>
+											<td>{{promotion.end_time | date: "dd-MM-yyyy 'giờ' h:mma"}}</td>
 											<td>
 												<button class="btn btn-outline-success" ng-click="modal('edit',promotion.id)">
 													<span class="fa fa-pencil"></span>

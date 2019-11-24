@@ -1,6 +1,7 @@
 package com.luanvan.restcontroller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,6 +32,10 @@ public class OriginController {
 		return originService.findAllOrigin();
 	}
 	
+	@GetMapping("/{id}")
+	public  Optional<Origin> findOriginById(@PathVariable Long id) {
+		return originService.findOriginById(id);
+	}
 	@PostMapping()
 	public void create(@RequestBody Origin origin){
 		originService.save(origin);

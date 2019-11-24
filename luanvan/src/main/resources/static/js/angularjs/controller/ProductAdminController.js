@@ -59,7 +59,19 @@ app.controller('ProductAdminController',function($scope,$http,URL_Main){
 	
 	$scope.dataListProp = {
 			frm_details_oldTr :null
-		};
+	};
+	$http.get(URL_Main + 'stores')
+	.then(function(response){
+		$scope.listStore = response.data;
+	});
+
+	$scope.chooseStore = function(storeid){
+		$http.get(URL_Main + 'products/by-store/'+storeid)
+		.then(function(response){
+			$scope.listproduct = response.data;
+		});
+	}
+
 	function showMemberDetails(m){
 		$scope.colors= m.color;
 		return '<tr><td colspan="5">' +
@@ -155,7 +167,34 @@ app.controller('ProductAdminController',function($scope,$http,URL_Main){
 			$scope.priceRoot = response.data;
 				
 		});
+
+		$http.get(URL_Main + 'products/hinh-cua-san-pham/'+id)
+		.then(function(response){
+			$scope.listImage = response.data;
+		});
 		
+		jQuery("#mySpriteSpin").spritespin("destroy");
+		let sourceImgs = []
+		$http.get(URL_Main + 'products/hinh-cua-san-pham-360/'+id)
+		.then(function(response){
+			
+			$scope.listImage360 = response.data;
+
+			$scope.listImage360.forEach(function(img){
+				sourceImgs.push('/img/uploads/'+img.path);
+			})
+		})
+		.then(function(){
+			if($scope.listImage360.length > 0){
+				jQuery("#mySpriteSpin").spritespin({
+					source: sourceImgs,
+					width   : 480,  // width in pixels of the window/frame
+					height  : 327,  // height in pixels of the window/frame
+				});	
+			}
+			
+		});
+
 		jQuery('#myModal').modal('show');
 	}
 	

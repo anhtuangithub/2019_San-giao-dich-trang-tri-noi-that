@@ -80,7 +80,7 @@ public class UsersController {
 	}
 	
 	@PostMapping("dang-ki")
-	public void dangKi(@RequestBody CustomerDTO customerDTO) {
+	public void dangKi(@Valid @RequestBody CustomerDTO customerDTO) {
 		usersService.saveCustomer(customerDTO);
 	}
 	

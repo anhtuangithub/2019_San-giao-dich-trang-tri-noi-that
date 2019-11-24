@@ -2,7 +2,7 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{admin/parts/layout}">
 <head>
-<title>QUản lý tài khoản khách hàng</title>
+<title>Quản lý tài khoản khách hàng</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -31,7 +31,7 @@
 											<th>Tên khách hàng</th>
 											<th>Thông tin liên hệ</th>
 											<th>Tài khoản sử dụng</th>	
-											<th></th>
+											<!-- <th></th> -->
 										</tr>
 										
 									</thead>
@@ -47,11 +47,11 @@
 												<p><b>Ngày sinh:</b> {{customer.birthday| date: "dd-MM-yyyy"}}</p>
 											</td>
 											<td>{{customer.users.email}}</td>
-											<td>
+											<!-- <td>
 												<button class="btn btn-outline-success" ng-click="modal(review.id)" >
 													<span class="fa fa-pencil"></span>
 												</button>
-											</td>
+											</td> -->
 										</tr>
 									</tbody>
 								</table>

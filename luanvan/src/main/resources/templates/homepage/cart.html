@@ -51,7 +51,9 @@
                                 <div class="cart-item-right">
                                     <div class="input-group-btn">
                                         <span ng-if="item.inventory_number > 0" class="input-group-addon" ng-show="showOrder" ng-click="minusItem(item.id)"><i class="fa fa-minus"></i></span>
-                                        <input type="text" min="1" max="10" readonly  ng-value="{{item.buyQuantity}}"  class="form-control cart-input-quantity">
+                                        <span class="cart-input-quantity">
+                                            <input type="text" min="1" max="10" readonly  ng-value="{{item.buyQuantity}}" >
+                                        </span>
                                         <span ng-if="item.inventory_number > 0" class="input-group-addon" ng-show="showOrder" ng-click="addItem(item.id,item.inventory_number)"><i class="fa fa-plus"></i></span>
                                         
                                         <span class="input-group-addon" ng-click="deleteItem(item.id)"><i class="fa fa-times"></i></span>
@@ -129,7 +131,7 @@
                                     </div>
                                 </div>
                             </form>
-                                 <button type="button" class="btn btn-warning"  ng-click="submitAddress()" ng-disabled="frmkm.$invalid">Submit</button>
+                                 <button type="button" class="btn btn-warning"  ng-click="submitAddress()" ng-disabled="frmkm.$invalid">Cập nhật</button>
                                 <button type="button" class="btn btn-danger"  ng-click="huySuaShipping()">Hủy</button>
                             </div>
                            

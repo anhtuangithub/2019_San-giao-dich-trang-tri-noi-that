@@ -86,6 +86,7 @@ public interface OrderService {
 	float donHangDaDuyetStore(Authentication auth);
 	
 	List<RoleUserDTO> thongKeTrangThaiStore(Authentication auth);
+	List<RoleUserDTO> thongKeTrangThaiAdmin();
 	
 	void huyDonHang(Long id, Authentication auth) throws Exception;
 	

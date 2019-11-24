@@ -84,7 +84,7 @@ apt.controller('HistoryMemberController',function($scope,$http,URL_Home){
 	             .then(function () {
 	            	$http.get(URL_Home + 'members/gia-han/'+$scope.giaHan.id)
 					.then(function(response){
-						toastr.success('Gia hạn thành công', 'Thành công',{timeOut: 2000, escapeHtml: true});
+						toastr.success('Gia hạn thành công. Vui lòng đăng xuất để cập nhật lại.', 'Thành công',{timeOut: 3000, escapeHtml: true});
 						refreshData();
 					})
 					.catch(function(response){

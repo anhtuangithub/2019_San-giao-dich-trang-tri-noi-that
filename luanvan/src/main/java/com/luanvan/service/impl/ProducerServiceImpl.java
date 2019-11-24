@@ -59,4 +59,10 @@ public class ProducerServiceImpl implements ProducerService {
 	      }
 	      return null;
 	}
+
+
+	@Override
+	public List<Producer> findStatus() {
+		return producerRepository.findByStatus(0);
+	}
 }

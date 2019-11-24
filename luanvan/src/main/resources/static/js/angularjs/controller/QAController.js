@@ -1,13 +1,13 @@
 app.controller('QAController',function($scope,$http,URL_Main){
 	
 	
-	$http.get(URL_Main + 'questions/cau-hoi-cua-store')
+	$http.get(URL_Main + 'questions/cau-hoi-cua-store-reponse')
 	.then(function(response){
 		$scope.listquestion = response.data;
 	});
 	
 	function refreshData(){
-		$http.get(URL_Main + 'questions/cau-hoi-cua-store')
+		$http.get(URL_Main + 'questions/cau-hoi-cua-store-reponse')
 		.then(function(response){
 			$scope.listquestion = response.data;
 		});
@@ -24,6 +24,7 @@ app.controller('QAController',function($scope,$http,URL_Main){
 		$http.get(URL_Main + 'questions/'+id)
 		.then(function(response){
 			$scope.question = response.data;
+			console.log($scope.question);
 		});
 		$http.get(URL_Main + 'answers/question/'+id)
 		.then(function(response){

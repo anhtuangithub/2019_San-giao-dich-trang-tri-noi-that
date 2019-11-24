@@ -56,6 +56,11 @@ public class ProductController {
 		return productService.allPromotionOfProductStore(auth);
 	}
 	
+	@GetMapping("by-store/{storeid}")
+	public List<ProductAdminDTO> findProductByStore(@PathVariable Long storeid){
+		return productService.ProductByStore(storeid);
+	}
+	
 	
 	@GetMapping("/{id}")
 	public Product findProductById(@PathVariable Long id){
@@ -179,6 +184,11 @@ public class ProductController {
 	@GetMapping("change-status/{id}")
 	public ResponseEntity<?> changeStatus(@PathVariable Long id) {
 		return productService.changeStatusProduct(id);
+	}
+	
+	@GetMapping("an-hien-san-pham/{id}")
+	public ResponseEntity<?> anhienSanPham(@PathVariable Long id) {
+		return productService.anHienSanPham(id);
 	}
 	
 	@PostMapping("update-stt-image/{productid}")

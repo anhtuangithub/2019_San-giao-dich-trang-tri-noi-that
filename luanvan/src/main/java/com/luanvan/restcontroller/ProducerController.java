@@ -31,6 +31,11 @@ public class ProducerController {
 		return producerService.findAllProducer();
 	}
 	
+	@GetMapping("status")
+	public List<Producer> findProducerStatus(){
+		return producerService.findStatus();
+	}
+	
 	@GetMapping("/{id}")
 	public Optional<Producer> findProducerById(@PathVariable Long id) {
 		return producerService.findProducerById(id);

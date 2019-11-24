@@ -191,73 +191,66 @@ app.controller('DashBoardAdmin',function($scope,$http,URL_Main){
 
 
 
-	// var ctx = document.getElementById( "pieChart" );
- //    ctx.height = 300;
- //    var myChart = new Chart( ctx, {
- //        type: 'pie',
- //        data: {
- //            datasets: [ {
- //                data: [ 45, 25, 20, 10 ],
- //                backgroundColor: [
- //                                    "rgba(0, 123, 255,0.9)",
- //                                    "rgba(0, 123, 255,0.7)",
- //                                    "rgba(0, 123, 255,0.5)",
- //                                    "rgba(0,0,0,0.07)"
- //                                ],
- //                hoverBackgroundColor: [
- //                                    "rgba(0, 123, 255,0.9)",
- //                                    "rgba(0, 123, 255,0.7)",
- //                                    "rgba(0, 123, 255,0.5)",
- //                                    "rgba(0,0,0,0.07)"
- //                                ]
+	$http.get(URL_Main + 'orders/thong-ke-trang-thai-admin')
+	.then(function(response){
+		$scope.tongStatus= response.data;
+	})
+	.then(function(){
+		var dulieu1 = 0;
+		var dulieu2= 0;
+		var dulieu3 = 0;
+		var dulieu4 = 0;
+		var tong = 0;
+		$scope.tongStatus.forEach(function(status){
+			if(status.id == 1){
+				dulieu1 += status.count;
+			}
+			else if(status.id >1 && status.id < 5){
+				dulieu2 += status.count;
+			}
+			else if(status.id == 5){
+				dulieu3 += status.count;
+			}
+			else if(status.id >5){
+				dulieu4 += status.count;
+			}
+			tong +=status.count;
 
- //                            } ],
- //            labels: [
- //                            "green",
- //                            "green",
- //                            "green"
- //                        ]
- //        },
- //        options: {
- //            responsive: true
- //        }
- //    } );
+		})
 
+		var dataChatStatus = [(dulieu1*100/tong).toFixed(2),(dulieu2*100/tong).toFixed(2),(dulieu3*100/tong).toFixed(2),(dulieu4*100/tong).toFixed(2)];
 
-	
-//	var dataPoints = [];
-//
-//	var options =  {
-//		animationEnabled: true,
-//		theme: "light2",
-//		title: {
-//			text: "Doanh thu theo tháng"
-//		},
-//		axisX: {
-//			valueFormatString: "MM-YYYY",
-//		},
-//		axisY: {
-//			title: "VNĐ",
-//			titleFontSize: 24,
-//			includeZero: false
-//		},
-//		data: [{
-//			type: "line",
-//			markerType: "square",
-//			yValueFormatString: "#,### vnđ",
-//			dataPoints: dataPoints
-//		}]
-//	};
-//	addData($scope.dashboard);
-//	function addData(data){
-//		for(var i = 0 ; i < data.length; i++){
-//			dataPoints.push({
-//				x: new Date(data[i].nam,data[i].thang-1),
-//				y: parseInt(data[i].tongtien)
-//			});
-//		}
-//		jQuery('#chartContainer').CanvasJSChart(options);
-//	}
+		var labelStatusAuto = ["Chờ xử lý", "Đang xử lý", "Đơn hàng thàng công", "Đơn hàng bị hủy"];
+
+		var chartOrderStatus = document.getElementById( "pieChart" );
+	    chartOrderStatus.height = 300;
+	    
+	    var chartStatus = new Chart( chartOrderStatus, {
+	        type: 'pie',
+	        data: {
+	            datasets: [ {
+	                data: dataChatStatus,
+	                backgroundColor: [
+	                                    "#138496",
+	                                    "rgba(0, 123, 255,0.7)",
+	                                    "#218838",
+	                                    "#dc3545"
+	                                ],
+	                hoverBackgroundColor: [
+	                                    "#138496",
+	                                    "rgba(0, 123, 255,0.7)",
+	                                    "#218838",
+	                                    "#dc3545"
+	                                ]
+
+	                            } ],
+	            labels: labelStatusAuto
+	        },
+	        options: {
+	            responsive: true
+	        }
+	    } );
+	});
 
 	
 });

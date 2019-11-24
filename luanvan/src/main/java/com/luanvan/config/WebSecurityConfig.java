@@ -36,7 +36,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/noithat246.vn").permitAll()
                 .antMatchers("/noithat246.vn/tai-khoan/*").authenticated()
-                .antMatchers("/noithat246.vn/form-send-mail").hasRole("STORE")
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/store/**").hasRole("STORE")
                 .and()

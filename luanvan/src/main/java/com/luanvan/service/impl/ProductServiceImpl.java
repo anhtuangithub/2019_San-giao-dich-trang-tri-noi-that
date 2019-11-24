@@ -748,6 +748,25 @@ public class ProductServiceImpl  implements ProductService{
 		map.put("success", "Xóa thành công");
 		return map;
 	}
+
+	@Override
+	public List<ProductAdminDTO> ProductByStore(Long storeid) {
+		List<Product> product = productRepository.findByStoresId(storeid);
+		ModelMapper mapper = new ModelMapper();
+		List<ProductAdminDTO> productDetail = mapper.map(product,new TypeToken<List<ProductAdminDTO>>(){}.getType());
+		return productDetail;
+	}
+
+	@Override
+	public ResponseEntity<?> anHienSanPham(Long id) {
+		Product product = productRepository.findById(id).orElseThrow(NotFoundException::new);
+		if(product.getStatus()==1) {
+			product.setStatus(2);
+		}
+		else product.setStatus(1);
+		productRepository.save(product);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 	
 	
 	

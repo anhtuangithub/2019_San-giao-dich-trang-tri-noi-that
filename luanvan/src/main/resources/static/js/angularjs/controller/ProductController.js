@@ -432,6 +432,56 @@ app.controller('ProductController',function($scope,$http,URL_Main){
 	}
 
 
+	$scope.hienSanPham = function(productid, productname){
+		Swal.fire({
+			  title: 'Bạn có chắc?',
+			  text: "Tiếp tục kinh doanh sản phẩm này " + productname,
+			  type: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Đồng ý!',
+			  cancelButtonText: 'Không, thoát!',
+			}).then((result) => {
+				if (result.value) {
+					 $http.get(URL_Main + 'products/an-hien-san-pham/'+productid)
+					.then(function(response){
+						toastr.success('Tiếp tục kinh doanh sản phẩm thành công', 'Thành công',{timeOut: 2000, escapeHtml: true});
+						refreshData();
+					})
+					.catch(function (response){
+						toastr.error('Có lỗi trong quá trình cập nhật sản phẩm', 'Gặp lỗi!');
+						
+					});
+				}
+			})	
+	}
+
+	$scope.anSanPham = function(productid, productname){
+		Swal.fire({
+			  title: 'Bạn có chắc?',
+			  text: "Ngừng kinh doanh sản phẩm này " + productname,
+			  type: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Đồng ý!',
+			  cancelButtonText: 'Không, thoát!',
+			}).then((result) => {
+				if (result.value) {
+					 $http.get(URL_Main + 'products/an-hien-san-pham/'+productid)
+					.then(function(response){
+						toastr.success('Đã ngừng kinh doanh sản phẩm thành công', 'Thành công',{timeOut: 2000, escapeHtml: true});
+						refreshData();
+					})
+					.catch(function (response){
+						toastr.error('Có lỗi trong quá trình cập nhật sản phẩm', 'Gặp lỗi!');
+						
+					});
+				}
+			})	
+	}
+
 	
 
 	$scope.modalImg360= function(productid, productname){

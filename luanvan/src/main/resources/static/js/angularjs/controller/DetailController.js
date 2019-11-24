@@ -3,6 +3,7 @@ apt.controller('DetailController',function($scope,$http,URL_Home){
 	
 	var thisPath = window.location.pathname;
 	var id = thisPath.substring(thisPath.lastIndexOf("/")+1);
+	let sourceImgs = [];
 	
 	refreshData();
 	sanPhamDaXem();
@@ -58,6 +59,11 @@ apt.controller('DetailController',function($scope,$http,URL_Home){
 			  	});
 			 
 			});
+			setInterval(function(){ 
+				let timeBetween = new Date (new Date($scope.product.maxPromotion.end_time) - new Date() );
+				countDownTimer(timeBetween);
+			}, 1000);
+
 			
 		});
 		
@@ -76,10 +82,28 @@ apt.controller('DetailController',function($scope,$http,URL_Home){
 		.then(function(response){
 			$scope.questions = response.data;
 		});
+
+	
+		$http.get(URL_Home + 'products/hinh-cua-san-pham-360/'+id)
+		.then(function(response){
+			$scope.listImage = response.data;
+			$scope.listImage.forEach(function(img){
+				sourceImgs.push('/img/uploads/'+img.path);
+			})
+		});
+
+
 		
 	}
 	
-	
+	function countDownTimer(timeBetween){
+		let day = timeBetween.getDate();
+		let hour = timeBetween.getHours();
+		let minute = timeBetween.getMinutes();
+		let second = timeBetween.getSeconds();
+	 	document.getElementById("timeCountDown").innerHTML = day + ' ngày ' + hour +':'+ minute +':'+second;
+	 }
+
 	var cart =  JSON.parse(localStorage.getItem("cart"));
 	
 	$scope.muahang = function(){
@@ -178,20 +202,10 @@ apt.controller('DetailController',function($scope,$http,URL_Home){
             '</div>'+
         '</div>');
 
-		let sourceImgs = [];
-		$http.get(URL_Home + 'products/hinh-cua-san-pham-360/'+id)
-		.then(function(response){
-			$scope.listImage = response.data;
-			$scope.listImage.forEach(function(img){
-				sourceImgs.push('/img/uploads/'+img.path);
-			})
-		})
-		.then(function(){
-			jQuery("#mySpriteSpin").spritespin({
-				source: sourceImgs,
-				width   : 700,  // width in pixels of the window/frame
-				height  : 600,  // height in pixels of the window/frame
-			});
+		jQuery("#mySpriteSpin").spritespin({
+			source: sourceImgs,
+			width   : 700,  // width in pixels of the window/frame
+			height  : 600,  // height in pixels of the window/frame
 		});
 	}
 

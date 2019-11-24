@@ -91,10 +91,13 @@ public interface ProductService {
 	Page<ProductPromotionDTO> listAllPromotionHasProduct(String categoryId, int page);
 	
 	List<ProductAdminDTO> allPromotionOfProductStore(Authentication auth);
+	List<ProductAdminDTO> ProductByStore(Long storeid);
 	
 	List<Image> allImageofPro(Long productid);
 	
 	ResponseEntity<?> changeStatusProduct(Long id);
+	
+	ResponseEntity<?> anHienSanPham(Long id);
 	
 	Page<ProductPromotionDTO> pageProductOfStore(
 													String categoryId,

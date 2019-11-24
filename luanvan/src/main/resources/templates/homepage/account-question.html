@@ -24,23 +24,28 @@
 
                     <ul class="qna-list" ng-if="listQuestion.content.length > 0" >
                         <li class="qna-item" ng-if="listQuestion.content.length > 0" ng-repeat="question in listQuestion.content">
-                            <div style="margin: 10px 0; border-bottom: 1px solid rgba(0,0,0,.1)">
-                                <div class="qna-item-group">
-                                    <span class="qna-icon qna-icon-q">Q</span>
-                                    <div class="qna-content">{{question.content}}</div>
-                                    <div class="qna-meta">{{question.created_at| date: "dd-MM-yyyy 'giờ' h:mma ":'UTC' }}</div>
-                                </div>
-                                <div class="qna-item-group" ng-if="question.answers.length > 0">
-                                    <span class="qna-icon qna-icon-a">A</span>
-                                    <div class="qna-content">{{question.answers[0].content}}</div>
-                                    <div class="qna-meta">
-                                        <span>
-                                            {{question.answers[0].stores.name}} - {{question.answers[0].created_at| date: "dd-MM-yyyy 'giờ' h:mma ":'UTC' }}
-                                        </span>
+                            <div class="row">
+                                <div style="margin: 10px 0; border-bottom: 1px solid rgba(0,0,0,.1)" class="col-md-9">
+                                    <div class="qna-item-group">
+                                        <span class="qna-icon qna-icon-q">Q</span>
+                                        <div class="qna-content">{{question.content}}</div>
+                                        <div class="qna-meta">{{question.created_at| date: "dd-MM-yyyy 'giờ' h:mma ":'UTC' }}</div>
+                                    </div>
+                                    <div class="qna-item-group" ng-if="question.answers.length > 0">
+                                        <span class="qna-icon qna-icon-a">A</span>
+                                        <div class="qna-content">{{question.answers[0].content}}</div>
+                                        <div class="qna-meta">
+                                            <span>
+                                                {{question.answers[0].stores.name}} - {{question.answers[0].created_at| date: "dd-MM-yyyy 'giờ' h:mma ":'UTC' }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="qna-item-group" ng-if="question.answers.length <= 0">
+                                        <p>Chưa có câu trả lời</p>
                                     </div>
                                 </div>
-                                <div class="qna-item-group" ng-if="question.answers.length <= 0">
-                                    <p>Chưa có câu trả lời</p>
+                                <div class="col-md-3">
+                                    <img ng-src="/img/uploads/{{question.products.avatar}}" alt="san-pham" style="width: 80%; padding: 10px 0;">
                                 </div>
                             </div>
                             

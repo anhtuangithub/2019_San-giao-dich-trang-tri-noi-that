@@ -32,6 +32,10 @@
 
 			<div class="animated fadeIn">
 				<div class="row">
+					<div class="form-group" style="margin: 1rem">
+						<label>Danh sách các nhà bán hàng</label> 
+						<select class="form-control selectpicker" data-live-search="true" data-actions-box="true" ng-model="store.id" ng-options="store.id as store.name for store in listStore" ng-change="chooseStore(store.id)" required></select>
+					</div>
 					<div class="col-md-12">
 						<div class="card">
 							<div class="card-header">
@@ -216,12 +220,31 @@
 										</table>
 								    </div>
 								    <div id="menu2" class="tab-pane fade">
-								      	<div class="row">
+								    	
+								      	<div class="row" style="padding: 10px">
+								      		<h5 style="text-align: center;">Ảnh đại diện sản phẩm</h5>
 											<div class="col-md-6 offset-md-3">
 												<img src="/img/uploads/{{product.avatar}}" alt="" id="image">
 											</div>
 								      	</div>
-								      
+
+								      	<div class="row" style="padding: 10px">
+								      		<h5 style="text-align: center;">Ảnh chi tiết sản phẩm</h5>
+								      		<br>
+								      		<div class="alert alert-primary" style="width: 100%" ng-if="listImage.length <= 0">Chưa có ảnh chi tiết sản phẩm</div>
+								  			<div class="row-image" ng-if="listImage.length > 0" >
+										    	<div class="column-image hover-shadow" ng-repeat="img in listImage" >
+										      		<img ng-src="/img/uploads/{{img.path}}" alt="Image">
+										    	</div>
+											</div>
+								      	</div>
+								      	<div class="row" style="padding: 10px">	
+								      		<h5>Ảnh 360</h5>
+								      		<div class="alert alert-primary" style="width: 100%" ng-if="listImage360.length <= 0">Chưa có ảnh 360 của sản phẩm</div>
+								      		<div class="col-md-12" style="padding: 1rem">
+												<div id='mySpriteSpin'></div>
+											</div>
+								      	</div>
 								    </div>
 								    <div id="menu3" class="tab-pane fade">
 							      		<div class="col-md-12">
@@ -232,7 +255,8 @@
 										</div>
 										</div>
 								    	<div class="modal-footer">
-											<button class="btn btn-danger" type="submit" ng-disabled="frmPro.$invalid"  ng-click="changeStatus(product.id,product.name)">Thay đổi trạng thái</button>
+											<button class="btn btn-warning" type="submit" ng-if="product.status == 0" ng-disabled="frmPro.$invalid"  ng-click="changeStatus(product.id,product.name)">Hiện sản phẩm</button>
+											<button class="btn btn-danger" type="submit" ng-if="product.status == 1" ng-disabled="frmPro.$invalid"  ng-click="changeStatus(product.id,product.name)">Ẩn sản phẩm</button>
 										</div>
 
 								    </div>
@@ -256,6 +280,7 @@
 </body>
 
 <section layout:fragment="script">
+	 <script th:src="@{/js/spritespin.js}"></script>
     <script th:src="@{/js/angularjs/controller/ProductAdminController.js}"></script>
 
 </section>

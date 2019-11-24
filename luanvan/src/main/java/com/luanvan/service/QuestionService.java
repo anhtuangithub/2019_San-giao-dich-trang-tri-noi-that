@@ -16,6 +16,7 @@ public interface QuestionService {
 	
 	//List question by store
 	List<Question> listQuestionByStore(Authentication auth);
+	List<QuestionResponseDTO> listQuestionDTOByStore(Authentication auth);
 	
 	// Save and update Question
 	void save(Question question,Authentication auth);
@@ -34,4 +35,6 @@ public interface QuestionService {
 	Page<QuestionResponseDTO> questionByUser(Authentication auth, int page);
 	
 	Page<QuestionResponseDTO> AllQuestionHome(Long productid,int page);
+	
+	QuestionResponseDTO questionById(Long id);
 }
