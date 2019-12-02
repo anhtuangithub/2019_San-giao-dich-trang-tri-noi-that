@@ -120,16 +120,13 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	List<Product> pagesTop10PromotionProduct();
 	
 	@Query(value = "select * from product "
-			+ " join product_promotion on product_promotion.product_id = product.id "
-			+ " join promotion on promotion.id = product_promotion.promotion_id "
 			+ " join category on category.id = product.category_id "
 			+ " join store on store.id = product.store_id "
-			+ " where promotion.start_time < CURRENT_DATE and promotion.end_time > CURRENT_DATE and product.status =1 "
-			+ " and category.id like :category"
+			+ " and category.id = :category"
 			+ " and product.status = 1 "
 			+ " and store.status = 1 "
 			+ " and product.store_id in (select members.store_id from members where members.end_time > CURRENT_DATE GROUP by members.store_id) "
-			+ " group by product.id "
+			+ " group by product.id order by rand() "
 			+ " limit 15",nativeQuery = true)
 	List<Product> RelatedProduct(@Param("category")Long category);
 	
@@ -138,7 +135,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 			+ " join promotion on promotion.id = product_promotion.promotion_id "
 			+ " join category on category.id = product.category_id "
 			+ " join store on store.id = product.store_id "
-			+ " where promotion.start_time < CURRENT_DATE and promotion.end_time > CURRENT_DATE and product.status =1 "
+			+ " where promotion.start_time < CURRENT_DATE and promotion.end_time > CURRENT_DATE"
 			+ " and category.id like :category"
 			+ " and product.status = 1 "
 			+ " and store.status = 1 "

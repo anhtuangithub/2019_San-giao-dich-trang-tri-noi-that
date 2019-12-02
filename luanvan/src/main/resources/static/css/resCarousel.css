@@ -60,12 +60,18 @@
 
 /*tile css*/
 
-.resCarousel-inner .item .tile {
+/*.resCarousel-inner .item .tile {
     background: white;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
     margin: 5px;
-}
+}*/
+    .resCarousel-inner .item .tile{
+        background: white;
+        margin: 5px;    }
 
+     .resCarousel-inner .item .tile:hover{
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    }   
 
 /*animation*/
 

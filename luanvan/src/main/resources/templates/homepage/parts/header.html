@@ -12,7 +12,7 @@
             <a ng-href="/noithat246.vn/deal-hot?tab=now">Khuyến mãi hot</a>    
         </div>
         <div class="top-links-item" sec:authorize="hasRole('ROLE_STORE')">
-            <a ng-href="/store/manage/dashboard">Đến trang bán hàng</a>    
+            <a ng-href="/store/manage/dashboard">Store</a>    
         </div>
         
     </div>
@@ -30,7 +30,7 @@
                 <div class="col-lg-6 col-md-6 col-sm-12">
                     <form action="#" th:action="@{/noithat246.vn/search}" th:object="${search}" method="get" class="search-wrap">
                         <div class="input-group">
-                            <input type="text" class="form-control" name="tukhoa" style="border: 2px solid #fed700;" placeholder="Search">
+                            <input type="text" class="form-control" name="tukhoa" id="tukhoa" style="border: 2px solid #fed700;" placeholder="Search">
                             <div class="input-group-append">
                               <button class="btn btn-search" type="submit" >
                                 <i class="fa fa-search"></i>
@@ -90,7 +90,7 @@
         <div class="departments-menu-v2">
             <div class="dropdown" >
                 <a  class="departments-menu-v2-title dropdown-toggle" data-toggle="dropdown">
-                    <i class="departments-menu-v2-icon fa fa-list-ul"> All Categories</i>
+                    <i class="departments-menu-v2-icon fa fa-list-ul"> Danh mục</i>
                     
                 </a>
                 <div class="navigation-border dropdown-menu" style="padding:0;z-index: 10002" > 
@@ -200,7 +200,8 @@
                     <div class="modal-body">
                         <div class="custom-control custom-radio">
                             <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" value="0">
-                            <label class="custom-control-label" for="customRadio1">{{localShipping.address}}</label>
+                            <label class="custom-control-label" for="customRadio1" ng-if="localShipping != null">{{localShipping.address}}</label>
+                            <label class="custom-control-label" for="customRadio1" ng-if="localShipping == null">Vui lòng nhập địa chỉ</label>
                         </div>
                         <div class="custom-control custom-radio">
                             <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" value="1">

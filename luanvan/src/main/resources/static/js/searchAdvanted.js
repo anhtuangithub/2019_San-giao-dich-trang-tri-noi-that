@@ -1,5 +1,6 @@
 		let urlSearch = window.location.href;
 		let searchParams = new URLSearchParams(window.location.search);
+		$('#tukhoa').val(searchParams.get('tukhoa'));
 
 		function FilterAdvanced(param,paramvalue) {
 			let produceridtontai2 = "&"+param+"="+searchParams.get(param);

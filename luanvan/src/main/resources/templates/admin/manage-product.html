@@ -65,7 +65,7 @@
 											<td>{{product.created_at| date: "dd-MM-yyyy 'giờ' h:mma ":'UTC' }}</td>
 											<td ng-if="product.status == 2">
 												<button class="btn btn-outline-danger" ng-click="hienSanPham(product.id,product.name)" >
-													<span class="fa fa-lock"></span>
+													<span class="fa fa-ban"></span>
 												</button>
 											</td>
 											<td ng-if="product.status == 1">
@@ -74,7 +74,7 @@
 												</button>
 											</td>
 											<td ng-if="product.status == 0">
-												<span>Chưa duyệt</span>
+												<span class="fa  fa-lock"></span>
 											</td>
 											<td style="width: 21%;">
 												<button class="btn btn-outline-info" ng-click="frmCreateEdit_Show(product.id)" >

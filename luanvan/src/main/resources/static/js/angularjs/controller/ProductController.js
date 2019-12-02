@@ -195,7 +195,7 @@ app.controller('ProductController',function($scope,$http,URL_Main){
 					//   	showConfirmButton: false,
 					//   	timer: 1500
 					// });    
-					toastr.success('Cập nhật sản phẩm thành công', 'Thành công');
+					toastr.success('Thao tác thành công', 'Thành công');
 			        refreshData();
                   	//Xóa đường dẫn đã thêm vào input
                   	jQuery("#avatar").val('').clone(true);

@@ -385,7 +385,7 @@
     }
     .product-rating-position{
         padding: 0;
-        font-size: 11px;
+        font-size: 10px;
         height: 5%;
     }
     .product-rating{
@@ -509,6 +509,9 @@
 ******/
 /********************************************************************************************/
 @media (max-width: 575px){
+    .top-links-item{
+        padding: 0 12px;
+    }
 /*navBar*/
     .title-black{
         font-size: 13px;

@@ -49,6 +49,7 @@ apt.controller('DetailController',function($scope,$http,URL_Home){
 				$scope.productRelated = response.data;
 			})
 			
+
 		})
 		.then(function(){
 			jQuery(function () {
