@@ -224,18 +224,18 @@
 
 		}
 
-		$('.filter-container').find('.over-flow').css({height:'100px', overflow:'hidden'});
+		// $('.filter-container').find('.over-flow').css({height:'100px', overflow:'hidden'});
 
 		$('.show-more').on('click', function() {
 			
-			$(this).parent().find('.over-flow').animate({height:'100%'});
+			// $(this).parent().find('.over-flow').animate({height:'100%'});
 
 			$(this).css("display","none");
 			$(this).parent().find('.close-show-more-custom').css("display","block");
 		});
 
 		$('.close-show-more-custom').click(function(){
-			$(this).parent().find('.over-flow').animate({height:'100px'});
+			// $(this).parent().find('.over-flow').animate({height:'100px'});
 
 			$(this).css("display","none");
 			$(this).parent().find('.show-more').css("display","block");

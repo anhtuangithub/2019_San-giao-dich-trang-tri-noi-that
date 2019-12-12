@@ -22,6 +22,9 @@
         padding: 0 4rem;
         max-width: 1440px;
     }
+    .detail-content-item a{
+        font-size: 16px;
+    }
 /*End Container*/
 
 }
@@ -883,6 +886,9 @@
         margin: 5px 0;
         font-size: 12px;
     }
+    .detail-content-item a{
+        font-size: 12px;
+    }
 }
 
 /********************************************************************************************/
@@ -998,7 +1004,7 @@
         font-size: 7px;
         font-weight: 400;
     }
- 
+
    
 /****
 *

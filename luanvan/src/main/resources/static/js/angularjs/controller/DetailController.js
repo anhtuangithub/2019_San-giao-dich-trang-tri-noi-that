@@ -111,22 +111,24 @@ apt.controller('DetailController',function($scope,$http,URL_Home){
 		var slCon = $scope.product.inventory_number;
 		var slMua = Number(jQuery('#quantity').val());
 		var dem = 0;
-		if(cart == null && slCon >= slMua){
-			cart = [];
-			dem = 1;
-			cart.push({id:id,quantity:slMua});
-		}
-		else{
-			cart.forEach(function(pro){
-				if(pro.id == id){
-					if(slCon >= (pro.quantity + slMua)){
-						pro.quantity = pro.quantity + slMua;
-					}
-					dem +=1;
-				}
-			})
-			if(dem == 0){
+		if(slMua > 0){
+			if(cart == null && slCon >= slMua){
+				cart = [];
+				dem = 1;
 				cart.push({id:id,quantity:slMua});
+			}
+			else{
+				cart.forEach(function(pro){
+					if(pro.id == id){
+						if(slCon >= (pro.quantity + slMua)){
+							pro.quantity = pro.quantity + slMua;
+						}
+						dem +=1;
+					}
+				})
+				if(dem == 0){
+					cart.push({id:id,quantity:slMua});
+				}
 			}
 		}
 		localStorage.setItem("cart", JSON.stringify(cart));

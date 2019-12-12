@@ -390,26 +390,26 @@ public class ProductServiceImpl  implements ProductService{
 	{
 		
 		String search = covertToString(plug) ;
-		Pageable sorted =  PageRequest.of(page, 5);
+		Pageable sorted =  PageRequest.of(page, 16);
 		if(filter.equalsIgnoreCase("gia-cao")) {
 			
 			Sort sort = new Sort(Sort.Direction.DESC, "pri.price");
-			sorted =  PageRequest.of(page, 5,sort);
+			sorted =  PageRequest.of(page, 16,sort);
 		}
 		else if(filter.equalsIgnoreCase("gia-thap")) {
 			
 			Sort sort = new Sort(Sort.Direction.ASC, "pri.price");
-			sorted =  PageRequest.of(page, 5,sort);
+			sorted =  PageRequest.of(page, 16,sort);
 		}
 		else if(filter.equalsIgnoreCase("hang-moi")) {
 			
 			Sort sort = new Sort(Sort.Direction.DESC, "created_at");
-			sorted =  PageRequest.of(page, 5,sort);
+			sorted =  PageRequest.of(page, 16,sort);
 		}
 		else if(filter.equalsIgnoreCase("ban-chay")) {
 			
 			Sort sort = JpaSort.unsafe(Sort.Direction.DESC, "count(orD.product.id)");
-			sorted =  PageRequest.of(page, 5,sort);
+			sorted =  PageRequest.of(page, 16,sort);
 		}
 
 		Page<Product> products = 
@@ -430,26 +430,26 @@ public class ProductServiceImpl  implements ProductService{
 //		List<Category> categories = categoryrepository.findByParentId(id);
 		
 		String search = covertToString(plug) ;
-		Pageable sorted =  PageRequest.of(page, 5);
+		Pageable sorted =  PageRequest.of(page, 16);
 		if(filter.equalsIgnoreCase("gia-cao")) {
 			Sort sort = new Sort(Sort.Direction.DESC, "pri.price");
-			sorted =  PageRequest.of(page, 5,sort);
+			sorted =  PageRequest.of(page, 16,sort);
 		}
 		else if(filter.equalsIgnoreCase("gia-thap")) {
 			
 			Sort sort = new Sort(Sort.Direction.ASC, "pri.price");
-			sorted =  PageRequest.of(page, 5,sort);
+			sorted =  PageRequest.of(page, 16,sort);
 		}
 		else if(filter.equalsIgnoreCase("hang-moi")) {
 			
 			Sort sort = new Sort(Sort.Direction.DESC, "created_at");
-			sorted =  PageRequest.of(page, 5,sort);
+			sorted =  PageRequest.of(page, 16,sort);
 		}
 		
 		else if(filter.equalsIgnoreCase("ban-chay")) {
 			
 			Sort sort = JpaSort.unsafe(Sort.Direction.DESC, "count(orD.product.id)");
-			sorted =  PageRequest.of(page, 5,sort);
+			sorted =  PageRequest.of(page, 16,sort);
 		}
 		
 		Page<Product> products = productRepository.pageSearchParentCategory
@@ -467,7 +467,7 @@ public class ProductServiceImpl  implements ProductService{
 
 	@Override
 	public Page<ProductPromotionDTO> listAllPromotionHasProduct(String categoryId, int page) {
-		Pageable sorted =  PageRequest.of(page, 5);	
+		Pageable sorted =  PageRequest.of(page, 16);	
 		Page<Product> products = productRepository.pagesAllPromotionProduct( categoryId, sorted);
 		Page<ProductPromotionDTO> dtoPage = products.map(new Function<Product, ProductPromotionDTO>() {
 		    @Override
@@ -509,25 +509,25 @@ public class ProductServiceImpl  implements ProductService{
 	@Override
 	public Page<ProductPromotionDTO> pageProductOfStore(String categoryId, float star, String producerId,
 			String materialId, String originId, Long storeId, int page, String filter) {
-		Pageable sorted =  PageRequest.of(page, 5);
+		Pageable sorted =  PageRequest.of(page, 16);
 		if(filter.equalsIgnoreCase("gia-cao")) {
 			Sort sort = new Sort(Sort.Direction.DESC, "pri.price");
-			sorted =  PageRequest.of(page, 5,sort);
+			sorted =  PageRequest.of(page, 16,sort);
 		}
 		else if(filter.equalsIgnoreCase("gia-thap")) {
 			
 			Sort sort = new Sort(Sort.Direction.ASC, "pri.price");
-			sorted =  PageRequest.of(page, 5,sort);
+			sorted =  PageRequest.of(page, 16,sort);
 		}
 		else if(filter.equalsIgnoreCase("hang-moi")) {
 			
 			Sort sort = new Sort(Sort.Direction.DESC, "created_at");
-			sorted =  PageRequest.of(page, 5,sort);
+			sorted =  PageRequest.of(page, 16,sort);
 		}
 		else if(filter.equalsIgnoreCase("ban-chay")) {
 			
 			Sort sort = JpaSort.unsafe(Sort.Direction.DESC, "count(orD.product.id)");
-			sorted =  PageRequest.of(page, 5,sort);
+			sorted =  PageRequest.of(page, 16,sort);
 		}
 		
 		Page<Product> products = 
@@ -547,25 +547,25 @@ public class ProductServiceImpl  implements ProductService{
 	@Override
 	public Page<ProductPromotionDTO> bestSeller(String categoryId, float star, String producerId, String materialId,
 			String originId, int page, String filter) {
-		Pageable sorted = PageRequest.of(page, 5,JpaSort.unsafe(Sort.Direction.DESC, "count(orD.product.id)"));
+		Pageable sorted = PageRequest.of(page, 16,JpaSort.unsafe(Sort.Direction.DESC, "count(orD.product.id)"));
 		if(filter.equalsIgnoreCase("gia-cao")) {
 			Sort sort = new Sort(Sort.Direction.DESC, "pri.price");
-			sorted =  PageRequest.of(page, 5,sort);
+			sorted =  PageRequest.of(page, 16,sort);
 		}
 		else if(filter.equalsIgnoreCase("gia-thap")) {
 			Sort sort = new Sort(Sort.Direction.ASC, "pri.price");
-			sorted =  PageRequest.of(page, 5,sort);
+			sorted =  PageRequest.of(page, 16,sort);
 		}
 		else if(filter.equalsIgnoreCase("hang-moi")) {
 			
 			Sort sort = new Sort(Sort.Direction.DESC, "created_at");
-			sorted =  PageRequest.of(page, 5,sort);
+			sorted =  PageRequest.of(page, 16,sort);
 		}
 		
 		else if(filter.equalsIgnoreCase("ban-chay")) {
 			
 			Sort sort = JpaSort.unsafe(Sort.Direction.DESC, "count(orD.product.id)");
-			sorted =  PageRequest.of(page, 5,sort);
+			sorted =  PageRequest.of(page, 16,sort);
 		}
 		Page<Product> products = 
 				productRepository.bestSellerProduct(categoryId, originId, materialId, star, producerId, sorted);
@@ -585,26 +585,26 @@ public class ProductServiceImpl  implements ProductService{
 	public Page<ProductPromotionDTO> pageRandomProduct(String plug, String categoryId, float star, String producerId,
 			String materialId, String originId, int page, String filter) {
 		String search = covertToString(plug) ;
-		Pageable sorted =  PageRequest.of(page, 5);
+		Pageable sorted =  PageRequest.of(page, 16);
 		if(filter.equalsIgnoreCase("gia-cao")) {
 			
 			Sort sort = new Sort(Sort.Direction.DESC, "pri.price");
-			sorted =  PageRequest.of(page, 5,sort);
+			sorted =  PageRequest.of(page, 16,sort);
 		}
 		else if(filter.equalsIgnoreCase("gia-thap")) {
 			
 			Sort sort = new Sort(Sort.Direction.ASC, "pri.price");
-			sorted =  PageRequest.of(page, 5,sort);
+			sorted =  PageRequest.of(page, 16,sort);
 		}
 		else if(filter.equalsIgnoreCase("hang-moi")) {
 			
 			Sort sort = new Sort(Sort.Direction.DESC, "created_at");
-			sorted =  PageRequest.of(page, 5,sort);
+			sorted =  PageRequest.of(page, 16,sort);
 		}
 		else if(filter.equalsIgnoreCase("ban-chay")) {
 			
 			Sort sort = JpaSort.unsafe(Sort.Direction.DESC, "count(orD.product.id)");
-			sorted =  PageRequest.of(page, 5,sort);
+			sorted =  PageRequest.of(page, 16,sort);
 		}
 		Page<Product> products = 
 				productRepository.pageRandomProduct( search , categoryId, originId, materialId, star, producerId, sorted);

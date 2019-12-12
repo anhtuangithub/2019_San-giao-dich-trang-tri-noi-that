@@ -7,10 +7,10 @@ apt.controller('OrderDetailAccountController',function($scope,$http,URL_Home){
 	$http.get(URL_Home + 'orders/account-order-detail/'+id)
 	.then(function(response){
 		$scope.orderGroup = response.data;
-		$scope.checkDestroy = true;
+		$scope.checkDestroy = false;
 		for(i=0; i< $scope.orderGroup.orders.length; i++){
-			if($scope.orderGroup.orders[i].orderStatus.id ==1){
-				$scope.checkDestroy = false;
+			if($scope.orderGroup.orders[i].orderStatus.id >=2){
+				$scope.checkDestroy = true;
 			}
 		}
 

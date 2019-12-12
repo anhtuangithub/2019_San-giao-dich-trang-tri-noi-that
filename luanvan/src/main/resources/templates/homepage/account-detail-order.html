@@ -41,7 +41,7 @@
 	                            <div class="cart-item-inner">
 	                                <div class="cart-item-left">
 	                                    <div class="cart-img-wrap">
-	                                        <img ng-src="/img/uploads/{{item.product.avatar}}" alt="avatar" >
+	                                        <img  style="width: 20%" ng-src="/img/uploads/{{item.product.avatar}}" alt="avatar" >
 	                                    </div>
 	                                    <div class="cart-item-name">
 	                                        <a ng-href="/noithat246.vn/chi-tiet-san-pham/{{item.product.id}}">{{item.product.name}}</a>
@@ -50,6 +50,7 @@
 	                                <div class="cart-item-middle">
 	                                	<p class="order-quantiy">Giá: {{item.totalPrice| currency: "":0}}đ</p>
 	                                    <p class="order-quantiy">Qty: {{item.quantity}}</p>
+	                                    <p>Trạng thái: {{order.orderStatus.name }}</p>
 	                                </div>
 	                                <div class="cart-item-right">
 	                                    <a href="javascript:void(0)" ng-if="order.orderStatus.id == 5" class="order-quantiy" style="color:#1a9cb7;" ng-click="modal(item.product.id,order.id)">Viết đánh giá</a>

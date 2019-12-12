@@ -92,7 +92,7 @@
 									<div class="card-body">
 										<p class="form-control-label">Trạng thái: <span >{{order.orderStatus.name}}</span></p>
 										<p class="form-control-label">Tổng tiền: <span>{{order.total | currency: "":0}}đ</span></p>
-										<p class="form-control-label">Ngày lập: <span>{{order.created_at}}</span></p>
+										<p class="form-control-label">Ngày lập: <span>{{order.created_at| date: "dd-MM-yyyy 'giờ' h:mma ":'UTC' }}</span></p>
 										<p class="form-control-label">Hình thức thanh toán: <span>{{order.paymentType.name}}</span></p>
 									</div>
 									
